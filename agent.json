@@ -1,0 +1,171 @@
+{
+  "agentUid": "e491d33e-ec43-4694-a9c9-e9b0aab7cc05",
+  "roleIdentity": {
+    "escoCode": "2641.4",
+    "localSequence": 1,
+    "code": "2641.4-001"
+  },
+  "connectors": [],
+  "schema": "uahraf9m-demold/v0.1",
+  "id": "role-dc5dae12889c4522a86f5e465b5cf4dc",
+  "name": "SageWrite 长篇书籍创作 Agent",
+  "version": "0.1.0",
+  "mode": "prototype",
+  "views": {
+    "M1": {
+      "status": "ready",
+      "files": [
+        "exports/58a5053f/M1/M1.json",
+        "exports/58a5053f/M1/M1.md"
+      ]
+    },
+    "M2": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M2/index.json",
+        "exports/58a5053f/M2/M2.1.json",
+        "exports/58a5053f/M2/M2.1.md",
+        "exports/58a5053f/M2/M2.1-sources.json",
+        "exports/58a5053f/M2/M2.2.json",
+        "exports/58a5053f/M2/M2.2.md",
+        "exports/58a5053f/M2/M2.2-sources.json",
+        "exports/58a5053f/M2/M2.3.json",
+        "exports/58a5053f/M2/M2.3.md",
+        "exports/58a5053f/M2/M2.3-sources.json",
+        "exports/58a5053f/M2/M2.4.json",
+        "exports/58a5053f/M2/M2.4.md",
+        "exports/58a5053f/M2/M2.4-sources.json",
+        "exports/58a5053f/M2/M2.5.json",
+        "exports/58a5053f/M2/M2.5.md",
+        "exports/58a5053f/M2/M2.5-sources.json",
+        "exports/58a5053f/M2/M2.6.json",
+        "exports/58a5053f/M2/M2.6.md",
+        "exports/58a5053f/M2/M2.6-sources.json",
+        "exports/58a5053f/M2/M2.7.json",
+        "exports/58a5053f/M2/M2.7.md",
+        "exports/58a5053f/M2/M2.7-sources.json",
+        "exports/58a5053f/M2/M2.8.json",
+        "exports/58a5053f/M2/M2.8.md",
+        "exports/58a5053f/M2/M2.8-sources.json",
+        "exports/58a5053f/M2/M2.9.json",
+        "exports/58a5053f/M2/M2.9.md",
+        "exports/58a5053f/M2/M2.9-sources.json",
+        "exports/58a5053f/M2/M2.10.json",
+        "exports/58a5053f/M2/M2.10.md",
+        "exports/58a5053f/M2/M2.10-sources.json",
+        "exports/58a5053f/M2/M2.11.json",
+        "exports/58a5053f/M2/M2.11.md",
+        "exports/58a5053f/M2/M2.11-sources.json",
+        "exports/58a5053f/M2/M2.md"
+      ]
+    },
+    "M3": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M3/original-references.json",
+        "exports/58a5053f/M3/esco.zip",
+        "exports/58a5053f/M3/source.json",
+        "exports/58a5053f/M3/M3.md",
+        "exports/58a5053f/M3/classification.json"
+      ]
+    },
+    "M4": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M4/structure.json",
+        "exports/58a5053f/M4/M4.md"
+      ]
+    },
+    "M5": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M5/M5.json",
+        "exports/58a5053f/M5/M5.md"
+      ]
+    },
+    "M6": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M6/M6.json",
+        "exports/58a5053f/M6/M6.md"
+      ]
+    },
+    "M7": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M7/M7.json",
+        "exports/58a5053f/M7/M7.md"
+      ]
+    },
+    "M8": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M8/state-template.json",
+        "exports/58a5053f/M8/M8.md"
+      ]
+    },
+    "M9": {
+      "status": "incomplete",
+      "files": [
+        "exports/58a5053f/M9/design-boundary.md",
+        "exports/58a5053f/M9/prototype-boundary.md"
+      ]
+    }
+  },
+  "files": [
+    "sagewrite-adoption-manifest.json",
+    "portable-source/sagewrite"
+  ],
+  "skills": [
+    {
+      "name": "sagewrite-new-book",
+      "path": "portable-source/sagewrite/skills/sagewrite-new-book"
+    },
+    {
+      "name": "sagewrite-generate-toc",
+      "path": "portable-source/sagewrite/skills/sagewrite-generate-toc"
+    },
+    {
+      "name": "sagewrite-write-chapters",
+      "path": "portable-source/sagewrite/skills/sagewrite-write-chapters"
+    },
+    {
+      "name": "sagewrite-review-edit",
+      "path": "portable-source/sagewrite/skills/sagewrite-review-edit"
+    },
+    {
+      "name": "sagewrite-create-cover",
+      "path": "portable-source/sagewrite/skills/sagewrite-create-cover"
+    },
+    {
+      "name": "sagewrite-publish-book",
+      "path": "portable-source/sagewrite/skills/sagewrite-publish-book"
+    },
+    {
+      "name": "sagewrite-manage-environment",
+      "path": "portable-source/sagewrite/skills/sagewrite-manage-environment"
+    },
+    {
+      "name": "sagewrite-workflow-status",
+      "path": "portable-source/sagewrite/skills/sagewrite-workflow-status"
+    }
+  ],
+  "mcp": [
+    {
+      "args": [],
+      "name": "sagewrite",
+      "entry": "portable-source/sagewrite/engine/mcp-server/src/index.mjs",
+      "envKeys": [
+        "SAGEWRITE_WORKSPACE_ROOT",
+        "SAGEWRITE_POWERSHELL"
+      ],
+      "kind": "node"
+    }
+  ],
+  "designScope": "M1-M9 definitions only; implementation and professional acceptance remain incomplete",
+  "instanceId": "3d42e561-49b6-4652-88d5-df5f21d8ff18",
+  "date": "2026-10-23",
+  "displayName": "SageWrite 长篇书籍创作 Agent v0.1.0-2026-10-23",
+  "desktopIcon": "assets/agent.ico",
+  "packagingValidation": "structure_and_integrity_only"
+}

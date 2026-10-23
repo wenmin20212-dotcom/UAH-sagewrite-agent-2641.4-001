@@ -15,3 +15,7 @@ Download the Setup.exe from Releases. New instances configure their own model pr
 ## Licenses
 
 SageWrite source files retain the MIT license in LICENSE-SageWrite. The desktop host retains Goose Apache-2.0 notices in LICENSE-Goose.
+
+## 发布源码与移植依据
+
+已补齐 v0.1.0 原始 agent.json、191 个采用源码文件及清单引用的九视图资料。移植请使用本仓库 `agent/portable-source/sagewrite/` 快照，不要只使用 SageWrite 的基础提交号。源文件按原字节保存，哈希可与采用清单核对。详见[恢复说明](docs/source-recovery-v0.1.0.md)和[逐项核对](docs/source-audit-v0.1.0.json)。原 v0.1.0 安装包与标签保持不变；Mac 兼容性仍需单独验证。

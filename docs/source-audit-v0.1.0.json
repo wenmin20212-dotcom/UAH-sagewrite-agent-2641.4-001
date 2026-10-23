@@ -1,0 +1,27 @@
+{
+  "sourceCommit": "1136f9744c7aed8fc252afcf74922e61779145ac",
+  "manifestFiles": 191,
+  "exact": 30,
+  "lineEndingsOnly": 157,
+  "contentChanged": 4,
+  "changed": [
+    {
+      "path": "engine/01b-import-structure.ps1",
+      "sha256": "67c0e34105cf7f43b6069657a9f4eb4161195243a5301ad1e61a60d3e419e69c"
+    },
+    {
+      "path": "engine/04F.ps1",
+      "sha256": "f12923fee6fbb1d510436d1f1d3e1a059af48c40d07eb1e21ddf37dedb10e2b8"
+    },
+    {
+      "path": "engine/04f-format-common.ps1",
+      "sha256": "31239a7b0e20fde7a5a94b83810fcf0ccc3d927ac6f4d2ef3b5909ff070b9ed4"
+    },
+    {
+      "path": "engine/05-build.ps1",
+      "sha256": "9374088a3232e2fa41975bf8909d00e0a0c2c815f054853d8cf7a7326e08a69f"
+    }
+  ],
+  "all191SourceFilesMatchAdoptionManifest": true,
+  "githubSourceTree": "63fbc826a473c61af178eee1ea10a45b9c52e302"
+}

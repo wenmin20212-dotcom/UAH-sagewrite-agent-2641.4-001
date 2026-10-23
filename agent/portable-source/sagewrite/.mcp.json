@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "sagewrite": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "D:\\SageWrite\\engine\\mcp-server\\src\\index.mjs"
+      ],
+      "env": {
+        "SAGEWRITE_WORKSPACE_ROOT": "D:\\SageWriteWorkspaces",
+        "SAGEWRITE_POWERSHELL": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+      },
+      "alwaysLoad": true,
+      "description": "SageWrite book planning, writing, editing, cover, EPUB and PDF tools"
+    }
+  }
+}

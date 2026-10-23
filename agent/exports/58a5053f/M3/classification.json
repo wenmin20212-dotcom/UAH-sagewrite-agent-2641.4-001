@@ -1,0 +1,22 @@
+{
+  "status": "confirmed",
+  "decision": {
+    "kind": "matched",
+    "uri": "http://data.europa.eu/esco/occupation/b06a1dde-e5a1-4219-9491-2bedd0282e4b",
+    "code": "2641.4",
+    "label": "writer",
+    "citation": {
+      "datasetId": "esco-v1.2.1-en",
+      "version": "1.2.1",
+      "language": "en",
+      "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+      "file": "occupations_en.csv",
+      "fileSha256": "8034348d84b6d1dd24a5bcf9609186ecbba0a85457ee2eacd65bddec33a51b4a",
+      "recordNumber": 2156,
+      "sourceUri": "http://data.europa.eu/esco/occupation/b06a1dde-e5a1-4219-9491-2bedd0282e4b",
+      "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+    },
+    "reason": "用户选择建议的第一项 ESCO 2641.4 writer，作为 SageWrite 长篇书籍创作 Agent 的主职业；既有 D:\\SageWrite PS1 执行程序将在 M7 作为实际程序接口保留，不重写其业务逻辑。"
+  },
+  "approvalTrust": "Classification chosen in originating conversation; personal approval text excluded."
+}

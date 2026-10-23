@@ -1,0 +1,141 @@
+{
+  "schema": "uahraf9m-M2-index/v0.1",
+  "capabilities": [
+    {
+      "id": "M2.1",
+      "name": "书籍创作目标定义",
+      "status": "confirmed",
+      "file": "M2/M2.1.md",
+      "m1Basis": [
+        "M1.scopeIn.001",
+        "M1.responsibilities.001",
+        "M1.humanResponsibilities.001"
+      ]
+    },
+    {
+      "id": "M2.2",
+      "name": "长篇结构规划维护",
+      "status": "confirmed",
+      "file": "M2/M2.2.md",
+      "m1Basis": [
+        "M1.scopeIn.002",
+        "M1.responsibilities.002",
+        "M1.responsibilities.003",
+        "M1.coreProblems.002"
+      ]
+    },
+    {
+      "id": "M2.3",
+      "name": "分范围长篇正文创作",
+      "status": "confirmed",
+      "file": "M2/M2.3.md",
+      "m1Basis": [
+        "M1.scopeIn.003",
+        "M1.responsibilities.004",
+        "M1.coreProblems.003",
+        "M1.successDescription.003"
+      ]
+    },
+    {
+      "id": "M2.4",
+      "name": "分范围书稿审改",
+      "status": "confirmed",
+      "file": "M2/M2.4.md",
+      "m1Basis": [
+        "M1.scopeIn.004",
+        "M1.responsibilities.004",
+        "M1.humanResponsibilities.002",
+        "M1.scopeOut.004"
+      ]
+    },
+    {
+      "id": "M2.5",
+      "name": "分范围书稿翻译",
+      "status": "confirmed",
+      "file": "M2/M2.5.md",
+      "m1Basis": [
+        "M1.scopeIn.005",
+        "M1.responsibilities.004",
+        "M1.coreProblems.004",
+        "M1.successDescription.004"
+      ]
+    },
+    {
+      "id": "M2.6",
+      "name": "多轮参考文献治理",
+      "status": "confirmed",
+      "file": "M2/M2.6.md",
+      "m1Basis": [
+        "M1.scopeIn.006",
+        "M1.responsibilities.005",
+        "M1.coreProblems.005",
+        "M1.successDescription.005",
+        "M1.scopeOut.002",
+        "M1.scopeOut.005"
+      ]
+    },
+    {
+      "id": "M2.7",
+      "name": "书稿一致性质量检查",
+      "status": "confirmed",
+      "file": "M2/M2.7.md",
+      "m1Basis": [
+        "M1.scopeIn.007",
+        "M1.responsibilities.006",
+        "M1.coreProblems.002",
+        "M1.coreProblems.006"
+      ]
+    },
+    {
+      "id": "M2.8",
+      "name": "封面插图成品协作",
+      "status": "confirmed",
+      "file": "M2/M2.8.md",
+      "m1Basis": [
+        "M1.scopeIn.007",
+        "M1.scopeIn.008",
+        "M1.humanResponsibilities.005",
+        "M1.successDescription.006"
+      ]
+    },
+    {
+      "id": "M2.9",
+      "name": "成书构建核验",
+      "status": "confirmed",
+      "file": "M2/M2.9.md",
+      "m1Basis": [
+        "M1.scopeIn.008",
+        "M1.responsibilities.007",
+        "M1.coreProblems.006",
+        "M1.successDescription.006",
+        "M1.scopeOut.006"
+      ]
+    },
+    {
+      "id": "M2.10",
+      "name": "出版材料授权协助",
+      "status": "confirmed",
+      "file": "M2/M2.10.md",
+      "m1Basis": [
+        "M1.scopeIn.010",
+        "M1.scopeOut.007",
+        "M1.humanResponsibilities.005",
+        "M1.humanResponsibilities.006",
+        "M1.responsibilities.008"
+      ]
+    },
+    {
+      "id": "M2.11",
+      "name": "创作版本证据续接",
+      "status": "confirmed",
+      "file": "M2/M2.11.md",
+      "m1Basis": [
+        "M1.scopeIn.009",
+        "M1.responsibilities.008",
+        "M1.responsibilities.009",
+        "M1.successDescription.003",
+        "M1.successDescription.007"
+      ]
+    }
+  ]
+}

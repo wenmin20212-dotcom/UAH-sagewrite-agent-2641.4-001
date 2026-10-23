@@ -1,0 +1,1723 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SageWrite 控制台</title>
+    <link rel="stylesheet" href="/styles.css?v=20260724-project-ownership">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <div class="hero-intro">
+          <div class="brand-masthead">
+            <img src="/sagewrite-press-mark.svg?v=20260504-restore-brand" alt="SageWrite Press - Inspiring Ideas. Empowering Writers.">
+          </div>
+          <div class="hero-copy-block">
+            <p class="eyebrow">SageWrite Engine <span class="version-badge">v2026.07.24-project-ownership</span></p>
+            <h1>写作引擎 Web 控制台</h1>
+            <p class="hero-copy">
+              用浏览器驱动现有的 PowerShell 流程：初始化、生成目录、扩展小节、写章节、检查、构建、封面与上架。
+            </p>
+            <p class="release-note">
+              当前开发分支已进入多用户基础阶段：账号登录、用户工作区隔离和用户归属任务已开始接入。
+            </p>
+          </div>
+        </div>
+        <div class="hero-status">
+          <div class="status-card">
+            <span>模型名称</span>
+            <label class="status-card-model">
+              <input id="default-model-name" list="default-model-options" value="gpt-5.2" placeholder="例如 gpt-5.2 或 gpt-5.4">
+            </label>
+            <datalist id="default-model-options">
+              <option value="gpt-5.2"></option>
+              <option value="gpt-5.4"></option>
+            </datalist>
+            <small id="default-model-hint" class="status-card-hint">可切换默认模型</small>
+          </div>
+          <div class="status-card">
+            <span>工作区数量</span>
+            <strong id="workspace-count">0</strong>
+          </div>
+          <div class="status-card current-user-card">
+            <span>当前用户</span>
+            <strong id="current-user-name">单用户</strong>
+            <small id="current-user-billing" class="status-card-hint">积分未加载</small>
+            <small id="current-user-workspace" class="status-card-hint">工作区路径未加载</small>
+          </div>
+          <div class="status-card system-health-card" id="system-health-card">
+            <div class="system-health-heading">
+              <span>环境自检</span>
+              <button id="refresh-health" class="mini-button" type="button">检查</button>
+            </div>
+            <strong id="system-health-summary">未检查</strong>
+            <small id="system-health-detail" class="status-card-hint">检查 PowerShell、ImageMagick、Pandoc、OpenAI Key 和工作区权限。</small>
+            <div id="system-health-list" class="system-health-list"></div>
+          </div>
+        </div>
+      </header>
+
+      <div class="workspace-frame">
+        <aside class="flow-nav" aria-label="SageWrite 流程导航">
+          <div class="flow-nav-header">
+            <span>Workflow</span>
+            <strong>流程导航</strong>
+          </div>
+          <nav class="flow-nav-list">
+            <button class="flow-nav-item active" type="button" data-flow-target="project">
+              <span>项目</span>
+              <strong>选择与状态</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="company-projects" hidden>
+              <span>项目</span>
+              <strong>公司项目</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="account">
+              <span>账户</span>
+              <strong>个人管理</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="users" hidden>
+              <span>管理</span>
+              <strong>用户/审计</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="intake">
+              <span>01</span>
+              <strong>初始化</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="structure">
+              <span>02</span>
+              <strong>生成目录</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="expand">
+              <span>02b</span>
+              <strong>扩展小节</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="write">
+              <span>03</span>
+              <strong>写章节</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="translate">
+              <span>03T</span>
+              <strong>翻译</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="refine">
+              <span>03R</span>
+              <strong>修饰</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="check">
+              <span>04</span>
+              <strong>检查</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="build">
+              <span>05</span>
+              <strong>构建</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="cover">
+              <span>08</span>
+              <strong>封面</strong>
+            </button>
+            <button class="flow-nav-item" type="button" data-flow-target="publish">
+              <span>09</span>
+              <strong>上架</strong>
+            </button>
+          </nav>
+        </aside>
+
+        <div class="workspace-main">
+          <section class="project-summary-panel" aria-live="polite">
+            <div class="project-summary-copy">
+              <span class="project-summary-kicker">Current Project</span>
+              <h2 id="project-summary-title">尚未选择项目</h2>
+              <p id="project-summary-meta">选择一个 BookName 后，这里会显示当前项目的关键进度。</p>
+            </div>
+            <div class="project-summary-grid">
+              <div class="project-summary-card">
+                <span>当前状态</span>
+                <strong id="project-summary-current">暂无运行</strong>
+              </div>
+              <div class="project-summary-card">
+                <span>目录</span>
+                <strong id="project-summary-toc">未选择</strong>
+              </div>
+              <div class="project-summary-card">
+                <span>章节 / 输出</span>
+                <strong id="project-summary-output">-</strong>
+              </div>
+              <div class="project-summary-card project-summary-next">
+                <span>建议下一步</span>
+                <strong id="project-summary-next">先选择项目</strong>
+              </div>
+            </div>
+          </section>
+
+          <main class="layout">
+        <section class="panel project-picker-panel" data-flow-section="project">
+          <div class="panel-header">
+            <h2>项目选择</h2>
+          </div>
+          <details id="project-picker-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Workspace</span>
+                <strong class="workbench-title">项目选择工作台</strong>
+                <span class="workbench-meta">切换 BookName、查看已有工作区并手动刷新当前状态</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <div class="project-picker-toolbar">
+                <button id="refresh-status" class="ghost-button" type="button">刷新</button>
+              </div>
+              <label class="field">
+                <span>BookName</span>
+                <input id="bookName" name="bookName" placeholder="例如 SageWriteManualCN">
+              </label>
+
+              <div class="workspace-list-wrap">
+                <div class="workspace-list-title">已有工作区</div>
+                <div id="workspace-list" class="workspace-list"></div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section id="company-project-panel" class="panel company-project-panel" data-flow-section="company-projects" hidden>
+          <div class="panel-header">
+            <h2>公司项目管理</h2>
+          </div>
+          <details id="company-project-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Projects</span>
+                <strong class="workbench-title">公司项目管理工作台</strong>
+                <span id="company-project-summary" class="workbench-meta">查看公司项目，并调整项目作者和负责编辑</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <div class="account-toolbar">
+                <div id="company-project-note" class="company-project-note">正在读取项目归属。</div>
+                <button id="refresh-projects" class="ghost-button" type="button">刷新项目</button>
+              </div>
+              <div id="company-project-feedback" class="company-project-feedback" aria-live="polite"></div>
+              <div id="company-project-list" class="company-project-list"></div>
+            </div>
+          </details>
+        </section>
+
+        <section id="account-panel" class="panel account-panel" data-flow-section="account" hidden>
+          <div class="panel-header">
+            <h2>个人管理</h2>
+          </div>
+          <details id="account-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Account</span>
+                <strong class="workbench-title">个人管理工作台</strong>
+                <span id="account-summary" class="workbench-meta">当前账号信息加载中</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <div class="account-toolbar">
+                <div id="account-note" class="account-note">正在读取个人积分和 token 花费。</div>
+                <button id="refresh-account" class="ghost-button" type="button">刷新个人信息</button>
+              </div>
+              <div id="account-billing-cards" class="account-billing-cards"></div>
+              <div class="account-layout">
+                <div class="account-events-wrap">
+                  <div class="workspace-list-title">最近积分流水</div>
+                  <div id="account-event-list" class="account-event-list"></div>
+                </div>
+                <form id="change-password-form" class="form-grid account-password-form">
+                  <label class="field">
+                    <span>当前密码</span>
+                    <input name="currentPassword" type="password" autocomplete="current-password" required>
+                  </label>
+                  <label class="field">
+                    <span>新密码</span>
+                    <input name="newPassword" type="password" autocomplete="new-password" minlength="8" required>
+                  </label>
+                  <label class="field">
+                    <span>确认新密码</span>
+                    <input name="confirmPassword" type="password" autocomplete="new-password" minlength="8" required>
+                  </label>
+                  <button class="primary-button" type="submit">修改自己的密码</button>
+                  <div id="account-feedback" class="account-feedback" aria-live="polite"></div>
+                </form>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section id="user-admin-panel" class="panel user-admin-panel" data-flow-section="users" hidden>
+          <div class="panel-header">
+            <h2>用户管理</h2>
+          </div>
+          <details id="user-admin-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Users</span>
+                <strong class="workbench-title">用户管理工作台</strong>
+                <span id="user-admin-summary" class="workbench-meta">当前账号状态加载中</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <div id="user-admin-note" class="user-admin-note">正在读取用户信息。</div>
+              <div class="user-admin-layout">
+                <div class="user-list-wrap">
+                  <div class="user-list-toolbar">
+                    <div class="workspace-list-title">已有用户</div>
+                    <label class="user-filter-toggle">
+                      <input id="filter-negative-users" type="checkbox">
+                      <span>只看负余额</span>
+                    </label>
+                    <button id="refresh-users" class="ghost-button" type="button">刷新用户</button>
+                  </div>
+                  <div id="user-list" class="user-list"></div>
+                </div>
+
+                <form id="create-user-form" class="form-grid user-create-form">
+                  <label class="field">
+                    <span>用户名</span>
+                    <input name="username" autocomplete="off" placeholder="例如 editor01" required>
+                  </label>
+                  <label class="field">
+                    <span>显示名称</span>
+                    <input name="displayName" autocomplete="off" placeholder="例如 编辑一号">
+                  </label>
+                  <label class="field" data-tenant-create-field>
+                    <span>公司 ID</span>
+                    <input name="tenantId" list="tenant-id-options" autocomplete="off" placeholder="例如 acme">
+                    <datalist id="tenant-id-options"></datalist>
+                  </label>
+                  <label class="field" data-tenant-create-field>
+                    <span>新公司名称</span>
+                    <input name="tenantName" autocomplete="off" placeholder="例如 Acme Publishing">
+                  </label>
+                  <label class="field">
+                    <span>角色</span>
+                    <select name="role">
+                      <option value="tenant_admin">公司管理员</option>
+                      <option value="editor">编辑</option>
+                      <option value="author">作者</option>
+                      <option value="viewer">只读</option>
+                      <option value="user">普通用户</option>
+                      <option value="platform_admin">平台管理员</option>
+                    </select>
+                  </label>
+                  <label class="field" data-manager-create-field>
+                    <span>负责编辑</span>
+                    <select name="managerUserId">
+                      <option value="">未分配</option>
+                    </select>
+                  </label>
+                  <label class="field">
+                    <span>初始密码</span>
+                    <input name="password" type="password" autocomplete="new-password" minlength="8" required>
+                  </label>
+                  <label class="field" data-billing-create-field>
+                    <span>初始积分</span>
+                    <input name="initialCredits" type="number" step="0.001" min="0" value="1000">
+                  </label>
+                  <button class="primary-button" type="submit">创建用户</button>
+                  <div id="user-admin-feedback" class="user-admin-feedback" aria-live="polite"></div>
+                </form>
+              </div>
+              <div id="admin-audit-section" class="admin-audit-section" hidden>
+                <form id="audit-filter-form" class="audit-filter-form">
+                  <div class="workspace-list-title">审计日志</div>
+                  <label class="field audit-filter-field">
+                    <span>动作</span>
+                    <select name="action">
+                      <option value="">全部动作</option>
+                      <option value="auth.login.success">登录成功</option>
+                      <option value="auth.login.failed">登录失败</option>
+                      <option value="auth.logout">退出登录</option>
+                      <option value="user.create">创建用户</option>
+                      <option value="user.update">修改用户</option>
+                      <option value="user.password.reset">重置密码</option>
+                      <option value="account.password.change">自改密码</option>
+                      <option value="billing.adjust">积分调整</option>
+                      <option value="project.update">项目归属修改</option>
+                      <option value="permission.denied">权限拒绝</option>
+                      <option value="job.start">任务开始</option>
+                      <option value="job.finish">任务结束</option>
+                      <option value="job.cancel">任务取消</option>
+                    </select>
+                  </label>
+                  <label class="field audit-filter-field">
+                    <span>用户/项目/任务</span>
+                    <input name="user" autocomplete="off" placeholder="用户名、BookName 或 Job ID">
+                  </label>
+                  <label class="field audit-filter-field audit-limit-field">
+                    <span>条数</span>
+                    <input name="limit" type="number" min="1" max="300" value="100">
+                  </label>
+                  <button id="refresh-audit" class="ghost-button" type="submit">刷新审计</button>
+                </form>
+                <div id="audit-note" class="audit-note">正在读取审计日志。</div>
+                <div id="audit-list" class="audit-list"></div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="status">
+          <div class="panel-header">
+            <h2>项目状态</h2>
+          </div>
+          <details id="project-status-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Status</span>
+                <strong class="workbench-title">项目状态工作台</strong>
+                <span class="workbench-meta">查看当前工作区路径、运行状态、最近一次执行和输出概览</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <div id="project-status" class="status-grid">
+                <div class="status-empty">选择一个 BookName 后，这里会显示项目状态。</div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="intake">
+          <div class="panel-header">
+            <h2>01 初始化项目</h2>
+          </div>
+          <details id="intake-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Project</span>
+                <strong class="workbench-title">项目初始化工作台</strong>
+                <span class="workbench-meta">书名、作者、读者与写作目标在这里集中维护</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="intake-form" class="form-grid">
+                <label class="field">
+                  <span>书名标题</span>
+                  <input name="title" required>
+                </label>
+                <label class="field">
+                  <span>副标题</span>
+                  <input name="subtitle" placeholder="例如：技术原理与文明视野下的智能写作方法">
+                </label>
+                <label class="field">
+                  <span>作者</span>
+                  <input name="author" placeholder="例如 文军">
+                </label>
+                <label class="field">
+                  <span>目标读者</span>
+                  <textarea name="audience" rows="3" required></textarea>
+                </label>
+                <label class="field">
+                  <span>作品类型</span>
+                  <input name="type" required>
+                </label>
+                <label class="field">
+                  <span>核心论点</span>
+                  <textarea name="coreThesis" rows="4" required></textarea>
+                </label>
+                <label class="field">
+                  <span>写作范围</span>
+                  <textarea name="scope" rows="4" required></textarea>
+                </label>
+                <label class="field">
+                  <span>文风要求</span>
+                  <textarea name="style" rows="3" required></textarea>
+                </label>
+                <div class="intake-actions">
+                  <div class="intake-submit-actions">
+                    <button id="intake-create" class="primary-button" type="submit">创建项目</button>
+                    <button id="intake-save" class="ghost-button" type="submit">保存项目修改</button>
+                  </div>
+                  <div id="intake-action-hint" class="intake-action-hint">新项目会创建并生成 `objective.md`。</div>
+                </div>
+              </form>
+              <div class="intake-objective-editor-wrap">
+                <div class="toc-preview-title">项目目标主稿（00_brief/objective.md）</div>
+                <div id="objective-md-path" class="intake-objective-path">选择一个 BookName 后，这里会显示 objective.md 路径。</div>
+                <textarea id="objective-md-editor" class="toc-preview toc-editor objective-md-editor" spellcheck="false">选择一个已有项目后，这里会显示 objective.md 内容。</textarea>
+                <div class="intake-objective-actions">
+                  <button id="save-objective-md" class="ghost-button" type="button">保存 objective.md</button>
+                  <span id="objective-md-status" class="write-notes-status">尚未加载 objective.md</span>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="structure">
+          <div class="panel-header">
+            <h2>02 生成目录</h2>
+          </div>
+          <details id="structure-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Structure</span>
+                <strong class="workbench-title">目录生成工作台</strong>
+                <span class="workbench-meta">运行目录生成、查看目录预览并手动保存当前目录</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="structure-form">
+                <button class="primary-button" type="submit">运行 02-structure.ps1</button>
+              </form>
+              <div class="toc-actions">
+                <button id="show-toc" class="primary-button toc-action-button" type="button">显示目录</button>
+                <button id="save-toc" class="ghost-button" type="button">保存目录</button>
+              </div>
+              <div class="toc-preview-wrap">
+                <div class="toc-preview-title">当前目录预览</div>
+                <textarea id="toc-preview" class="toc-preview toc-editor" spellcheck="false">选择一个已有目录的 BookName 后，这里会显示 toc.md 内容。</textarea>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="expand">
+          <div class="panel-header">
+            <h2>02b 扩展小节</h2>
+          </div>
+          <details id="expand-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Expand</span>
+                <strong class="workbench-title">扩展小节工作台</strong>
+                <span class="workbench-meta">选择章节范围、控制小节数量并运行 02b-expand.ps1</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="expand-form" class="form-grid">
+                <label class="field">
+                  <span>模式</span>
+                  <select name="mode">
+                    <option value="all">全部章节</option>
+                    <option value="chapter">单章</option>
+                    <option value="range">区间</option>
+                  </select>
+                </label>
+                  <label class="field">
+                    <span>单章编号</span>
+                    <input name="chapter" type="number" min="0" placeholder="0 表示只翻译公共文件">
+                  </label>
+                <label class="field split">
+                  <span>章节区间</span>
+                  <div class="split-row">
+                    <input name="startChapter" type="number" min="1" placeholder="开始">
+                    <input name="endChapter" type="number" min="1" placeholder="结束">
+                  </div>
+                </label>
+                <label class="field split">
+                  <span>小节数量</span>
+                  <div class="split-row">
+                    <input name="minSubsections" type="number" min="1" value="3">
+                    <input name="maxSubsections" type="number" min="1" value="5">
+                  </div>
+                </label>
+                <label class="field">
+                  <span>模型</span>
+                  <input name="model" list="write-model-options" value="gpt-5.2" placeholder="例如 gpt-5.2 或 gpt-5.4">
+                  <datalist id="write-model-options">
+                    <option value="gpt-5.2"></option>
+                    <option value="gpt-5.4"></option>
+                  </datalist>
+                </label>
+                <button class="primary-button" type="submit">运行 02b-expand.ps1</button>
+              </form>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="write">
+          <div class="panel-header">
+            <h2>03 写章节</h2>
+          </div>
+          <details id="write-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Write</span>
+                <strong class="workbench-title">写章节工作台</strong>
+                <span class="workbench-meta">运行写作、重写单章，并在下方浏览与编辑章节内容</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="write-form" class="form-grid">
+                <label class="field">
+                  <span>模式</span>
+                  <select name="mode">
+                    <option value="all">全部章节</option>
+                    <option value="chapter">单章</option>
+                    <option value="range">区间</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>单章编号</span>
+                  <input name="chapter" type="number" min="1">
+                </label>
+                <label class="field split">
+                  <span>章节区间</span>
+                  <div class="split-row">
+                    <input name="startChapter" type="number" min="1" placeholder="开始">
+                    <input name="endChapter" type="number" min="1" placeholder="结束">
+                  </div>
+                </label>
+                <label class="field">
+                  <span>MaxTokens</span>
+                  <input name="maxTokens" type="number" min="1000" step="500" value="6000">
+                </label>
+                <label class="checkbox-field">
+                  <input name="force" type="checkbox">
+                  <span>覆盖已存在章节</span>
+                </label>
+                <label class="checkbox-field">
+                  <input name="referenceGlossary" type="checkbox">
+                  <span>参考名词解释</span>
+                </label>
+                <div class="write-extra-actions">
+                  <button id="open-write-notes" class="ghost-button" type="button">附加说明</button>
+                  <span id="write-notes-status" class="write-notes-status">未添加附加说明</span>
+                </div>
+                <textarea id="additional-instructions" name="additionalInstructions" hidden></textarea>
+                <div class="write-submit-actions">
+                  <button id="run-write-normal" class="primary-button" type="submit">正常运行 03-write.ps1</button>
+                  <button id="run-write-rewrite" class="ghost-button" type="submit">重写单章并附加说明</button>
+                </div>
+              </form>
+              <div class="chapter-browser-wrap">
+                <div class="chapter-browser-title">章节浏览</div>
+                <div class="chapter-browser-controls">
+                  <button id="chapter-prev" class="ghost-button" type="button">上一章</button>
+                  <select id="chapter-preview-select">
+                    <option value="">请选择章节</option>
+                  </select>
+                  <button id="show-chapter" class="primary-button" type="button">显示章节</button>
+                  <button id="save-chapter" class="ghost-button" type="button">保存章节</button>
+                  <button id="rewrite-current-chapter" class="ghost-button" type="button">重写这一章</button>
+                  <button id="chapter-next" class="ghost-button" type="button">下一章</button>
+                </div>
+                <textarea id="chapter-preview" class="chapter-preview chapter-editor" spellcheck="false">选中一个已有章节的 BookName 后，这里会显示章节内容。</textarea>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="translate">
+          <div class="panel-header">
+            <h2>03T 多语言翻译</h2>
+          </div>
+          <details id="translate-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Translate</span>
+                <strong class="workbench-title">多语言翻译工作台</strong>
+                <span class="workbench-meta">选择目标语言、翻译范围与覆盖策略，统一运行 03t-translate.ps1</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="translate-form" class="form-grid">
+                <label class="field">
+                  <span>目标语言</span>
+                  <select name="language">
+                    <option value="en">英语 / en</option>
+                    <option value="zh-tw">繁體中文（台灣） / zh-tw</option>
+                    <option value="ms">马来语 / ms</option>
+                    <option value="fr">法语 / fr</option>
+                    <option value="de">德语 / de</option>
+                    <option value="es">西班牙语 / es</option>
+                    <option value="it">意大利语 / it</option>
+                    <option value="pt">葡萄牙语 / pt</option>
+                    <option value="ja">日语 / ja</option>
+                    <option value="ko">韩语 / ko</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>模型名称</span>
+                  <input name="model" list="translate-model-options" value="gpt-5.2" placeholder="例如 gpt-5.2 或 gpt-5.4">
+                  <datalist id="translate-model-options">
+                    <option value="gpt-5.2"></option>
+                    <option value="gpt-5.4"></option>
+                  </datalist>
+                </label>
+                <label class="field">
+                  <span>模式</span>
+                  <select name="mode">
+                    <option value="all">全部翻译</option>
+                    <option value="chapter">单章翻译</option>
+                    <option value="range">区间翻译</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>单章编号</span>
+                  <input name="chapter" type="number" min="0" placeholder="0 表示只翻译公共文件">
+                </label>
+                <label class="field split">
+                  <span>章节区间</span>
+                  <div class="split-row">
+                    <input name="startChapter" type="number" min="1" placeholder="开始">
+                    <input name="endChapter" type="number" min="1" placeholder="结束">
+                  </div>
+                </label>
+                <label class="checkbox-field">
+                  <input name="force" type="checkbox">
+                  <span>覆盖已存在目标语言文件</span>
+                </label>
+                <div class="translate-submit-actions">
+                  <button class="primary-button" type="submit">运行 03t-translate.ps1</button>
+                </div>
+              </form>
+              <div class="translation-note">
+                译文会输出到 `03_translation/&lt;语言代码&gt;/...`，不会覆盖原始中文 Markdown。
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel" data-flow-section="refine">
+          <div class="panel-header">
+            <h2>03R 多语言修饰</h2>
+          </div>
+          <details id="refine-workbench-shell" class="workbench-shell" open>
+            <summary>
+              <div class="workbench-summary">
+                <span class="workbench-kicker">Refine</span>
+                <strong class="workbench-title">多语言修饰工作台</strong>
+                <span class="workbench-meta">选择目标语言、修饰范围与重跑策略，独立运行 03r-refine.ps1 做语法检查、文字检查与语言润色</span>
+              </div>
+            </summary>
+            <div class="workbench-body">
+              <form id="refine-form" class="form-grid">
+                <label class="field">
+                  <span>目标语言</span>
+                  <select name="language">
+                    <option value="en">英语 / en</option>
+                    <option value="zh-tw">繁體中文（台灣） / zh-tw</option>
+                    <option value="ms">马来语 / ms</option>
+                    <option value="fr">法语 / fr</option>
+                    <option value="de">德语 / de</option>
+                    <option value="es">西班牙语 / es</option>
+                    <option value="it">意大利语 / it</option>
+                    <option value="pt">葡萄牙语 / pt</option>
+                    <option value="ja">日语 / ja</option>
+                    <option value="ko">韩语 / ko</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>模型名称</span>
+                  <input name="model" list="refine-model-options" value="gpt-5.2" placeholder="例如 gpt-5.2 或 gpt-5.4">
+                  <datalist id="refine-model-options">
+                    <option value="gpt-5.2"></option>
+                    <option value="gpt-5.4"></option>
+                  </datalist>
+                </label>
+                <label class="field">
+                  <span>模式</span>
+                  <select name="mode">
+                    <option value="all">全部修饰</option>
+                    <option value="chapter">单章修饰</option>
+                    <option value="range">区间修饰</option>
+                  </select>
+                </label>
+                <label class="field">
+                  <span>单章编号</span>
+                  <input name="chapter" type="number" min="1">
+                </label>
+                <label class="field split">
+                  <span>章节区间</span>
+                  <div class="split-row">
+                    <input name="startChapter" type="number" min="1" placeholder="开始">
+                    <input name="endChapter" type="number" min="1" placeholder="结束">
+                  </div>
+                </label>
+                <label class="checkbox-field">
+                  <input name="force" type="checkbox">
+                  <span>即使已修饰过且文件未变也重新处理</span>
+                </label>
+                <div class="translate-submit-actions">
+                  <button class="primary-button" type="submit">运行 03r-refine.ps1</button>
+                </div>
+              </form>
+              <div class="translation-note">
+                修饰会直接作用于 `03_translation/&lt;语言代码&gt;/...` 内现有 Markdown，并在 `_refine_backups` 下自动保留备份。
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <div id="write-notes-modal" class="modal-shell hidden" aria-hidden="true">
+          <div class="modal-backdrop" data-close-write-notes="true"></div>
+          <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="write-notes-title">
+            <div class="modal-header">
+              <h3 id="write-notes-title">单章附加说明</h3>
+              <button id="close-write-notes" class="ghost-button" type="button">关闭</button>
+            </div>
+            <p class="modal-copy">把你希望这一章如何重写的要求贴在这里。单章写作时，系统会同时参考 `objective.md`、`toc.md` 和这份附加说明。</p>
+            <textarea id="write-notes-editor" class="modal-textarea" rows="10" placeholder="例如：这一章需要更偏实操，减少概念解释，增加步骤示例，并突出与第 2 章的衔接。"></textarea>
+            <div class="modal-actions">
+              <button id="clear-write-notes" class="ghost-button" type="button">清空</button>
+              <button id="save-write-notes" class="primary-button" type="button">保存附加说明</button>
+            </div>
+          </div>
+        </div>
+
+        <section class="panel compact-panel check-panel" data-flow-section="check">
+          <div class="panel-header">
+            <h2>04 检查</h2>
+            <button id="toggle-check-panel" class="ghost-button" type="button" aria-expanded="false">展开</button>
+          </div>
+          <div id="check-panel-body" class="check-panel-body">
+            <div class="workbench-body">
+              <form id="edit-form">
+                <label class="checkbox-field">
+                  <input name="strict" type="checkbox">
+                  <span>严格模式</span>
+                </label>
+                <button class="primary-button" type="submit">运行 04-edit.ps1</button>
+              </form>
+              <div class="preflight-wrap">
+                <div class="preflight-title">Build 前检查报告（edit_report.txt）</div>
+                <textarea id="preflight-report" class="preflight-report preflight-textarea" readonly spellcheck="false">运行 04-edit.ps1 后，这里会显示 edit_report.txt 的完整内容。</textarea>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel compact-panel" data-flow-section="build">
+          <div class="panel-header">
+            <h2>05 构建文档</h2>
+          </div>
+          <details id="build-workbench-shell" class="build-workbench-shell" open>
+            <summary>
+              <div class="build-workbench-summary">
+                <span class="build-workbench-kicker">Build</span>
+                <strong class="build-workbench-title">文档构建工作台</strong>
+                <span class="build-workbench-meta">语言选择、构建入口与生成文件集中在一起</span>
+              </div>
+            </summary>
+            <div class="build-workbench-body">
+              <form id="build-form">
+                <label class="field">
+                  <span>语言版本</span>
+                  <select name="language">
+                    <option value="zh">中文（zh）</option>
+                    <option value="zh-tw">繁體中文（台灣）（zh-tw）</option>
+                    <option value="en">English（en）</option>
+                    <option value="ms">Bahasa Melayu（ms）</option>
+                    <option value="fr">Français（fr）</option>
+                    <option value="de">Deutsch（de）</option>
+                    <option value="es">Español（es）</option>
+                    <option value="ja">日本語（ja）</option>
+                  </select>
+                </label>
+                <label class="checkbox-field">
+                  <input name="autoNumber" type="checkbox">
+                  <span>自动编号</span>
+                </label>
+                <div class="build-submit-actions">
+                  <button class="primary-button" type="submit">运行 05-build.ps1</button>
+                  <button id="build-simple-button" class="ghost-button" type="button">运行 05a-simple-docx.ps1</button>
+                  <button id="build-simple-toc-button" class="ghost-button" type="button">运行 05aa-simple-docx-toc.ps1</button>
+                  <button id="build-epub-button" class="ghost-button" type="button">运行 05b-epub.ps1</button>
+                  <button id="build-pdf-button" class="ghost-button" type="button">运行 05c-pdf.ps1</button>
+                  <button id="build-print-pdf-button" class="ghost-button" type="button">运行 05cc-print-pdf.ps1（6x9）</button>
+                </div>
+              </form>
+              <div class="build-output-wrap">
+                <div class="build-output-title">生成文件（DOCX / EPUB / PDF）</div>
+                <div id="build-output-list" class="build-output-list">
+                  <div class="build-output-empty">运行 05-build.ps1、05a-simple-docx.ps1、05aa-simple-docx-toc.ps1、05b-epub.ps1、05c-pdf.ps1 或 05cc-print-pdf.ps1 后，这里会显示生成的文档文件。</div>
+                </div>
+              </div>
+            </div>
+          </details>
+        </section>
+
+        <section class="panel cover-panel" data-flow-section="cover">
+          <div class="panel-header">
+            <h2>08 封面系统</h2>
+            <button id="toggle-cover-panel" class="ghost-button" type="button" aria-expanded="false">展开</button>
+          </div>
+          <div id="cover-panel-body" class="cover-panel-body">
+            <form id="cover-form" class="cover-workbench-stack">
+              <details id="cover-metadata-shell" class="workbench-shell" open>
+                <summary>
+                  <div class="workbench-summary">
+                    <span class="workbench-kicker">Metadata</span>
+                    <strong class="workbench-title">封面元数据工作台</strong>
+                    <span class="workbench-meta">先确认标题、副标题、作者名和封面文案，这些是后面所有视觉输出的共同基础。</span>
+                  </div>
+                </summary>
+                <div class="workbench-body">
+                  <div class="form-grid cover-meta-grid">
+                    <label class="field">
+                      <span>封面标题</span>
+                      <input name="title" placeholder="默认可留空，自动取 objective.md 中的标题">
+                    </label>
+                    <label class="field">
+                      <span>作者名</span>
+                      <input name="author" placeholder="可选">
+                    </label>
+                  </div>
+
+                  <div class="cover-copy-editor-wrap">
+                    <div class="cover-report-title">封面文案编辑</div>
+                    <div class="cover-copy-grid">
+                      <label class="field">
+                        <span>副标题</span>
+                        <input id="cover-copy-subtitle" type="text">
+                      </label>
+                      <label class="field">
+                        <span>封底短句</span>
+                        <input id="cover-copy-hook" type="text">
+                      </label>
+                      <label class="field">
+                        <span>腰封文案</span>
+                        <input id="cover-copy-obi" type="text">
+                      </label>
+                      <label class="field">
+                        <span>宣传语</span>
+                        <input id="cover-copy-tagline" type="text">
+                      </label>
+                      <label class="field">
+                        <span>书脊文案</span>
+                        <input id="cover-copy-spine" type="text">
+                      </label>
+                      <label class="field cover-copy-wide">
+                        <span>封底摘要</span>
+                        <textarea id="cover-copy-blurb" rows="5"></textarea>
+                      </label>
+                      <label class="field cover-copy-wide">
+                        <span>作者简介</span>
+                        <textarea id="cover-copy-author-bio" rows="4"></textarea>
+                      </label>
+                      <label class="field cover-copy-wide">
+                        <span>编辑备注</span>
+                        <textarea id="cover-copy-editor-notes" rows="4" placeholder="每行一条"></textarea>
+                      </label>
+                    </div>
+                    <div class="cover-copy-actions">
+                      <button id="save-cover-copy" class="ghost-button" type="button">保存封面文案</button>
+                    </div>
+                    <div class="cover-copy-candidates">
+                      <div class="cover-report-title">文案候选池</div>
+                      <textarea id="cover-copy-candidates" class="cover-report" readonly spellcheck="false">运行 08g-copy.ps1 后，这里会显示候选池。</textarea>
+                    </div>
+                  </div>
+                </div>
+              </details>
+
+              <details id="cover-visual-shell" class="workbench-shell" open>
+                <summary>
+                  <div class="workbench-summary">
+                    <span class="workbench-kicker">Base Image</span>
+                    <strong class="workbench-title">封面底图工作台</strong>
+                    <span class="workbench-meta">在这里控制底图候选数量、生成节奏和阶段推进方式，先把封面底图方向定下来，再进入后续排版和展示。</span>
+                  </div>
+                </summary>
+                <div class="workbench-body">
+                  <div class="form-grid cover-visual-grid">
+                    <label class="field">
+                      <span>候选数量</span>
+                      <input name="variants" type="number" min="1" max="20" value="4">
+                    </label>
+                    <label class="field">
+                      <span>模式</span>
+                      <select name="mode">
+                        <option value="auto">auto</option>
+                        <option value="fast">fast</option>
+                        <option value="full">full</option>
+                      </select>
+                    </label>
+                    <label class="checkbox-field">
+                      <input name="force" type="checkbox">
+                      <span>强制覆盖已有封面输出</span>
+                    </label>
+                    <label class="checkbox-field">
+                      <input name="skipLayout" type="checkbox">
+                      <span>跳过 layout</span>
+                    </label>
+                    <label class="checkbox-field">
+                      <input name="skipMockup" type="checkbox">
+                      <span>跳过 mockup</span>
+                    </label>
+                  </div>
+                  <div class="cover-copy-actions">
+                    <button id="generate-cover-midjourney-prompt" class="ghost-button" type="button">生成一段MidJourney的用于生成封面的提示词</button>
+                  </div>
+                  <div class="cover-report-wrap">
+                    <div class="cover-report-title">AI 对话框</div>
+                    <textarea id="cover-ai-request" class="cover-report" rows="7" spellcheck="false">你帮我生成一段 MidJourney 提示词，用于这本书的封面底图。</textarea>
+                    <div class="cover-copy-actions">
+                      <button id="submit-cover-ai-request" class="ghost-button" type="button">提交给 AI 助手</button>
+                    </div>
+                    <textarea id="cover-ai-response" class="cover-report" rows="9" readonly spellcheck="false">你在上面输入一段要求后，点击“提交给 AI 助手”，这里会显示模型返回的结果。</textarea>
+                  </div>
+                  <div class="cover-report-wrap">
+                    <div class="cover-report-title">MidJourney 封面底图提示词</div>
+                    <textarea id="cover-midjourney-prompt" class="cover-report" rows="9" spellcheck="false">点击上方按钮后，这里会显示一段可直接参考的 MidJourney 封面底图提示词。</textarea>
+                    <div class="cover-copy-actions">
+                      <button id="copy-cover-midjourney-prompt" class="ghost-button" type="button">复制提示词</button>
+                      <button id="save-cover-midjourney-prompt" class="ghost-button" type="button">保存提示词</button>
+                    </div>
+                  </div>
+                  <div class="cover-report-wrap">
+                    <div class="cover-report-title">外部底图导入</div>
+                    <div id="cover-base-import-dropzone" class="cover-base-import-dropzone" tabindex="0">
+                      <input id="cover-base-import-file" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+                      <div class="cover-base-import-preview" id="cover-base-import-preview">
+                        <span>选择、拖入或粘贴一张外部生成的封面底图</span>
+                      </div>
+                      <div class="cover-base-import-meta" id="cover-base-import-meta">支持 PNG / JPG / WEBP，保存后进入 08N Imports。</div>
+                    </div>
+                    <div class="cover-copy-actions">
+                      <button id="prev-cover-base-import" class="ghost-button" type="button">上一张底图</button>
+                      <button id="next-cover-base-import" class="ghost-button" type="button">下一张底图</button>
+                      <button id="select-cover-base-import" class="ghost-button" type="button">选择底图</button>
+                      <button id="save-cover-base-import" class="ghost-button" type="button">保存底图</button>
+                    </div>
+                  </div>
+                  <div class="cover-summary">
+                    这一层决定的是生成节奏和执行路径：想快速试方向时可以减少候选数或跳过中间阶段，想完整生成整套素材时就保持 full 流程。
+                  </div>
+                </div>
+              </details>
+
+              <details id="cover-operations-shell" class="workbench-shell" open>
+                <summary>
+                  <div class="workbench-summary">
+                    <span class="workbench-kicker">Edit</span>
+                    <strong class="workbench-title">修图工作台</strong>
+                    <span class="workbench-meta">取出已保存的底图，清除图中原有字符，再用标题、副标题、作者和出版社完成封面文字修图。</span>
+                  </div>
+                </summary>
+                <div class="workbench-body">
+                  <div class="cover-report-wrap">
+                    <div class="cover-report-title">封面文字</div>
+                    <div class="form-grid cover-edit-grid">
+                      <label class="field">
+                        <span>出版社</span>
+                        <input id="cover-edit-publisher" type="text" placeholder="出版社或品牌名">
+                      </label>
+                      <label class="field">
+                        <span>图像模型</span>
+                        <input id="cover-edit-image-model" type="text" value="gpt-image-1.5">
+                      </label>
+                    </div>
+                    <textarea id="cover-edit-text" class="cover-report" rows="6" spellcheck="false">书名：
+副标题：
+作者：
+出版社：</textarea>
+                    <div class="cover-copy-actions">
+                      <button id="refresh-cover-edit-text" class="ghost-button" type="button">刷新文字要素</button>
+                      <button id="run-cover-image-edit" class="primary-button" type="button">调用图形模型修图</button>
+                    </div>
+                  </div>
+                  <div class="cover-report-wrap">
+                    <div class="cover-report-title">修图结果</div>
+                    <div id="cover-edit-result-preview" class="cover-edit-result-preview">
+                      <span>调用图形模型修图后，这里会显示新生成的封面图。</span>
+                    </div>
+                    <div id="cover-edit-result-meta" class="cover-base-import-meta">尚未生成修图结果。</div>
+                  </div>
+                </div>
+              </details>
+
+              <details id="cover-next-shell" class="workbench-shell" open>
+                <summary>
+                  <div class="workbench-summary">
+                    <span class="workbench-kicker">08N</span>
+                    <strong class="workbench-title">Next cover flow</strong>
+                    <span class="workbench-meta">New parallel cover pipeline: no-text base image, prompt package, review, local title layout, KDP print spread, mockup, export.</span>
+                  </div>
+                </summary>
+                <div class="workbench-body">
+                  <div class="cover-browser-header">
+                    <div class="cover-browser-title">08N folders</div>
+                    <div class="cover-folder-actions">
+                      <button class="ghost-button" id="open-cover-next-imports" type="button">open imports</button>
+                      <button class="ghost-button" id="open-cover-next-layout" type="button">open layout</button>
+                      <button class="ghost-button" id="open-cover-next-print-spread" type="button">open print spread</button>
+                      <button class="ghost-button" id="open-cover-next-mockup" type="button">open mockup</button>
+                      <button class="ghost-button" id="open-cover-next-final" type="button">open final</button>
+                    </div>
+                  </div>
+                  <div class="cover-submit-actions">
+                    <button class="ghost-button" id="run-cover-next-brief" type="button">base brief</button>
+                    <button class="ghost-button" id="run-cover-next-prompt" type="button">prompts</button>
+                    <button class="ghost-button" id="run-cover-next-generate" type="button">base image</button>
+                    <button class="ghost-button" id="run-cover-next-review" type="button">review</button>
+                    <button class="ghost-button" id="run-cover-next-layout" type="button">title layout</button>
+                    <button class="ghost-button" id="run-cover-next-print" type="button">KDP print</button>
+                    <button class="ghost-button" id="run-cover-next-mockup" type="button">mockup</button>
+                    <button class="ghost-button" id="run-cover-next-export" type="button">export</button>
+                    <button class="primary-button" id="run-cover-next-all" type="button">run 08n-cover.ps1</button>
+                  </div>
+                  <div class="cover-summary">08N keeps all output under 07_cover/next and leaves the old 08 flow untouched.</div>
+                </div>
+              </details>
+            </form>
+
+            <details id="cover-results-shell" class="workbench-shell" open>
+              <summary>
+                <div class="workbench-summary">
+                  <span class="workbench-kicker">Review</span>
+                  <strong class="workbench-title">结果检查工作台</strong>
+                  <span class="workbench-meta">查看封面输出摘要、前置三页、各阶段图像结果和最终导出报告。</span>
+                </div>
+              </summary>
+              <div class="workbench-body">
+                <div id="cover-summary" class="cover-summary">
+                  运行 08-cover.ps1 后，这里会显示封面系统的输出摘要。
+                </div>
+
+                <div class="cover-frontmatter-wrap">
+                  <div class="cover-report-title">前置三页（ebook）</div>
+                  <div class="cover-frontmatter-grid">
+                    <label class="field cover-frontmatter-wide">
+                      <span>封面页（cover_page.md）</span>
+                      <textarea id="frontmatter-cover-page" class="cover-report" rows="10" spellcheck="false">运行 08h-frontmatter.ps1 后，这里会显示封面页 markdown。</textarea>
+                    </label>
+                    <label class="field cover-frontmatter-wide">
+                      <span>扉页（title_page.md）</span>
+                      <textarea id="frontmatter-title-page" class="cover-report" rows="10" spellcheck="false">运行 08h-frontmatter.ps1 后，这里会显示扉页 markdown。</textarea>
+                    </label>
+                    <label class="field cover-frontmatter-wide">
+                      <span>版权页（copyright_page.md）</span>
+                      <textarea id="frontmatter-copyright-page" class="cover-report" rows="10" spellcheck="false">运行 08h-frontmatter.ps1 后，这里会显示版权页 markdown。</textarea>
+                    </label>
+                  </div>
+                  <div class="cover-copy-actions">
+                    <button id="save-frontmatter" class="ghost-button" type="button">保存前置三页</button>
+                  </div>
+                </div>
+
+                <div class="cover-gallery-grid">
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">Drafts</div>
+                    <div id="cover-drafts" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">暂无 drafts 结果。</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">Layout</div>
+                    <div id="cover-layout" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">暂无 layout 结果。</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">Mockup</div>
+                    <div id="cover-mockup" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">暂无 mockup 结果。</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">Final</div>
+                    <div id="cover-final" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">暂无 final 结果。</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="cover-next-summary" class="cover-summary">08N next cover flow has not produced artifacts yet.</div>
+                <div class="cover-gallery-grid">
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">08N Imports</div>
+                    <div id="cover-next-imports" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">No 08N imports yet.</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">08N Layout</div>
+                    <div id="cover-next-layout" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">No 08N layout yet.</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">08N Print</div>
+                    <div id="cover-next-print-spread" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">No 08N print spread yet.</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">08N Mockup</div>
+                    <div id="cover-next-mockup" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">No 08N mockup yet.</div>
+                    </div>
+                  </div>
+                  <div class="cover-gallery-section">
+                    <div class="cover-gallery-title">08N Final</div>
+                    <div id="cover-next-final" class="cover-gallery-list">
+                      <div class="cover-gallery-empty">No 08N final yet.</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="cover-report-wrap">
+                  <div class="cover-report-title">08N export report (next_cover_report.md)</div>
+                  <textarea id="cover-next-report" class="cover-report" readonly spellcheck="false">Run 08n-export.ps1 to see final/next_cover_report.md.</textarea>
+                </div>
+
+                <div class="cover-report-wrap">
+                  <div class="cover-report-title">导出报告（cover_report.md）</div>
+                  <textarea id="cover-report" class="cover-report" readonly spellcheck="false">运行 08-cover.ps1 后，这里会显示 final/cover_report.md 的内容。</textarea>
+                </div>
+              </div>
+            </details>
+
+            <details id="cover-kdp-review-shell" class="workbench-shell" open>
+              <summary>
+                <div class="workbench-summary">
+                  <span class="workbench-kicker">KDP_REVIEW</span>
+                  <strong class="workbench-title">KDP 验收工具平台</strong>
+                  <span class="workbench-meta">上传 KDP 封面 PDF，用裁切尺寸、页数、纸张和出血参数检查文件是否适合提交。</span>
+                </div>
+              </summary>
+              <div class="workbench-body">
+                <div class="cover-report-wrap kdp-acceptance-wrap">
+                  <div class="cover-browser-header">
+                    <div class="cover-report-title">KDP PDF 验收</div>
+                    <div class="cover-folder-actions">
+                      <button id="open-kdp-acceptance-folder" class="ghost-button" type="button">打开验收目录</button>
+                    </div>
+                  </div>
+                  <div class="kdp-acceptance-grid">
+                    <div class="kdp-acceptance-controls">
+                      <div class="kdp-fixed-spec">
+                        <span>裁切 6 x 9 in</span>
+                        <span>出血 0.125 in</span>
+                      </div>
+                      <input id="kdp-trim-width" type="hidden" value="6">
+                      <input id="kdp-trim-height" type="hidden" value="9">
+                      <input id="kdp-bleed" type="hidden" value="0.125">
+                      <div class="form-grid kdp-compact-grid">
+                        <label class="field">
+                          <span>页数</span>
+                          <input id="kdp-page-count" type="number" min="1" step="1" value="120">
+                        </label>
+                        <label class="field">
+                          <span>纸张</span>
+                          <select id="kdp-paper-type">
+                            <option value="bw-white">黑白 / 白纸</option>
+                            <option value="bw-cream">黑白 / 米色纸</option>
+                            <option value="premium-color">高级彩色</option>
+                            <option value="standard-color">标准彩色</option>
+                          </select>
+                        </label>
+                        <label class="field">
+                          <span>书脊宽度</span>
+                          <input id="kdp-spine-width" type="text" value="0.270 in / 6.86 mm" readonly>
+                        </label>
+                      </div>
+                      <input id="kdp-pdf-file" type="file" accept="application/pdf,image/png,.pdf,.png" hidden>
+                      <div class="cover-copy-actions">
+                        <button id="select-kdp-pdf" class="ghost-button" type="button">选择 PDF/PNG</button>
+                        <button id="submit-kdp-pdf" class="primary-button" type="button">提交验收</button>
+                      </div>
+                      <div id="kdp-pdf-meta" class="cover-base-import-meta">尚未选择 PDF。</div>
+                      <div id="kdp-acceptance-file-list" class="kdp-acceptance-file-list"></div>
+                      <div id="kdp-acceptance-summary" class="cover-summary">上传 KDP 封面 PDF 后，这里会显示验收结论。</div>
+                      <div id="kdp-size-rules" class="kdp-size-rules"></div>
+                      <div id="kdp-pdf-parameters" class="kdp-pdf-parameters"></div>
+                      <div id="kdp-acceptance-checks" class="kdp-check-list"></div>
+                    </div>
+                    <div class="kdp-acceptance-preview">
+                      <div id="kdp-guide-preview" class="kdp-guide-preview">
+                        <div class="kdp-guide-art">
+                          <div class="kdp-guide-label kdp-guide-back">BACK</div>
+                          <div class="kdp-guide-label kdp-guide-spine">SPINE</div>
+                          <div class="kdp-guide-label kdp-guide-front">FRONT</div>
+                          <div class="kdp-guide-trim"></div>
+                          <div class="kdp-guide-safe"></div>
+                          <div class="kdp-guide-fold kdp-guide-fold-left"></div>
+                          <div class="kdp-guide-fold kdp-guide-fold-right"></div>
+                          <div class="kdp-guide-spine-safe kdp-guide-spine-safe-left"></div>
+                          <div class="kdp-guide-spine-safe kdp-guide-spine-safe-right"></div>
+                          <div class="kdp-guide-barcode">BARCODE</div>
+                        </div>
+                        <div class="kdp-guide-legend">
+                          <span class="kdp-guide-white">白线：裁切线 / 书脊边缘</span>
+                          <span class="kdp-guide-red">红线：安全边距 / 文字边界</span>
+                          <span class="kdp-guide-barcode-legend">条码：封底右下角 2 x 1.2 in</span>
+                        </div>
+                      </div>
+                      <div class="kdp-pdf-viewer">
+                        <div class="kdp-pdf-toolbar">
+                          <button id="kdp-pdf-zoom-out" class="ghost-button" type="button">-</button>
+                          <button id="kdp-pdf-zoom-in" class="ghost-button" type="button">+</button>
+                          <button id="kdp-pdf-fit" class="ghost-button" type="button">适合宽度</button>
+                          <button id="kdp-pdf-actual" class="ghost-button" type="button">100%</button>
+                          <button id="kdp-llm-text" class="ghost-button" type="button">LLM识别文字区域</button>
+                          <button id="kdp-ocr-text" class="ghost-button" type="button">识别文字区域</button>
+                          <span id="kdp-pdf-zoom-label">未加载 PDF</span>
+                        </div>
+                        <div id="kdp-pdf-stage" class="kdp-pdf-stage">
+                          <div id="kdp-pdf-page" class="kdp-pdf-page">
+                            <canvas id="kdp-pdf-canvas"></canvas>
+                            <div id="kdp-pdf-overlay" class="kdp-pdf-overlay">
+                              <div class="kdp-pdf-trim"></div>
+                              <div class="kdp-pdf-safe"></div>
+                              <div class="kdp-pdf-fold kdp-pdf-fold-left"></div>
+                              <div class="kdp-pdf-fold kdp-pdf-fold-right"></div>
+                              <div class="kdp-pdf-spine-safe kdp-pdf-spine-safe-left"></div>
+                              <div class="kdp-pdf-spine-safe kdp-pdf-spine-safe-right"></div>
+                              <div class="kdp-pdf-barcode">BARCODE</div>
+                              <div id="kdp-pdf-text-layer" class="kdp-pdf-text-layer"></div>
+                            </div>
+                          </div>
+                          <div id="kdp-pdf-empty" class="cover-gallery-empty">提交 PDF 后，这里会显示自定义 KDP 检视器。</div>
+                        </div>
+                      </div>
+                      <div id="kdp-text-region-report" class="kdp-text-region-report">
+                        <div class="cover-gallery-empty">点击“识别文字区域”后，这里会按封底、书脊、封面列出 OCR 坐标。</div>
+                      </div>
+                      <div class="kdp-fix-report-panel">
+                        <div class="kdp-fix-report-actions">
+                          <button id="kdp-generate-fix-report" class="ghost-button" type="button">生成修改意见报告</button>
+                          <button id="kdp-generate-fix-prompt" class="ghost-button" type="button">生成修改命令提示词</button>
+                          <span>程序根据文字区域、红线/白线和条码区生成，暂不调用 LLM。</span>
+                        </div>
+                        <textarea id="kdp-fix-report" class="cover-report kdp-fix-report" readonly spellcheck="false" wrap="soft">点击“生成修改意见报告”后，这里会按封底、书脊、封面输出程序生成的修改意见。</textarea>
+                        <textarea id="kdp-fix-command-prompt" class="cover-report kdp-fix-command-prompt" spellcheck="false" wrap="soft">点击“生成修改命令提示词”后，这里会输出给自动修图 LLM/图像模型使用的任务提示词。</textarea>
+                        <div class="kdp-edit-workbench">
+                          <div class="kdp-fix-report-actions">
+                            <button id="kdp-prepare-fix-workbench" class="ghost-button" type="button">准备修改文件</button>
+                            <button id="kdp-run-fix-workbench" class="primary-button" type="button">执行修改</button>
+                            <button id="kdp-submit-fixed-output" class="ghost-button" type="button">提交修改后文件验收</button>
+                            <span id="kdp-edit-workbench-status">尚未准备修改文件。</span>
+                          </div>
+                          <div class="kdp-edit-grid">
+                            <div class="kdp-edit-preview-card">
+                              <div class="cover-report-title">待修改 PNG</div>
+                              <div id="kdp-fix-source-preview" class="kdp-edit-preview"><span>准备后显示源文件</span></div>
+                              <div id="kdp-fix-source-meta" class="cover-base-import-meta">未准备。</div>
+                            </div>
+                            <div class="kdp-edit-preview-card">
+                              <div class="cover-report-title">修改后 PNG</div>
+                              <div id="kdp-fix-output-preview" class="kdp-edit-preview"><span>执行后显示结果</span></div>
+                              <div id="kdp-fix-output-meta" class="cover-base-import-meta">未生成。</div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <textarea id="kdp-acceptance-report" class="cover-report" readonly spellcheck="false" wrap="soft">提交 PDF 后，这里会显示 KDP 验收报告。</textarea>
+                </div>
+              </div>
+            </details>
+
+            <details id="cover-kdp-fix-shell" class="workbench-shell">
+              <summary>
+                <div class="workbench-summary">
+                  <span class="workbench-kicker">KDP_FIX</span>
+                  <strong class="workbench-title">KDP 修图工作台</strong>
+                  <span class="workbench-meta">根据验收识别出的文字区域生成修改报告、修图提示词和 ImageMagick 指令，执行后再提交回 KDP 验收循环。</span>
+                </div>
+              </summary>
+              <div class="workbench-body">
+                <div class="cover-report-wrap kdp-fix-module-wrap">
+                  <div class="cover-browser-header">
+                    <div class="cover-report-title">KDP 修图</div>
+                  </div>
+                  <div id="kdp-fix-module-mount"></div>
+                </div>
+              </div>
+            </details>
+
+            <details id="cover-kdp-img-black-shell" class="workbench-shell">
+              <summary>
+                <div class="workbench-summary">
+                  <span class="workbench-kicker">KDP_IMG_BLACK</span>
+                  <strong class="workbench-title">imageMagcik 修图工作台</strong>
+                  <span class="workbench-meta">使用 imageMagcik 指令执行局部黑底修图，独立于 LLM 图像修图流程。</span>
+                </div>
+              </summary>
+              <div class="workbench-body">
+                <div class="cover-report-wrap kdp-fix-module-wrap">
+                  <div class="cover-browser-header">
+                    <div class="cover-report-title">ImageMagick 修图</div>
+                  </div>
+                  <div class="kdp-fix-report-actions">
+                    <button id="kdp-img-black-load-source" class="ghost-button" type="button">取待修改图</button>
+                    <button id="kdp-generate-imagemagick-instructions" class="ghost-button" type="button">生成ImageMagick指令集</button>
+                    <button id="kdp-run-imagemagick-fix" class="primary-button" type="button">ImageMagick修图</button>
+                    <span id="kdp-img-black-status">先生成书脊移动 JSON，可人工修改确认后再执行 ImageMagick。</span>
+                  </div>
+                  <textarea id="kdp-imagemagick-instructions" class="cover-report kdp-fix-command-prompt" spellcheck="false" wrap="soft">点击“生成ImageMagick指令集”后，这里会输出可编辑的书脊修图 JSON 指令。</textarea>
+                  <div class="kdp-img-black-grid">
+                    <section class="kdp-img-black-workarea">
+                      <div class="cover-report-title">图形工作区1</div>
+                      <div id="kdp-img-black-workarea-1-file" class="kdp-img-black-file-name">文件名：未加载</div>
+                      <div id="kdp-img-black-workarea-1" class="kdp-img-black-canvas"></div>
+                    </section>
+                    <section class="kdp-img-black-workarea">
+                      <div class="cover-report-title">图形工作区2</div>
+                      <div class="kdp-img-black-crop-controls">
+                        <label>相对X(px)<input id="kdp-img-black-crop-x" type="number" min="0" step="1" inputmode="numeric"></label>
+                        <label>相对Y(px)<input id="kdp-img-black-crop-y" type="number" min="0" step="1" inputmode="numeric"></label>
+                        <label>宽(px)<input id="kdp-img-black-crop-width" type="number" min="1" step="1" inputmode="numeric"></label>
+                        <label>长度(px)<input id="kdp-img-black-crop-height" type="number" min="1" step="1" inputmode="numeric"></label>
+                        <label>缩放比例(%)<input id="kdp-img-black-resize-percent" type="number" min="2" max="400" step="1" value="95" inputmode="numeric"></label>
+                        <button id="kdp-img-black-crop-source" class="ghost-button" type="button">取局部小图</button>
+                        <button id="kdp-img-black-resize-source" class="ghost-button" type="button">缩放图形</button>
+                      </div>
+                      <div id="kdp-img-black-workarea-2-meta" class="kdp-img-black-file-name">局部小图：未截取</div>
+                      <div id="kdp-img-black-workarea-2" class="kdp-img-black-canvas"></div>
+                    </section>
+                    <section class="kdp-img-black-workarea">
+                      <div class="cover-report-title">图形工作区3</div>
+                      <div class="kdp-img-black-crop-controls">
+                        <label>回填方式
+                          <select id="kdp-img-black-fill-mode">
+                            <option value="Auto">自动取样</option>
+                            <option value="Solid">纯色兜底</option>
+                          </select>
+                        </label>
+                        <label>背景色
+                          <select id="kdp-img-black-fill-preset">
+                            <option value="#07121b">深黑蓝 #07121b</option>
+                            <option value="#0b1822">暗蓝黑 #0b1822</option>
+                            <option value="#101820">深灰蓝 #101820</option>
+                            <option value="#000000">纯黑 #000000</option>
+                            <option value="custom">自定义</option>
+                          </select>
+                        </label>
+                        <label>颜色框<input id="kdp-img-black-fill-color" type="color" value="#07121b"></label>
+                        <button id="kdp-img-black-fill-source" class="ghost-button" type="button">回填原图</button>
+                      </div>
+                      <div id="kdp-img-black-workarea-3-meta" class="kdp-img-black-file-name">回填图：未生成</div>
+                      <div id="kdp-img-black-workarea-3" class="kdp-img-black-canvas"></div>
+                    </section>
+                    <section class="kdp-img-black-workarea">
+                      <div class="cover-report-title">图形工作区4</div>
+                      <div class="kdp-img-black-crop-controls">
+                        <label>贴回X(px)<input id="kdp-img-black-composite-x" type="number" min="0" step="1" inputmode="numeric"></label>
+                        <label>贴回Y(px)<input id="kdp-img-black-composite-y" type="number" min="0" step="1" inputmode="numeric"></label>
+                        <button id="kdp-img-black-composite-source" class="ghost-button" type="button">拼接图片</button>
+                        <button id="kdp-img-black-png-to-pdf" class="ghost-button" type="button">PNG转PDF</button>
+                      </div>
+                      <div id="kdp-img-black-workarea-4-meta" class="kdp-img-black-file-name">拼接图：未生成</div>
+                      <div id="kdp-img-black-workarea-4-path" class="kdp-img-black-file-name">路径：-</div>
+                      <div id="kdp-img-black-workarea-4-pdf" class="kdp-img-black-file-name">PDF：未生成</div>
+                      <div id="kdp-img-black-workarea-4-pdf-path" class="kdp-img-black-file-name">PDF路径：-</div>
+                      <div id="kdp-img-black-workarea-4" class="kdp-img-black-canvas"></div>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        <section class="panel publish-panel" data-flow-section="publish">
+          <div class="panel-header">
+            <h2>09 上架中心</h2>
+            <div class="publish-header-actions">
+              <button id="open-publish-root" class="ghost-button" type="button">在资源管理器中打开语言目录</button>
+              <button id="open-publish-platform" class="ghost-button" type="button">在资源管理器中打开平台目录</button>
+              <button id="toggle-publish-preview-column" class="ghost-button" type="button" aria-expanded="true">收起右侧预览</button>
+              <button id="toggle-publish-panel" class="ghost-button" type="button" aria-expanded="true">收起</button>
+            </div>
+          </div>
+          <div id="publish-panel-body" class="publish-panel-body">
+          <form id="publish-form" class="form-grid">
+            <label class="field">
+              <span>语言版本</span>
+              <select id="publish-language" name="language">
+                <option value="zh">中文（zh）</option>
+                <option value="zh-tw">繁體中文（台灣）（zh-tw）</option>
+                <option value="en">English（en）</option>
+                <option value="ms">Bahasa Melayu（ms）</option>
+                <option value="fr">Français（fr）</option>
+                <option value="de">Deutsch（de）</option>
+                <option value="es">Español（es）</option>
+                <option value="ja">日本語（ja）</option>
+              </select>
+              <div id="publish-language-hint" class="publish-inline-hint">09 会跟随当前项目实际存在的语言版本生成独立上架包。</div>
+            </label>
+            <label class="field">
+              <span>生成范围</span>
+              <select name="platform">
+                <option value="all">全部平台</option>
+                <option value="amazon">Amazon</option>
+                <option value="apple">Apple Books</option>
+                <option value="google">Google Play Books</option>
+              </select>
+            </label>
+            <label class="checkbox-field">
+              <input name="force" type="checkbox">
+              <span>强制覆盖已有 09 上架包</span>
+            </label>
+            <div class="publish-submit-actions">
+              <button id="run-publish-package" class="primary-button" type="submit">运行 09-publish.ps1</button>
+              <button id="run-publish-submit" class="ghost-button" type="submit">提交到当前平台</button>
+            </div>
+          </form>
+
+          <div class="publish-browser">
+            <div id="publish-summary" class="cover-summary">
+              运行 09-publish.ps1 后，这里会显示统一上架包摘要。
+            </div>
+
+            <div id="publish-review-note" class="publish-review-note">
+              09 的元数据应由系统根据当前语种书稿自动生成，人工主要负责审校与少量微调。
+            </div>
+
+            <div id="publish-save-feedback" class="publish-save-feedback hidden" aria-live="polite"></div>
+
+            <div class="publish-open-paths">
+              <div class="publish-open-card">
+                <div class="cover-report-title">语言目录路径</div>
+                <div id="publish-root-path" class="publish-open-path">选择一个 BookName 后，这里会显示语言目录的真实路径。</div>
+                <button id="copy-publish-root-path" class="ghost-button" type="button">复制语言目录路径</button>
+              </div>
+              <div class="publish-open-card">
+                <div class="cover-report-title">平台目录路径</div>
+                <div id="publish-platform-path" class="publish-open-path">选择平台后，这里会显示平台目录的真实路径。</div>
+                <button id="copy-publish-platform-path" class="ghost-button" type="button">复制平台目录路径</button>
+              </div>
+            </div>
+
+            <div class="publish-insight-grid is-hidden">
+              <div class="publish-insight-card">
+                <div class="cover-report-title">自动生成来源</div>
+                <div id="publish-source-summary" class="publish-source-summary">
+                  选择一个 BookName 后，这里会显示当前语言版本的生成来源、输出文件和发布目录。
+                </div>
+              </div>
+              <div class="publish-insight-card">
+                <div class="cover-report-title">平台推荐分类</div>
+                <div id="publish-recommended-categories" class="publish-recommended-categories">
+                  运行 09-publish.ps1 后，这里会显示 Amazon / Apple / Google 的推荐分类路径。
+                </div>
+              </div>
+            </div>
+
+            <div class="publish-workbench">
+              <div class="publish-editor-column">
+                <details class="publish-platform-group-shell" data-publish-platform-group="amazon" open>
+                  <summary>
+                    <div class="publish-platform-group-summary">
+                      <span class="publish-platform-group-kicker">Amazon</span>
+                      <strong class="publish-platform-group-title">亚马逊发布工作台</strong>
+                      <span class="publish-platform-group-meta">元数据 / 第一页 / 第二页集中在一起</span>
+                    </div>
+                  </summary>
+                  <div class="publish-platform-group-body">
+                    <div class="publish-platform-group-actions">
+                      <div class="publish-platform-group-copy">这里先集中放 Amazon 相关操作。展开后即可直接处理亚马逊元数据、第一页与第二页，右侧预览也会自动切到 Amazon。</div>
+                      <button id="run-publish-amazon-details" class="ghost-button" type="button">发布Amazon亚马逊</button>
+                      <button id="run-publish-amazon-content" class="ghost-button" type="button">发布Amazon第二页</button>
+                    </div>
+                    <div class="publish-open-card">
+                      <div class="cover-report-title">Amazon 发布入口链接</div>
+                      <a class="publish-open-path publish-open-path-link" href="https://kdp.amazon.com/en_US/bookshelf" target="_blank" rel="noopener noreferrer">https://kdp.amazon.com/en_US/bookshelf</a>
+                    </div>
+                    <div class="publish-platform-status-card" data-publish-platform-status="amazon">
+                      <div class="cover-report-title">Amazon 平台状态</div>
+                      <div class="publish-platform-status-copy">选择一个 BookName 后，这里会显示 Amazon 平台包是否就绪。</div>
+                    </div>
+                    <div class="publish-platform-asset-actions">
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="folder">打开平台目录</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="epub">打开 epub</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="cover">打开 cover</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="meta">打开 metadata/checklist</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="descText">打开 Description TXT</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="amazon" data-publish-asset-action="descHtml">打开 Description HTML</button>
+                    </div>
+                    <div class="publish-metadata-editor-wrap">
+                      <div class="cover-report-title">Amazon 手工介绍文案</div>
+                      <form id="amazon-description-form" class="publish-editor-form-single">
+                        <textarea id="amazon-description-editor" class="cover-report publish-markdown-editor" spellcheck="false">把你准备好的 Amazon 长介绍贴到这里。保存后会同时生成 amazon_description.txt 和 amazon_description.html。</textarea>
+                      </form>
+                      <div class="publish-editor-actions">
+                        <div class="publish-editor-action-copy">这里适合粘贴你人工撰写的完整介绍文章。系统会保留纯文本版，并自动转换成适合 Amazon Description 框粘贴的简洁 HTML 版。</div>
+                        <button id="save-amazon-description" class="ghost-button" type="button">保存 Amazon Description</button>
+                        <span id="amazon-description-status" class="write-notes-status">尚未单独保存 Amazon Description</span>
+                      </div>
+                    </div>
+                    <div class="publish-metadata-editor-wrap">
+                      <div class="cover-report-title">统一出版元数据主稿（publish_metadata.md）</div>
+                      <form id="publish-editor-form" class="publish-editor-form-single">
+                        <textarea id="publish-metadata-editor" class="cover-report publish-markdown-editor" spellcheck="false">运行 09-publish.ps1 后，这里会显示可直接审校的 publish_metadata.md。</textarea>
+                      </form>
+                      <div class="publish-editor-actions">
+                        <div class="publish-editor-action-copy">系统会先自动生成当前语种的 publish_metadata.md。你只需要在这一份 MD 主稿里集中审校，保存后会同步回 JSON、报告和平台包。</div>
+                        <button id="save-publish-metadata" class="ghost-button" type="button">立即保存</button>
+                        <span id="publish-editor-status" class="write-notes-status">09 元数据已自动生成</span>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+
+                <details class="publish-platform-group-shell" data-publish-platform-group="google" open>
+                  <summary>
+                    <div class="publish-platform-group-summary">
+                      <span class="publish-platform-group-kicker">Google</span>
+                      <strong class="publish-platform-group-title">谷歌发布工作台</strong>
+                      <span class="publish-platform-group-meta">连接手动打开的 Chrome，并集中管理 Google Play Books 提交辅助设置</span>
+                    </div>
+                  </summary>
+                  <div class="publish-platform-group-body">
+                    <div class="publish-platform-group-actions">
+                      <div class="publish-platform-group-copy">这里集中放 Google Play Books 的提交辅助设置。使用时先把上方“生成范围”切到 Google Play Books，再点击“提交到当前平台”；展开这个工作台时，右侧预览也会自动切到 Google。</div>
+                    </div>
+                    <div id="google-publish-link-card" class="publish-open-card">
+                      <div class="cover-report-title">Google 发布入口链接</div>
+                      <a id="google-publish-link" class="publish-open-path publish-open-path-link" href="https://play.google.com/books/publish/" target="_blank" rel="noopener noreferrer">https://play.google.com/books/publish/</a>
+                    </div>
+                    <div class="publish-platform-status-card" data-publish-platform-status="google">
+                      <div class="cover-report-title">Google 平台状态</div>
+                      <div class="publish-platform-status-copy">选择一个 BookName 后，这里会显示 Google 平台包是否就绪。</div>
+                    </div>
+                    <div class="publish-platform-asset-actions">
+                      <button class="ghost-button" type="button" data-publish-asset-platform="google" data-publish-asset-action="folder">打开平台目录</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="google" data-publish-asset-action="epub">打开 epub</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="google" data-publish-asset-action="cover">打开 cover</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="google" data-publish-asset-action="meta">打开 metadata/checklist</button>
+                    </div>
+                    <div class="publish-submit-advanced">
+                      <label class="checkbox-field">
+                        <input id="publish-attach-chrome" form="publish-form" name="attachChrome" type="checkbox">
+                        <span>Google 提交时连接手动打开的 Chrome</span>
+                      </label>
+                      <label class="field">
+                        <span>Chrome 调试端口</span>
+                        <input id="publish-chrome-debug-port" form="publish-form" name="chromeDebugPort" type="number" min="1" step="1" value="9222">
+                        <div id="publish-submit-hint" class="publish-inline-hint">仅对 Google 平台 submit 生效。先手动用 `--remote-debugging-port=9222` 启动 Chrome，再点击“提交到当前平台”。</div>
+                      </label>
+                    </div>
+                  </div>
+                </details>
+
+                <details class="publish-platform-group-shell" data-publish-platform-group="apple" open>
+                  <summary>
+                    <div class="publish-platform-group-summary">
+                      <span class="publish-platform-group-kicker">Apple</span>
+                      <strong class="publish-platform-group-title">苹果发布工作台</strong>
+                      <span class="publish-platform-group-meta">为 Apple Books 预留独立的发布辅助区域，后续可继续接入口链接与提交流程</span>
+                    </div>
+                  </summary>
+                  <div class="publish-platform-group-body">
+                    <div class="publish-platform-group-actions">
+                      <div class="publish-platform-group-copy">这里集中放 Apple Books 相关操作。展开这个工作台时，右侧预览会自动切到 Apple，后面我们可以继续把苹果入口链接、登录后的工作页和提交流程一步步接进来。</div>
+                    </div>
+                    <div class="publish-open-card">
+                      <div class="cover-report-title">Apple 发布入口链接</div>
+                      <a class="publish-open-path publish-open-path-link" href="https://authors.apple.com/epub-upload" target="_blank" rel="noopener noreferrer">https://authors.apple.com/epub-upload</a>
+                    </div>
+                    <div class="publish-platform-status-card" data-publish-platform-status="apple">
+                      <div class="cover-report-title">Apple 平台状态</div>
+                      <div class="publish-platform-status-copy">选择一个 BookName 后，这里会显示 Apple 平台包是否就绪。</div>
+                    </div>
+                    <div class="publish-platform-asset-actions">
+                      <button class="ghost-button" type="button" data-publish-asset-platform="apple" data-publish-asset-action="folder">打开平台目录</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="apple" data-publish-asset-action="epub">打开 epub</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="apple" data-publish-asset-action="cover">打开 cover</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="apple" data-publish-asset-action="meta">打开 metadata/checklist</button>
+                    </div>
+                  </div>
+                </details>
+
+                <details class="publish-platform-group-shell" data-publish-platform-group="kobo" open>
+                  <summary>
+                    <div class="publish-platform-group-summary">
+                      <span class="publish-platform-group-kicker">Kobo</span>
+                      <strong class="publish-platform-group-title">Kobo 发布工作台</strong>
+                      <span class="publish-platform-group-meta">为 Kobo 预留独立发布区域，后续可接平台链接、元数据和人工提交流程</span>
+                    </div>
+                  </summary>
+                  <div class="publish-platform-group-body">
+                    <div class="publish-platform-group-actions">
+                      <div class="publish-platform-group-copy">这里集中放 Kobo 相关操作。展开这个工作台时，右侧预览会自动切到 Kobo。现在先把工作区壳子做好，后面再继续补 Kobo 的入口链接、平台说明和具体提交按钮。</div>
+                      <button id="generate-kobo-account-md" class="ghost-button" type="button">生成开户基本情况 MD</button>
+                    </div>
+                    <div class="publish-open-card">
+                      <div class="cover-report-title">Kobo 发布入口链接</div>
+                      <a class="publish-open-path publish-open-path-link" href="https://www.kobo.com/writinglife" target="_blank" rel="noopener noreferrer">https://www.kobo.com/writinglife</a>
+                    </div>
+                    <div class="publish-platform-status-card" data-publish-platform-status="kobo">
+                      <div class="cover-report-title">Kobo 平台状态</div>
+                      <div class="publish-platform-status-copy">选择一个 BookName 后，这里会显示 Kobo 平台工作区当前的准备情况。</div>
+                    </div>
+                    <div class="publish-platform-asset-actions">
+                      <button class="ghost-button" type="button" data-publish-asset-platform="kobo" data-publish-asset-action="folder">打开平台目录</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="kobo" data-publish-asset-action="epub">打开 epub</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="kobo" data-publish-asset-action="cover">打开 cover</button>
+                      <button class="ghost-button" type="button" data-publish-asset-platform="kobo" data-publish-asset-action="meta">打开 metadata/checklist</button>
+                    </div>
+                  </div>
+                </details>
+              </div>
+
+              <div class="publish-preview-column">
+                <div class="publish-preview-stack">
+                  <div class="cover-report-title">右侧实时预览</div>
+                  <div class="publish-preview-controls">
+                    <label class="field">
+                      <span>平台预览</span>
+                      <select id="publish-preview-platform">
+                        <option value="amazon">Amazon</option>
+                        <option value="apple">Apple Books</option>
+                        <option value="google">Google Play Books</option>
+                        <option value="kobo">Kobo</option>
+                      </select>
+                    </label>
+                  </div>
+
+                  <div class="publish-preview-section">
+                    <div class="cover-report-title">上架总报告（publish_report.md）</div>
+                    <textarea id="publish-report-preview" class="cover-report" readonly spellcheck="false">运行 09-publish.ps1 后，这里会显示 publish_report.md。</textarea>
+                  </div>
+
+                  <div class="publish-platform-detail">
+                    <div class="publish-platform-header">
+                      <div class="cover-report-title">当前平台预览</div>
+                      <div id="publish-platform-folder" class="publish-platform-folder">选择平台后，这里会显示当前平台目录。</div>
+                    </div>
+                    <div id="publish-platform-stats" class="publish-platform-stats">
+                      <div class="build-output-empty">选择平台后，这里会显示平台状态与检查结果。</div>
+                    </div>
+                    <div id="publish-platform-cards" class="publish-platform-cards">
+                      <div class="build-output-empty">选择平台后，这里会显示 package / checklist / description / keywords。</div>
+                    </div>
+                    <details class="publish-raw-toggle">
+                      <summary>查看原始文本</summary>
+                      <textarea id="publish-platform-preview" class="cover-report" readonly spellcheck="false">选择平台后，这里会显示 package / checklist / description / keywords。</textarea>
+                    </details>
+                  </div>
+
+                  <div class="build-output-wrap">
+                    <div class="publish-files-header">
+                      <div class="build-output-title">当前平台文件</div>
+                      <div id="publish-file-summary" class="publish-platform-folder">尚未加载文件</div>
+                    </div>
+                    <div id="publish-file-list" class="build-output-list">
+                      <div class="build-output-empty">运行 09-publish.ps1 后，这里会显示当前平台目录里的文件。</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </section>
+
+        <section class="panel log-panel" data-flow-section="log">
+          <div class="panel-header">
+            <h2>运行日志</h2>
+            <div class="log-panel-actions">
+              <button id="cancel-current-job" class="ghost-button" type="button" disabled>停止当前任务</button>
+              <div id="job-badge" class="job-badge">空闲</div>
+            </div>
+          </div>
+          <pre id="log-output" class="log-output">这里会显示 PowerShell 输出。</pre>
+        </section>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <script src="/app.js?v=20260724-project-ownership"></script>
+  </body>
+</html>

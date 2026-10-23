@@ -1,0 +1,334 @@
+# SageWrite
+
+SageWrite is a structured AI writing engine for planning, writing, reviewing, revising, and building long-form books through conversation with an AI Agent, with an optional local Web workspace.
+
+SageWrite 是一套支持 AI Agent 对话式创作的结构化写书引擎，用于完成长篇书籍的规划、写作、审稿、修订与成书，并提供可选的本地 Web 工作台。
+
+**SageWrite 由文军（Wenjun）发起、设计并主导开发，借助 AI 编程工具协作实现。项目采用 MIT 许可证开源。**
+
+## Overview
+
+SageWrite combines PowerShell workflow scripts and file-based book workspaces with AI Agent collaboration and an optional local browser-based control panel. It is designed for book-length writing projects that need clear structure, repeatable generation steps, editable intermediate files, and human-in-the-loop revision.
+
+SageWrite 将 PowerShell 工作流脚本、文件化的书籍工作区与 AI Agent 协作结合在一起，并提供可选的本地浏览器控制台，适合需要清晰结构、可重复生成流程、可编辑中间文件以及人工干预修订的长篇写作项目。
+
+## 面向 AI 时代：以对话驱动写书
+
+**SageWrite 正是为适应这一变化而开始编写的：把获取项目、阅读文档、学习工具和执行操作的工作交给 AI Agent，让作者专注于创作意图与作品本身。**
+
+传统软件和常见的 SaaS 产品通常通过图形界面提供功能，用户需要自己学习菜单、按钮、参数以及操作顺序。Agent 带来了一种新的使用方式：作者把项目地址和任务交给具备相应能力的 AI Agent，由它在授权范围内下载项目、阅读说明、检查环境、学习调用方法并执行工作。作者可以通过对话说明目标、讨论方案和检查结果，无需先掌握整套软件的界面与操作流程。
+
+对于一个新的 AI Agent 环境，用户可以从提供项目地址开始：
+
+> 请阅读这个项目：https://github.com/wenmin20212-dotcom/SageWrite。了解它的用途和操作规则，检查当前环境，协助我安装配置，然后通过对话指导我完成写书。遇到需要我决定或授权的事项，请向我说明。
+
+Agent 根据项目文档了解系统，检查适用条件并协助完成安装配置；准备完成后，再引导作者确定书的目标、规划目录、撰写与修订正文以及检查成书结果。用户无需预先熟悉项目的全部内容，可以在实际创作过程中，由 Agent 按当前任务解释必要信息并执行获授权的操作。
+
+这种方式要求 Agent 能够读取项目，并具备或通过工具获得本地文件访问与命令执行能力，同时遵守项目规则和工作区权限。项目已提供 Codex 的使用说明；根据项目发起人反馈，也已有多位用户通过腾讯 WorkBuddy 下载并正常使用 SageWrite。这些使用案例说明，用户可以把项目地址交给 Agent，由它阅读项目、协助安装并指导后续使用，无需预先熟悉项目的全部内容。这里记录的是用户实际使用反馈，不代表对所有版本、环境和功能的逐项测试。
+
+腾讯推出的 [WorkBuddy](https://cloud.tencent.com/product/workbuddy) 支持 [Skills 技能扩展](https://cloud.tencent.com/document/product/1831/134432)和 [MCP 工具接入](https://www.workbuddy.ai/docs/zh/workbuddy/From-Beginner-to-Expert-Guide/Function-Description/MCP-Guide)。WorkBuddy、Codex 等 Agent 环境具有相近的工具协作方式：通过技能说明理解任务，通过 MCP 或本地工具执行操作。SageWrite 因而围绕文档、技能、脚本和 MCP 提供操作入口，让不同 Agent 能够学习并使用同一套写书流程。具体接入方式、权限和可用工具仍以各平台及当前环境为准。
+
+因此，面向 Agent 的项目不仅要提供功能，还要提供 Agent 能够理解和调用的文档、工具入口、明确的输入输出以及可检查的执行结果。SageWrite 通过 Agent 规则、技能说明、脚本和 MCP 工具承载这些信息，使项目发布后，具备相应权限与能力的 Agent 可以依据项目文件学习如何使用它。实际使用仍需满足本地依赖、访问权限和必要的人工确认。
+
+SageWrite 的设计理念是：**作者表达创作意图，AI Agent 操作写书工具，文件与工作流承载创作结果。** 在具备工作区访问和命令执行权限的活跃 Agent 协助下，作者可以通过文字或受支持的语音对话，推进从构思、目录规划、章节写作、审稿修订到成书导出的完整流程。具体步骤仍需满足相应的环境依赖与检查要求。
+
+作者可以说“先讨论这本书的读者和主旨”“按确认的目录写下一节”“根据审稿意见修改第三章”或“检查并导出新版书稿”。Agent 将这些意图落实为具体的文件编辑和程序调用，检查结果并继续与作者讨论。作者负责思想、判断与确认，系统负责组织和执行可重复的流程。
+
+在这种使用方式下，Web 界面是可选的查看与操作入口，作者无需先打开网页或逐个点击按钮来推进写书。对话成为连接作者与工具的操作层，底层引擎继续提供结构化文件、备份、审校记录和构建检查，使创作过程能够保存、复核和继续。
+
+这种变化的意义，在于软件使用中的学习与操作工作可以更多地由 Agent 承担。作者仍然决定写什么、为什么写以及什么样的结果可以接受；Agent 负责理解工具并落实操作。SageWrite 将这一设计方向用于长篇写作，同时保留 Web 工作台，供需要可视化查看和直接编辑的作者使用。
+
+## Core Capabilities
+
+- Initialize a book project from a single `objective.md` brief
+- Generate and edit `toc.md`
+- Expand outline sections
+- Generate chapters one-by-one, by range, or all at once
+- Revise an existing book chapter-by-chapter under one writing specification with `03RW.ps1`
+- Add chapter-level rewrite instructions for targeted regeneration
+- Browse and edit chapters directly in the web interface
+- Run build preflight checks and view detailed bilingual reports
+- Build final manuscript output from the generated book files
+
+## Workflow
+
+安装或迁移前先运行 `engine/Test-SageWriteEnvironment.ps1`。支持按写作、网页、PDF、EPUB、MCP等用途输出检查结果及JSON报告，不显示密钥、不自动安装。详见[环境自检说明](engine/ENVIRONMENT-CHECK.md)。
+
+Agent 安装器和 Web 独立安装器在实际配置完成后，会自动运行相应的环境检查并保存报告；预检查 `-DryRun` 不执行安装后检查。安装 Agent 应遵循[环境管理技能](skills/sagewrite-manage-environment/SKILL.md)中的交付规则，在对话框内给出完整的文本报告和欢迎词，说明安装位置、工作区、已检查功能、待处理事项和开始写书的方法。存在阻塞时报告部分完成；静态检查通过不代表 PDF、EPUB 等功能已经实际导出验证。
+
+中文快速开始：[Codex语音写书九步说明](docs/VOICE-WRITING-WORKFLOW.md)。新电脑恢复环境：[环境与安装清单](docs/ENVIRONMENT-RESTORE.md)。当前改写功能版本：[2026-09-28发布说明](engine/RELEASE-20260928.md)。
+
+The main pipeline is:
+
+新书生成：`01-intake -> 02-structure -> 02b-expand -> 03-write -> 04-edit -> 05-build`
+
+已有书稿改写：`写作规范 + 目录 + 现有章节 -> 03RW -> 人工复核 -> 05-build`
+
+`03RW.ps1` 不重新设计故事。它按统一写作规范逐章润色已有章节，支持单章、连续范围和全书运行；原稿自动备份，修订稿单独保存，并为每章生成审校记录。详见 [03RW使用说明](engine/03RW.README.md)。
+
+Each stage can be run independently through an authorized AI Agent or directly from scripts; the local Web UI provides another entry point for the stages it supports.
+
+## Skills
+
+项目目前包含八个技能，统一存放在 `skills/` 下，每个技能以独立的 `SKILL.md` 为入口。Agent需要加载相应文件或通过其支持的技能安装方式发现这些技能；放入仓库不等于已经注册到所有Agent。
+
+- [`sagewrite-new-book`](skills/sagewrite-new-book/SKILL.md)：讨论并确定书名、读者、类型、核心主旨、内容范围和写作风格，然后通过MCP的`sagewrite_initialize_book`或`01-intake.ps1`建立新书工作区。它只完成初始化，不自动生成目录或正文。
+- [`sagewrite-generate-toc`](skills/sagewrite-generate-toc/SKILL.md)：生成并验证目录。
+- [`sagewrite-write-chapters`](skills/sagewrite-write-chapters/SKILL.md)：按已确认的目录撰写正文。
+- [`sagewrite-review-edit`](skills/sagewrite-review-edit/SKILL.md)：编辑审稿、修改、引用核验与格式检查。
+- [`sagewrite-create-cover`](skills/sagewrite-create-cover/SKILL.md)：制作和检查封面。
+- [`sagewrite-publish-book`](skills/sagewrite-publish-book/SKILL.md)：生成并检查出版文件。
+- [`sagewrite-manage-environment`](skills/sagewrite-manage-environment/SKILL.md)：环境自检、修复方案、经授权修复及复检。复用现有PS1，自检不会自动安装；修复后保留报告和操作记录，不代替书稿的04F检查。
+- [`sagewrite-workflow-status`](skills/sagewrite-workflow-status/SKILL.md)：通过MCP `sagewrite_workflow_status` 调用 `Get-SageWriteWorkflowStatus.ps1`，本地统计目录与正文进度、检查04F指纹并汇总证据。默认只读；`saveReport: true` 保存完整JSON。每批写作后再次调用可刷新，不会自动挂接旧程序，也不代替编辑判断或出版审批。
+
+## 两种创作工作方式：网页操作与 AI Agent 对话
+
+### Windows 一键启动独立 Agent
+
+在安装了 Codex 桌面应用的 Windows 电脑上，双击仓库根目录的
+`Start-SageWrite-Agent.cmd`，即可启动一个独立 SageWrite Agent 会话。它会自动加载本项目的
+`AGENTS.md` 规则，把源码目录作为项目目录，并把 `SAGEWRITE_WORKSPACE_ROOT`（默认是仓库旁的
+`SageWriteWorkspaces`）加入可写范围。这个入口不依赖 Web UI 或 Node.js。
+
+首次使用可先验证，不启动 Agent：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\engine\Install-SageWrite-Agent.ps1 -DryRun
+```
+
+需要桌面快捷方式时显式执行：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\engine\Install-SageWrite-Agent.ps1 -CreateDesktopShortcut
+```
+
+可用 `-WorkspaceRoot` 指定书稿父目录，或在双击入口后由 Agent 列出当前书籍。独立会话仍使用
+`codex_agent` 交接协议：这里的“独立”是无需保持本对话开启，并不表示 SageWrite 自己在后台
+自动唤醒模型。Codex 桌面应用需要已安装并登录；涉及发布、覆盖整书或其他高影响操作时仍需人工确认。
+
+**安装和操作本系统的 AI Agent 请先阅读 [Agent 调用手册](docs/AGENT-CALLING-GUIDE.md)。** 手册逐项说明00—09及辅助入口的用途、前置条件、输入输出、推荐顺序与人工确认点；具体参数见 [完整PS1参数附录](docs/AGENT-SCRIPT-PARAMETERS.md)。不要按文件编号依次运行全部脚本。
+
+SageWrite 支持两种使用方式。它们不是两套独立的写书系统，而是操作同一套 PowerShell 引擎和书籍工作区的两种入口：**网页模式由人操作界面，Agent 模式由人与 AI 对话，再由 AI 操作系统。** 作者始终负责决定书的思想、结构及修改方向。
+
+### 方式一：网页工作台
+
+这是传统的图形界面操作方式，适合希望通过表单、按钮和日志控制创作过程的用户。
+
+1. 按下面的安装说明准备环境，启动 `06-web.ps1`，或通过已配置的 `Start-SageWrite-Web.ps1` 启动工作台。
+2. 在浏览器中选择或建立书籍项目，填写书籍定义、读者定位、核心思想和风格要求。
+3. 通过界面中已有的功能生成、查看和修改目录，再选择写作单元进行生成或修订。
+4. 检查执行日志与正文，按需要提交补充指令，继续审稿、修改和构建。
+5. 完成参考文献与格式检查后，导出所需格式并查看实际成品。
+
+网页是程序的操作入口，不是绕过检查的捷径。不同版本界面提供的按钮可能不同，不能假定所有新增 PS1 都已接入网页；界面未提供的步骤可由终端或 Agent 调用相应脚本完成。
+
+### 方式二：Codex / AI Agent 对话式创作
+
+这种方式以人与 AI 的讨论为起点。用户用自然语言说明意图，Agent 阅读当前目录和书稿，提出或落实修改，再调用 SageWrite 程序并检查结果。**这里的 Agent 是操作与协作层，SageWrite 是文件、流程与构建的执行层。** 不需要为了使用此方式而先打开网页，但 Agent 必须具备本地文件读写和命令执行权限；只有聊天能力、没有工作区访问权限的 AI 不能直接完成这些操作。
+
+典型过程如下：
+
+1. 用户提出任务，例如“先介绍第八章的结构”“只小修这一节”“继续写下一节”或“生成新版 PDF”。
+2. Agent 确认书名、工作区、程序版本及任务范围，读取 `objective.md`、`toc.md`、相关正文、写作规范和已有审稿记录，不仅依赖聊天记忆。
+3. 讨论阶段只呈现结构、问题和建议；用户要求实施后，Agent 备份受影响文件，修改目录或正文，或调用对应 PS1 生成内容。
+4. Agent 检查生成结果，报告实际字数、修改范围、输出文件位置及尚未解决的问题，再根据用户反馈继续推进。
+5. 成书阶段执行参考文献与格式检查，通过后调用构建程序，核验 PDF / EPUB，并把可直接打开的文件链接交给用户。
+
+例如，用户可以说：“只调整第十三章目录，先不要写正文。”Agent 应只修改相关目录；用户说“按定稿目录写13.1”后，才进入正文生成。用户要求小修时，不得自行重写整章或重新编号全书。
+
+Agent 可以调用 `03-write.ps1` 等程序生成正文，也可以在用户要求逐段讨论、定点精修时直接编辑 MD。两种操作都必须遵守同一份目录和写作规范，并重新完成受影响的检查。共享配置默认选择 `codex_agent`：脚本生成请求，由当前已获授权的助手完成，再重跑原命令验证并保存。该模式不调用 API、不启动另一个 Codex 进程，也不会自动唤醒聊天；只有选择 API 模式时才需要相应密钥、模型权限和配额。
+
+### 给操作 Agent 的执行规则
+
+- **确认映射再执行。** 书中章号、小节号和 `02_chapters` 内数字 MD 文件号不一定相同。先读取目录及正文标题，确认目标写作单元，再检查脚本参数含义；不要把“第八章”直接当成 `08.md` 或 `-Chapter 8`。
+- **先读参数，后调用。** 以当前检出版本的脚本 `param` 和配套说明为准，不凭记忆猜参数。写作通常涉及 `01-intake`、`02-structure`、`02b-expand`、`03-write`；已有书稿不必从头重复执行整条流程。
+- **区分生成、审稿与返修。** 根据任务选用对应工具，例如 `04B33` 形成逐节编辑意见、`04C44` 执行相应返修；先确认输入报告、目标范围和文件状态，不能把一次运行成功当成内容审核通过。
+- **保护原稿。** 修改前将受影响文件备份到该书工作区的 `back` 下，或使用已验证会自动备份的程序。保留已有用户修改；没有明确要求，不使用覆盖参数，不批量重写或重排编号。
+- **同步关联文件。** 标题、节数或术语变动时，检查 `toc.md`、正文标题、图片链接和跨章引用的一致性。插图和封面应保存在对应书籍工作区，不依赖另一台机器的临时路径。
+- **不伪造学术依据。** 参考文献须真实核验；使用 `04R` 管理的书籍按其计划、应用和检查流程处理，不能用未核实的条目填补引用缺口。参见 [04R 说明](engine/04R-README.md)。
+- **不绕过构建门槛。** 编辑检查与 `04F` 格式检查职责不同。正文或相关资源变动后，重新运行必要检查；正式导出必须通过有效的 `04F` 标记，不能手改标记或拿旧成品代替新结果。参见 [04F 说明](engine/04F-README.md)。
+- **如实交付。** 明确区分“已修改文件”“已执行程序”“已验证成品”和“尚未完成”。仅返回聊天文字不等于已保存书稿；启动进程也不等于生成完成。未经用户要求，不自动发布作品、上传外部平台或移动既有锁版标签。
+
+### 两种方式的衔接
+
+用户可以先在网页建项目，再与 Agent 讨论精修，也可以让 Agent 完成操作后回网页查看。切换时必须使用相同的工作区父目录和 `BookName`；以磁盘上的实际文件为依据，刷新界面后再操作，避免旧编辑框覆盖新内容。不要让网页任务和 Agent 同时写入同一份目录、正文或构建产物。
+
+两种入口共享相同的质量要求：思想与结构由作者确认，正文与目录保持一致，参考文献可核验，格式检查通过，最终文件实际可读。操作方式改变，不改变这些出版前提。
+
+## Repository Layout
+
+```text
+SageWrite/
+  README.md
+  .gitignore
+  engine/
+    00-common.ps1
+    01-intake.ps1
+    02-structure.ps1
+    02b-expand.ps1
+    03-write.ps1
+    04-edit.ps1
+    05-build.ps1
+    06-web.ps1
+    webui/
+      server.js
+      package.json
+      public/
+        index.html
+        app.js
+        styles.css
+```
+
+## Requirements
+
+- Windows PowerShell
+- Node.js
+- `OPENAI_API_KEY` configured in the environment
+- `pandoc` installed for the final document build step
+
+## 大模型配置与服务商兼容性
+
+参考文献的二次核验与可追溯记录见 [04Reference2使用说明](engine/04Reference2-README.md)：由Agent逐条核查，程序保存证据、进度及报告，不将记录完整性误判为学术真实性。
+
+04Reference2会边审核边导出修改计划JSON；经用户确认后，由 [04Reference3执行器](engine/04Reference3-README.md)预览、备份并应用批准的来源字段修改，完成后重新检查。它不会自动重写正文或代替用户批准。
+
+共享文本调用通过 `engine/00-llm.ps1` 读取 `engine/llm-config.json`，优先级为环境变量、共享文件、内置默认值。`SAGE_LLM_CONFIG` 可指定其他配置文件。完整配置与适用脚本见 [模型配置说明](engine/LLM-CONFIG.md)。本地格式检查、排版及图片 API 不受这次文本调用配置切换影响。
+
+| 配置 | 当前实现 |
+| --- | --- |
+| 默认模式 | `codex_agent`：当前助手处理文件交接，不需要 API 密钥 |
+| 独立 CLI | `codex`：启动独立的 `codex exec`，需要已安装且已认证的 CLI |
+| API 模式 | `openai` 使用 Responses；`openai-compatible` 默认使用 Chat Completions 兼容协议 |
+| API 身份认证 | 环境变量 `SAGE_LLM_API_KEY`，兼容 `OPENAI_API_KEY` |
+| 模型选择 | `SAGE_LLM_MODEL` 及脚本支持的逐次覆盖；不能用它更换当前助手会话的模型 |
+| 服务地址 | `SAGE_LLM_BASE_URL` 或完整的 `SAGE_LLM_ENDPOINT` |
+
+出现 `SAGE_AGENT_PENDING` 表示等待当前助手响应，不是正文已生成。助手读取请求，写入同目录的 `response.json`，然后重跑完全相同的命令。请求变化会产生新编号；原脚本负责继续验证及保存。网页或终端不能自行唤醒当前会话，部分旧界面仍可能把等待显示成通用错误。接入规则见 [AGENTS.md](AGENTS.md)。
+
+API 模式需自行提供可用密钥、模型权限和配额，不能以聊天订阅替代 API 配置。密钥不要写入 Git；Agent 不打印密钥。切换服务商时需同时核对地址、协议、模型及认证，不能仅替换密钥或未经测试就宣称兼容。不要假定 `OPENAI_BASE_URL` 已被适配器支持。
+
+该功能的可复用模板已纳入本项目，见 [模板导出与测试说明](templates/README.md)。导出器仅复制调用模块、示例、文档及测试，不包含书稿、私有配置或密钥。根据项目发起人反馈，已有多位用户通过 WorkBuddy 下载并正常使用本系统；其他 Agent 使用文本交接模式时，应遵守上述请求、响应与脚本重跑规则。`codex_agent` 是本项目交接协议的 provider 标识，不表示使用本项目的助手必须是 Codex，也不表示已实现 WorkBuddy 专用适配器。
+
+## Quick Start
+
+Run these commands from the repository root after downloading or cloning it. Do not copy another computer's absolute installation path.
+
+Run the local web interface:
+
+```powershell
+Set-Location .\engine
+.\06-web.ps1
+```
+
+Auto-open the browser:
+
+```powershell
+Set-Location .\engine
+.\06-web.ps1 -OpenBrowser
+```
+
+Then open:
+
+[http://127.0.0.1:3210](http://127.0.0.1:3210)
+
+## AI Agent 安装与迁移特别说明
+
+本节供 Codex、Claude Code 及其他 AI Agent 在新电脑安装、迁移或排错时参考。**源码下载成功、安装脚本退出成功、网页能打开，都不等于完整写作与出版流程已通过验收。** 当前程序面向 Windows；不要假定 macOS、Linux、WSL 或仅安装 PowerShell 7 的环境可以直接运行全部功能，特别是依赖 Windows COM 的 PDF 导出。
+
+### 1. 确认版本与安装范围
+
+- 要复现 2026-09-17 程序锁版，选择标签 `sagewrite-ps1-20260917`，不要假定默认分支 `main` 等同于锁版。对应提交为 `957e21b763b0034c764516192298bd564f1bd637`。下载 ZIP 时也要先选择正确标签；私有仓库需要用户自己的访问权限。
+- Git 用户可运行下面的命令。标签检出后的 detached HEAD 是正常状态；后续开发应新建分支，不得移动或强推既有锁版标签。
+- 程序仓库不等于书稿备份。继续已有书籍时，必须另行恢复其完整工作区，包括目录、正文、参考文献状态、图片、封面及排版配置，不能只复制 PS1 或正文 MD。
+
+```powershell
+git clone --branch sagewrite-ps1-20260917 --single-branch https://github.com/wenmin20212-dotcom/SageWrite.git SageWrite-PS1-20260917
+Set-Location .\SageWrite-PS1-20260917\engine
+```
+
+### 2. 按实际功能核对依赖
+
+| 功能 | 必要条件及检查重点 |
+| --- | --- |
+| 基础脚本 | Windows PowerShell，确认 `powershell.exe` 可用 |
+| Web 工作台 | Node.js，确认 `node --version` 可运行 |
+| AI 写作与审稿 | 默认 `codex_agent` 需要活跃且已获授权的助手；API 模式另需密钥、模型权限和配额；独立 `codex` 模式需已认证 CLI |
+| 正式 DOCX / EPUB | Pandoc，确认 `pandoc --version` 可运行 |
+| 当前 PDF 导出 | 上述排版依赖及可实际运行的桌面 `Word.Application` COM 服务；Microsoft Word 是基准依赖，兼容服务须单独完成导出验收。2026-10-01 本机 WPS 服务通过阅读版 PDF 流程，不代表所有 WPS 版本或印刷版均兼容；网页版不能替代 |
+| 简版 DOCX 路线 | Python 和 `python-docx`；用 `python -c "import docx; print(docx.__version__)"` 检查实际调用的 Python 环境 |
+| 部分图片工具 | ImageMagick，确认 `magick -version` 可运行 |
+| 可选发布自动化 | 按 `engine/automation/package.json` 安装依赖，并配置所需浏览器、平台账号及权限；不能以准备模式成功代替真实功能验收 |
+
+`Install-SageWrite-Standalone.ps1` **主要写入配置，并按参数注册启动任务，不会自动安装这些依赖**。它对缺少工具可能只给出警告；Pandoc 在安装器中标为 optional，也不表示导出 EPUB/DOCX 时可以缺少。安装器没有覆盖 Word、Python 等所有检查。`New-SageWrite-StandalonePackage.ps1` 是源码打包程序，也不会把外部运行环境一起打包。
+
+软件安装应使用官方渠道并遵守设备管理政策。依赖安装后重新打开终端，确认 PATH 已更新。不要未经核查就升级或替换用户现有运行环境。
+
+### 3. 配置路径、密钥与启动方式
+
+- 所有路径以实际解压目录为准。核心脚本通过 `00-common.ps1` 定位目录；无需创建 `C:\Users\User\.openclaw`。仓库中的历史 `webui/launchers/*.ps1` 可能包含旧机器绝对路径，不能作为新设备启动入口。
+- 直接调用 PS1 时，用 `SAGEWRITE_WORKSPACE_ROOT` 设置工作区父目录。程序在其下创建 `workspace-<BookName>/sagewrite/book`。Web 配置通过安装器的 `-WorkspaceRoot` 指定同一父目录，避免两种入口读取不同书稿。
+- 未指定工作区时，核心脚本默认在仓库父目录下建立工作区，需确认目录可写。云模式安装器默认使用 `D:\SageWriteWorkspaces`；没有 D 盘时必须显式指定实际路径。
+- 密钥优先通过安全的环境配置提供，不要写入 README、提交记录、截图或日志。安装器的 `-OpenAIKey` / `-AdminPassword` 会写入本地配置，且 `-DryRun` 会打印拟写入的配置；不要在可记录的预检查命令中传入真实凭据。
+- 默认保持 `127.0.0.1`。没有明确需求，不启用公网监听、自启动或 SYSTEM 任务。已有配置不得未经确认用 `-Force` 覆盖。
+
+以下命令从 `engine` 目录运行。示例使用用户目录中的独立工作区；先预检查，再按需要执行实际安装：
+
+```powershell
+$WorkspaceRoot = Join-Path $HOME 'SageWriteWorkspaces'
+$env:SAGEWRITE_WORKSPACE_ROOT = $WorkspaceRoot
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install-SageWrite-Standalone.ps1 -Mode local -WorkspaceRoot $WorkspaceRoot -DryRun
+# 确认依赖、路径及现有配置后执行；此命令不安装依赖。
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Install-SageWrite-Standalone.ps1 -Mode local -WorkspaceRoot $WorkspaceRoot
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Start-SageWrite-Web.ps1
+```
+
+这里的 ExecutionPolicy 参数只针对当前进程，不是要求修改全机策略。若组织策略阻止运行，应报告限制，不绕过管理控制。下载 ZIP 的脚本若被 Windows 标记为网络来源，应在核验来源后按设备政策处理。
+
+### 4. 安装验收与常见故障
+
+1. 记录实际版本、系统、依赖版本和工作区路径。先在独立测试工作区运行 `01-intake.ps1`，确认能够新建项目，不使用现有书稿做破坏性测试。
+2. 确认 Web 界面能打开，且看到的是预期工作区。端口冲突时更换端口，不终止不明进程。网页能打开不代表 API 已可用；联网生成会产生费用，应在用户授权范围内做小规模验证。
+3. 用内容完整的测试书稿检查排版；空项目不能验证导出能力。正式构建前运行 `04F.ps1 -BookName <测试书名> -Mode Check`，检查通过后分别验收 `05-build.ps1`、`05c-pdf.ps1` 和 `05b-epub.ps1`。参数说明见对应脚本及 [04F 说明](engine/04F-README.md)。
+4. 遇到 04F 标记缺失或过期，应读报告、修复问题并重新检查；采用 04R 的书稿还须满足参考文献完整性要求。不得伪造标记、删除检查逻辑或回退使用旧产物来宣称构建成功。
+5. PDF 报 `Word.Application` 或 `80040154` 错误时，先区分桌面 COM 服务缺失与沙箱访问限制，再检查当前用户、交互会话、32/64位注册表、安装与首次启动状态。不要凭沙箱内一次失败就断言未安装 Office。通过宿主授权机制，可在沙箱外重试同一脚本；无交互会话的服务或 SYSTEM 任务不能视为已验证的导出环境。中文字体不同也可能改变换行、页数及版式，需实际打开 PDF 检查。
+
+阅读版 PDF 的完整流程为：`04F.ps1 -Mode Check` → `05c-pdf.ps1` → `05-build.ps1` 使用 Pandoc 生成最新完整版 DOCX → 桌面 `Word.Application` COM 导出 PDF。Pandoc 在这里负责 DOCX，不直接渲染 PDF。05c 会验证格式标记、重新构建正文并备份旧输出；构建失败不得改用旧 DOCX。构建已包含封面时不再重复插入封面，否则使用 `00_intake/cover.png`。
+
+免费自动导出工具见[实测附件说明](docs/attachments/free-pdf-tools/README.md)与[可运行附件ZIP](docs/attachments/sagewrite-free-pdf-tools.zip)。已本地下载并用完整24单元中文书稿实测Typst 0.15.1和Chromium快照1708478，分别生成37页与40页PDF，章节、封面、三张插图及目录链接核查通过。附件含固定版本下载与校验脚本、自动导出入口和脱敏验收记录；人工导出候选已删除，LibreOffice本次目录检查失败未纳入。两条路线为独立辅助版式，不替代正式05C，也尚未注册为MCP工具。
+
+2026-10-01 的本机实际验证：24个写作单元、封面和三张插图按此流程生成49页正式阅读版 PDF，中文正文、目录和插图抽检正常。沙箱内 COM 报错，宿主授权后在沙箱外成功；注册表确认服务由 WPS 提供。替代渲染器、图像兼容版 PDF 不属于此流程，不能作为正式05c成功的证据。详细排错与验收见[出版技能路由说明](skills/sagewrite-publish-book/references/export-routing.md)。
+6. 验收实际生成的文件，确认时间戳、目录层级、封面、插图和参考文献，而不只看退出码。分别报告“已通过”“未测试”“被依赖阻塞”的功能，不把本机已有依赖环境中的成功说成全新电脑验收通过。
+
+2026-09-17 的迁移检查已从 GitHub 锁定标签克隆独立副本，并通过安装器 DryRun 和新工作区初始化；**这不是全新 Windows 系统上的完整安装验收**。本说明是锁版后的补充文档，不代表既有锁版标签中的 README 已被改写。
+
+## Main Files
+
+- `objective.md`: project definition, writing goal, audience, scope, and style guidance
+- `toc.md`: editable table of contents
+- `02_chapters/*.md`: generated chapter files
+- `edit_report.txt`: preflight inspection report
+- `edit_report.json`: structured inspection report for the Web UI
+
+## Web UI Features
+
+- Project selection and status dashboard
+- Editable project brief fields
+- Editable TOC panel with save
+- Chapter browser with previous/next navigation
+- Chapter editor with save support
+- Single-chapter rewrite with additional instructions
+- Live script logs
+- Preflight report display inside the `04` panel
+
+## Notes
+
+- The Web UI listens on `127.0.0.1` by default
+- Existing chapter and TOC files can be edited directly in the interface
+- The `04-edit.ps1` report is bilingual and includes a detailed checklist
+- Token-limit detection for chapter truncation depends on token metadata written by newer `03-write.ps1` runs
+
+## Philosophy
+
+SageWrite is not the only possible writing system in the AI era. It is a representative engineering pattern: structured prompts, explicit files, script orchestration, local visibility, and human revision working together as a practical long-form writing workflow.
+
+SageWrite 并不是 AI 时代唯一的写作系统，而是一种具有代表性的工程范式：通过结构化提示、显式文件、脚本编排、本地可观察性以及人工修订，构成一个可落地的长篇写作工作流。

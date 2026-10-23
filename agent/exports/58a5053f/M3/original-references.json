@@ -1,0 +1,1785 @@
+{
+  "schema": "uah-incubator-portable-original-references/v0.1",
+  "originals": [
+    {
+      "occupation": {
+        "datasetId": "esco-v1.2.1-en",
+        "record": {
+          "conceptType": "Occupation",
+          "conceptUri": "http://data.europa.eu/esco/occupation/b06a1dde-e5a1-4219-9491-2bedd0282e4b",
+          "iscoGroup": "2641",
+          "preferredLabel": "writer",
+          "altLabels": "essay writer\nmedical writer\ncreative writer\ntechnical writer\nfictional writer\ntravel guide writer\nessayist\npoet\ntextbook writer\nnoir writer\nnovelist\nscience-fiction writer\ninvestigative writer\nauthor\nthriller writer",
+          "hiddenLabels": "",
+          "status": "released",
+          "modifiedDate": "2024-01-26T12:41:42.767Z",
+          "regulatedProfessionNote": "http://data.europa.eu/esco/regulated-professions/unregulated",
+          "scopeNote": "Excludes <a resource=\"http://data.europa.eu/esco/occupation/ebe936e2-64e7-4777-94d6-42caa5a12409\" typeOf=\"http://data.europa.eu/esco/model#Occupation\" href=\"http://data.europa.eu/esco/occupation/ebe936e2-64e7-4777-94d6-42caa5a12409\"><span property=\"http://www.w3.org/2000/01/rdf-schema#label\" xml:lang=\"en\">script writer</span></a>.",
+          "definition": "",
+          "inScheme": "http://data.europa.eu/esco/concept-scheme/member-occupations,\nhttp://data.europa.eu/esco/concept-scheme/occupations",
+          "description": "Writers develop content for books. They write novels, poetry, short stories, comics and other forms of literature. These forms of writing can be fictional or non-fictional.",
+          "code": "2641.4",
+          "naceCode": "http://data.europa.eu/ux2/nace2.1/5813,\nhttp://data.europa.eu/ux2/nace2.1/9011"
+        },
+        "citation": {
+          "datasetId": "esco-v1.2.1-en",
+          "version": "1.2.1",
+          "language": "en",
+          "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+          "file": "occupations_en.csv",
+          "fileSha256": "8034348d84b6d1dd24a5bcf9609186ecbba0a85457ee2eacd65bddec33a51b4a",
+          "recordNumber": 2156,
+          "sourceUri": "http://data.europa.eu/esco/occupation/b06a1dde-e5a1-4219-9491-2bedd0282e4b",
+          "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+        },
+        "originalVariants": [],
+        "iscoGroup": {
+          "conceptType": "ISCOGroup",
+          "conceptUri": "http://data.europa.eu/esco/isco/C2641",
+          "code": "2641",
+          "preferredLabel": "Authors and related writers",
+          "status": "released",
+          "altLabels": "",
+          "inScheme": "http://data.europa.eu/esco/concept-scheme/occupations,\nhttp://data.europa.eu/esco/concept-scheme/isco",
+          "description": "Authors and related writers plan, research and write books, scripts, storyboards, plays, essays, speeches, manuals, specifications and other non-journalistic articles (excluding material for newspapers, magazines and other periodicals) for publication or presentation.\nTasks include -\n(a) conceiving, writing and editing novels, plays, scripts, poetry and other material for publication or presentation;\n(b) conducting research to establish factual content and to obtain other necessary information;\n(c) writing scripts and continuities and preparing programmes for stage, film, radio and television productions;\n(d) analysing material, such as specifications, notes and drawings, and creating manuals, instructions for use, user guides and other documents to explain clearly and concisely the installation, operation and maintenance of software, electronic, mechanical and other equipment;\n(e) writing brochures, handbooks and similar technical publications;\n(f) selecting material for publication, checking style, grammar and accuracy of content, arranging for any necessary revisions and checking proof copies before printing.\nExamples of the occupations classified here:\n- Author\n- Book editor\n- Essayist\n- Indexer\n- Interactive media writer\n- Novelist\n- Playwright\n- Poet\n- Script writer\n- Speech writer\n- Technical communicator\n- Technical writer\n- Writer\nSome related occupations classified elsewhere:\n- Advertising copy writer - 2431\n- Public relations copy writer - 2432\n- Journalist - 2642\n- Newspaper editor - 2642."
+        },
+        "relationsTotal": 32,
+        "offset": 0,
+        "relations": [
+          {
+            "recordNumber": 89727,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/0ab9d433-10e5-4683-ae54-4687179a5259",
+            "label": "literature",
+            "description": "The body of artistic writing characterized by beauty of expression, form, and universality of intellectual and emotional appeal.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 564,
+              "sourceUri": "http://data.europa.eu/esco/skill/0ab9d433-10e5-4683-ae54-4687179a5259",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89727
+            }
+          },
+          {
+            "recordNumber": 89728,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/39f9b48c-04b5-4e6f-9c52-3cdb29a5a93b",
+            "label": "publishing industry",
+            "description": "Key stakeholders in the publishing industry. Acquisition, marketing and distribution of newspapers, books, magazines and other informative works, including electronic media.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 3182,
+              "sourceUri": "http://data.europa.eu/esco/skill/39f9b48c-04b5-4e6f-9c52-3cdb29a5a93b",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89728
+            }
+          },
+          {
+            "recordNumber": 89729,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/7bb85eab-18df-437c-adce-7b729abb315e",
+            "label": "types of literature genres",
+            "description": "The different literary genres in the history of literature, their technique, tone, content and length.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 6815,
+              "sourceUri": "http://data.europa.eu/esco/skill/7bb85eab-18df-437c-adce-7b729abb315e",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89729
+            }
+          },
+          {
+            "recordNumber": 89730,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/91dd8397-063d-499c-83b9-0603a10d94ac",
+            "label": "writing techniques",
+            "description": "The different techniques to write a story such as the descriptive, persuasive, first person and other techniques.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 8038,
+              "sourceUri": "http://data.europa.eu/esco/skill/91dd8397-063d-499c-83b9-0603a10d94ac",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89730
+            }
+          },
+          {
+            "recordNumber": 89731,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/be3f635b-b400-4eb3-b4cc-c44a34f26eae",
+            "label": "spelling",
+            "description": "The rules concerning the way words are spelled.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 10336,
+              "sourceUri": "http://data.europa.eu/esco/skill/be3f635b-b400-4eb3-b4cc-c44a34f26eae",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89731
+            }
+          },
+          {
+            "recordNumber": 89732,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/d4ae9564-0b61-4aa0-9df0-d4fdc969fd6f",
+            "label": "grammar",
+            "description": "The set of structural rules governing the composition of clauses, phrases, and words in any given natural language.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 11577,
+              "sourceUri": "http://data.europa.eu/esco/skill/d4ae9564-0b61-4aa0-9df0-d4fdc969fd6f",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89732
+            }
+          },
+          {
+            "recordNumber": 89733,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/e2103a1d-4a84-47a9-b4f7-774787573449",
+            "label": "copyright legislation",
+            "description": "Legislation describing the protection of the rights of original authors over their work, and how others can use it.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 12280,
+              "sourceUri": "http://data.europa.eu/esco/skill/e2103a1d-4a84-47a9-b4f7-774787573449",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89733
+            }
+          },
+          {
+            "recordNumber": 89734,
+            "relationType": "essential",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/e258707b-7676-4e9b-9c36-20c38018b349",
+            "label": "publishing market",
+            "description": "The trends in the publishing market and the type of books that are are appealing to a certain audience.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 12294,
+              "sourceUri": "http://data.europa.eu/esco/skill/e258707b-7676-4e9b-9c36-20c38018b349",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89734
+            }
+          },
+          {
+            "recordNumber": 89735,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/273eb12c-7c34-41d2-afd2-c0222bf853bc",
+            "label": "develop an artistic framework",
+            "description": "Develop a specific framework for research, creation and completion of artistic work.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 2142,
+              "sourceUri": "http://data.europa.eu/esco/skill/273eb12c-7c34-41d2-afd2-c0222bf853bc",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89735
+            }
+          },
+          {
+            "recordNumber": 89736,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/681a1f8a-4244-4e82-af36-0148b89c2863",
+            "label": "write dialogues",
+            "description": "Write conversations between characters.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 5733,
+              "sourceUri": "http://data.europa.eu/esco/skill/681a1f8a-4244-4e82-af36-0148b89c2863",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89736
+            }
+          },
+          {
+            "recordNumber": 89737,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/7287dff1-7420-4d24-939a-5f4eb15b752b",
+            "label": "consult information sources",
+            "description": "Consult relevant information sources to find inspiration, to educate yourself on certain topics and to acquire background information.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 6318,
+              "sourceUri": "http://data.europa.eu/esco/skill/7287dff1-7420-4d24-939a-5f4eb15b752b",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89737
+            }
+          },
+          {
+            "recordNumber": 89738,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/8c4c49d4-9708-433f-8ca7-bf2c5211ee49",
+            "label": "develop creative ideas",
+            "description": "Developing new artistic concepts and creative ideas.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 7738,
+              "sourceUri": "http://data.europa.eu/esco/skill/8c4c49d4-9708-433f-8ca7-bf2c5211ee49",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89738
+            }
+          },
+          {
+            "recordNumber": 89739,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/8fd96f45-e2ff-48e3-8829-5f25684993b9",
+            "label": "write storylines",
+            "description": "Write the plot of a novel, play, film, or other narrative form. Create and develop characters, their personalities, and relationships.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 7919,
+              "sourceUri": "http://data.europa.eu/esco/skill/8fd96f45-e2ff-48e3-8829-5f25684993b9",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89739
+            }
+          },
+          {
+            "recordNumber": 89740,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/931b92cb-5705-4b6f-be86-36d8264e75d0",
+            "label": "select subject matter",
+            "description": "Select subject matter based on personal or public interest, or ordered by a publisher or agent.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 8096,
+              "sourceUri": "http://data.europa.eu/esco/skill/931b92cb-5705-4b6f-be86-36d8264e75d0",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89740
+            }
+          },
+          {
+            "recordNumber": 89741,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/96ae5ab6-d696-4d4f-be1c-d02e722c6f55",
+            "label": "apply grammar and spelling rules",
+            "description": "Apply the rules of spelling and grammar and ensure consistency throughout texts.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 8303,
+              "sourceUri": "http://data.europa.eu/esco/skill/96ae5ab6-d696-4d4f-be1c-d02e722c6f55",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89741
+            }
+          },
+          {
+            "recordNumber": 89742,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/b71e3394-599c-4205-a592-1778e45626ec",
+            "label": "critically reflect on artistic production processes",
+            "description": "Critically reflect upon processes and outcomes of the artisitc production process in order to ensure quality of experience and/or product.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 9980,
+              "sourceUri": "http://data.europa.eu/esco/skill/b71e3394-599c-4205-a592-1778e45626ec",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89742
+            }
+          },
+          {
+            "recordNumber": 89743,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/c2f70431-2cc5-4552-bcb7-6564512c15bd",
+            "label": "use specific writing techniques",
+            "description": "Use writing techniques depending on the type of media, the genre, and the story.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 10605,
+              "sourceUri": "http://data.europa.eu/esco/skill/c2f70431-2cc5-4552-bcb7-6564512c15bd",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89743
+            }
+          },
+          {
+            "recordNumber": 89744,
+            "relationType": "essential",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/f8d30e1d-baa7-4d35-b9f4-df7e1650396e",
+            "label": "perform background research on writing subject",
+            "description": "Run thorough background research on writing subject; desk-based research as well as site visits and interviews.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 13551,
+              "sourceUri": "http://data.europa.eu/esco/skill/f8d30e1d-baa7-4d35-b9f4-df7e1650396e",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89744
+            }
+          },
+          {
+            "recordNumber": 89745,
+            "relationType": "optional",
+            "sourceSkillType": "knowledge",
+            "skillType": "knowledge",
+            "skillUri": "http://data.europa.eu/esco/skill/810df100-e85a-4c13-b619-34030a75ecc2",
+            "label": "linguistics",
+            "description": "The scientific study of language and its three aspects, language form, language meaning, and language in context.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 7112,
+              "sourceUri": "http://data.europa.eu/esco/skill/810df100-e85a-4c13-b619-34030a75ecc2",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89745
+            }
+          },
+          {
+            "recordNumber": 89746,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/07d3074b-f5cd-420a-bdf8-c8d643563ea5",
+            "label": "respect publication formats",
+            "description": "Submit text material for printing purposes. Always respect the required and expected publication formats.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 381,
+              "sourceUri": "http://data.europa.eu/esco/skill/07d3074b-f5cd-420a-bdf8-c8d643563ea5",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89746
+            }
+          },
+          {
+            "recordNumber": 89747,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/1b957e3d-0017-42b0-9bfe-49a1cdd31de7",
+            "label": "teach writing",
+            "description": "Teach basic or advanced writing principles to varying age groups in a fixed eduction organisation setting or by running private writing workshops.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 1491,
+              "sourceUri": "http://data.europa.eu/esco/skill/1b957e3d-0017-42b0-9bfe-49a1cdd31de7",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89747
+            }
+          },
+          {
+            "recordNumber": 89748,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/37e5bf28-bb5a-478b-aa96-fce66cb742c3",
+            "label": "negotiate artistic productions",
+            "description": "Negotiate the terms for artistic productions with the selected companies, keeping within the budgetary limits prepared by the business leadership.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 3083,
+              "sourceUri": "http://data.europa.eu/esco/skill/37e5bf28-bb5a-478b-aa96-fce66cb742c3",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89748
+            }
+          },
+          {
+            "recordNumber": 89749,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/3882c29a-a3b4-48be-8349-00958cdfdc58",
+            "label": "liaise with book publishers",
+            "description": "Establish working relationships with publishing companies and their sales representatives.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 3117,
+              "sourceUri": "http://data.europa.eu/esco/skill/3882c29a-a3b4-48be-8349-00958cdfdc58",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89749
+            }
+          },
+          {
+            "recordNumber": 89750,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/589798b2-4870-4459-b966-ea0622fbdd55",
+            "label": "attend book fairs",
+            "description": "Attend fairs and events to get familiar with new book trends and to meet with authors, publishers, and others in the publishing sector.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 4860,
+              "sourceUri": "http://data.europa.eu/esco/skill/589798b2-4870-4459-b966-ea0622fbdd55",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89750
+            }
+          },
+          {
+            "recordNumber": 89751,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/58fcd942-3019-4498-b685-6b2727b37031",
+            "label": "evaluate writings in response to feedback",
+            "description": "Edit and adapt work in response to comments from peers and publishers.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 4885,
+              "sourceUri": "http://data.europa.eu/esco/skill/58fcd942-3019-4498-b685-6b2727b37031",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89751
+            }
+          },
+          {
+            "recordNumber": 89752,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/637ca2e2-0624-48b1-be6e-9ff4580344ac",
+            "label": "proofread text",
+            "description": "Read a text thoroughly, search for, review and correct errors to ensure content is valid for publishing.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 5478,
+              "sourceUri": "http://data.europa.eu/esco/skill/637ca2e2-0624-48b1-be6e-9ff4580344ac",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89752
+            }
+          },
+          {
+            "recordNumber": 89753,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/691f970b-db3d-4658-aa07-5fc94baecd5d",
+            "label": "negotiate publishing rights",
+            "description": "Negotiate the sale of the publishing rights of books to translate them and adapt them into movies or other genres.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 5785,
+              "sourceUri": "http://data.europa.eu/esco/skill/691f970b-db3d-4658-aa07-5fc94baecd5d",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89753
+            }
+          },
+          {
+            "recordNumber": 89754,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/6e9a7927-db55-41ff-91aa-fc21ef3f654d",
+            "label": "manage writing administration",
+            "description": "Manage the financial and administrative side of writing including making up budgets, maintaining financial records, checking contracts, etc.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 6104,
+              "sourceUri": "http://data.europa.eu/esco/skill/6e9a7927-db55-41ff-91aa-fc21ef3f654d",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89754
+            }
+          },
+          {
+            "recordNumber": 89755,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/807b974a-3901-49c4-87ef-86c3edaba222",
+            "label": "promote one's writings",
+            "description": "Talk about one's work at events and conduct readings, speeches and book signings. Establish a network among fellow writers.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 7081,
+              "sourceUri": "http://data.europa.eu/esco/skill/807b974a-3901-49c4-87ef-86c3edaba222",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89755
+            }
+          },
+          {
+            "recordNumber": 89756,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/94e3fa6e-54d7-42a8-a3fe-7f1b5f6d14e4",
+            "label": "consult with editor",
+            "description": "Consult with the editor of a book, magazine, journal or other publications about expectations, requirements, and progress.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 8209,
+              "sourceUri": "http://data.europa.eu/esco/skill/94e3fa6e-54d7-42a8-a3fe-7f1b5f6d14e4",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89756
+            }
+          },
+          {
+            "recordNumber": 89757,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/99bac9a4-0623-41bc-abf0-0fb1c2e5f83a",
+            "label": "critique other writers",
+            "description": "Criticise the output of other writers, including sometimes providing coaching and mentoring services.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 8470,
+              "sourceUri": "http://data.europa.eu/esco/skill/99bac9a4-0623-41bc-abf0-0fb1c2e5f83a",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89757
+            }
+          },
+          {
+            "recordNumber": 89758,
+            "relationType": "optional",
+            "sourceSkillType": "skill/competence",
+            "skillType": "skill/competence",
+            "skillUri": "http://data.europa.eu/esco/skill/ea6c0bf5-fe69-4ffa-a1b4-398f46a67c95",
+            "label": "write to a deadline",
+            "description": "Schedule and respect tight deadlines, especially for theatre, screen and radio projects.",
+            "skillCitation": {
+              "datasetId": "esco-v1.2.1-en",
+              "version": "1.2.1",
+              "language": "en",
+              "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+              "file": "skills_en.csv",
+              "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+              "recordNumber": 12726,
+              "sourceUri": "http://data.europa.eu/esco/skill/ea6c0bf5-fe69-4ffa-a1b4-398f46a67c95",
+              "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+            },
+            "relationCitation": {
+              "file": "occupationSkillRelations_en.csv",
+              "fileSha256": "e1a46511f0ef4d505f106f1d41f528ef76d289f93e59d4d0cbaac38986102c44",
+              "recordNumber": 89758
+            }
+          }
+        ],
+        "nextOffset": null
+      },
+      "skills": [
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/0ab9d433-10e5-4683-ae54-4687179a5259",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "literature",
+            "altLabels": "fiction\nnonfiction\nprose",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:09.009Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The body of artistic writing characterized by beauty of expression, form, and universality of intellectual and emotional appeal."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 564,
+            "sourceUri": "http://data.europa.eu/esco/skill/0ab9d433-10e5-4683-ae54-4687179a5259",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/39f9b48c-04b5-4e6f-9c52-3cdb29a5a93b",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "publishing industry",
+            "altLabels": "publishing trader\npublishing manufacture\npublishing business\nthe publishing industry\npublishing company\npublishing industries",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:15.235Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Key stakeholders in the publishing industry. Acquisition, marketing and distribution of newspapers, books, magazines and other informative works, including electronic media."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 3182,
+            "sourceUri": "http://data.europa.eu/esco/skill/39f9b48c-04b5-4e6f-9c52-3cdb29a5a93b",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/7bb85eab-18df-437c-adce-7b729abb315e",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "types of literature genres",
+            "altLabels": "types of a literature genre\nkinds of literature genres\ncategories of literature genres\nvarieties of literature genres\nliterature genres varieties\nbrands of literature genres\ntypes of literary genres\ntype of literature genre",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:11.47Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The different literary genres in the history of literature, their technique, tone, content and length."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 6815,
+            "sourceUri": "http://data.europa.eu/esco/skill/7bb85eab-18df-437c-adce-7b729abb315e",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/91dd8397-063d-499c-83b9-0603a10d94ac",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "writing techniques",
+            "altLabels": "writing technique\nwriting practices\nwriting methods\nwriting procedures",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:10.678Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The different techniques to write a story such as the descriptive, persuasive, first person and other techniques."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 8038,
+            "sourceUri": "http://data.europa.eu/esco/skill/91dd8397-063d-499c-83b9-0603a10d94ac",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/be3f635b-b400-4eb3-b4cc-c44a34f26eae",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "spelling",
+            "altLabels": "orthography\nspellings",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:14.494Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The rules concerning the way words are spelled."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 10336,
+            "sourceUri": "http://data.europa.eu/esco/skill/be3f635b-b400-4eb3-b4cc-c44a34f26eae",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/d4ae9564-0b61-4aa0-9df0-d4fdc969fd6f",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "grammar",
+            "altLabels": "syntax\nparsing",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:15.968Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The set of structural rules governing the composition of clauses, phrases, and words in any given natural language."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 11577,
+            "sourceUri": "http://data.europa.eu/esco/skill/d4ae9564-0b61-4aa0-9df0-d4fdc969fd6f",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/e2103a1d-4a84-47a9-b4f7-774787573449",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "copyright legislation",
+            "altLabels": "copyrighting legislation\nlaws protecting rights of original authors",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.952Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Legislation describing the protection of the rights of original authors over their work, and how others can use it."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 12280,
+            "sourceUri": "http://data.europa.eu/esco/skill/e2103a1d-4a84-47a9-b4f7-774787573449",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/e258707b-7676-4e9b-9c36-20c38018b349",
+            "skillType": "knowledge",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "publishing market",
+            "altLabels": "publishing industry\npublishing field\npublishing sector\npublishing markets",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:09.851Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The trends in the publishing market and the type of books that are are appealing to a certain audience."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 12294,
+            "sourceUri": "http://data.europa.eu/esco/skill/e258707b-7676-4e9b-9c36-20c38018b349",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/273eb12c-7c34-41d2-afd2-c0222bf853bc",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "develop an artistic framework",
+            "altLabels": "develop artistic research framework\ndevelop an artistic research framework\ncreate a research framework plan\ncreate a plan for artistic research\nproduce artistic framework\ndevelop a framework for artistic research\ndevelop artistic frameworks\ncreate artistic framework\ngenerate artistic framework\ndeveloping artistic framework",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2023-11-03T11:28:33.36Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Develop a specific framework for research, creation and completion of artistic work."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 2142,
+            "sourceUri": "http://data.europa.eu/esco/skill/273eb12c-7c34-41d2-afd2-c0222bf853bc",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/681a1f8a-4244-4e82-af36-0148b89c2863",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "write dialogues",
+            "altLabels": "write dialogue\nwrite dialogs\ncompose dialogues\nwriting dialogues\ncreate dialogues",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2016-12-20T19:44:23Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Write conversations between characters."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 5733,
+            "sourceUri": "http://data.europa.eu/esco/skill/681a1f8a-4244-4e82-af36-0148b89c2863",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/7287dff1-7420-4d24-939a-5f4eb15b752b",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "consult information sources",
+            "altLabels": "consulting information sources\nverify with information sources\ncheck information sources\nconfirm with information sources\nconsult information source",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:09.009Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Consult relevant information sources to find inspiration, to educate yourself on certain topics and to acquire background information."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 6318,
+            "sourceUri": "http://data.europa.eu/esco/skill/7287dff1-7420-4d24-939a-5f4eb15b752b",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/8c4c49d4-9708-433f-8ca7-bf2c5211ee49",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "develop creative ideas",
+            "altLabels": "produce creative ideas\ngenerate creative ideas\ndeveloping creative ideas\ncreate creative ideas",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:11.47Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Developing new artistic concepts and creative ideas."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 7738,
+            "sourceUri": "http://data.europa.eu/esco/skill/8c4c49d4-9708-433f-8ca7-bf2c5211ee49",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/8fd96f45-e2ff-48e3-8829-5f25684993b9",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "write storylines",
+            "altLabels": "write storyline\ncreate storylines\nwriting storylines\ncompose storylines",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:11.47Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Write the plot of a novel, play, film, or other narrative form. Create and develop characters, their personalities, and relationships."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 7919,
+            "sourceUri": "http://data.europa.eu/esco/skill/8fd96f45-e2ff-48e3-8829-5f25684993b9",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/931b92cb-5705-4b6f-be86-36d8264e75d0",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "select subject matter",
+            "altLabels": "settle on subject matter\nchoose subject matter\nselecting subject matter\ndecide on subject matter\nselect subject",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:09.851Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Select subject matter based on personal or public interest, or ordered by a publisher or agent."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 8096,
+            "sourceUri": "http://data.europa.eu/esco/skill/931b92cb-5705-4b6f-be86-36d8264e75d0",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/96ae5ab6-d696-4d4f-be1c-d02e722c6f55",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "apply grammar and spelling rules",
+            "altLabels": "apply grammar and spelling\nfollow grammar and spelling rules\nrespect grammar and spelling rules\nadhere to grammar and spelling rules\napplying grammar and spelling rules",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:13.7Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Apply the rules of spelling and grammar and ensure consistency throughout texts."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 8303,
+            "sourceUri": "http://data.europa.eu/esco/skill/96ae5ab6-d696-4d4f-be1c-d02e722c6f55",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/b71e3394-599c-4205-a592-1778e45626ec",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "critically reflect on artistic production processes",
+            "altLabels": "analyse critically outcomes of production process\ncritically observe artistic production process\ncritically reflect on processes of artistic productions\nreflect critically on artistic production processes",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:16.725Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Critically reflect upon processes and outcomes of the artisitc production process in order to ensure quality of experience and/or product."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 9980,
+            "sourceUri": "http://data.europa.eu/esco/skill/b71e3394-599c-4205-a592-1778e45626ec",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/c2f70431-2cc5-4552-bcb7-6564512c15bd",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "use specific writing techniques",
+            "altLabels": "employ specific writing techniques\napply specific writing techniques\nusing specific writing techniques\nfollow specific writing techniques\nimplement specific writing techniques\nuse specific writing technique",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:09.009Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Use writing techniques depending on the type of media, the genre, and the story."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 10605,
+            "sourceUri": "http://data.europa.eu/esco/skill/c2f70431-2cc5-4552-bcb7-6564512c15bd",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/f8d30e1d-baa7-4d35-b9f4-df7e1650396e",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "perform background research on writing subject",
+            "altLabels": "do background research on writing subject\nperform writing subject background research\nconduct background research on writing subject\nperform background research on writing subjects\nperforming background research on writing subject",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.215Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Run thorough background research on writing subject; desk-based research as well as site visits and interviews."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 13551,
+            "sourceUri": "http://data.europa.eu/esco/skill/f8d30e1d-baa7-4d35-b9f4-df7e1650396e",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/810df100-e85a-4c13-b619-34030a75ecc2",
+            "skillType": "knowledge",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "linguistics",
+            "altLabels": "scientific aspects of language\nstudy of languages\nstudy of language\nscientific study of language",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:11.47Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "The scientific study of language and its three aspects, language form, language meaning, and language in context."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 7112,
+            "sourceUri": "http://data.europa.eu/esco/skill/810df100-e85a-4c13-b619-34030a75ecc2",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/07d3074b-f5cd-420a-bdf8-c8d643563ea5",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "respect publication formats",
+            "altLabels": "conform to publication formats\nadhere to publication formats\nrespecting publication formats\nrespect formats for publication\ncomply with publication formats\nrespect publication format",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:15.235Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Submit text material for printing purposes. Always respect the required and expected publication formats."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 381,
+            "sourceUri": "http://data.europa.eu/esco/skill/07d3074b-f5cd-420a-bdf8-c8d643563ea5",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/1b957e3d-0017-42b0-9bfe-49a1cdd31de7",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "teach writing",
+            "altLabels": "train in writing\nteaching writing\ninstruct writing",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.215Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Teach basic or advanced writing principles to varying age groups in a fixed eduction organisation setting or by running private writing workshops."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 1491,
+            "sourceUri": "http://data.europa.eu/esco/skill/1b957e3d-0017-42b0-9bfe-49a1cdd31de7",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/37e5bf28-bb5a-478b-aa96-fce66cb742c3",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "negotiate artistic productions",
+            "altLabels": "broker artistic productions\nnegotiate art productions\nnegotiate artistic production\nthrash out artistic productions\nnegotiating artistic productions\ncome to an agreement on artistic productions",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.952Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Negotiate the terms for artistic productions with the selected companies, keeping within the budgetary limits prepared by the business leadership."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 3083,
+            "sourceUri": "http://data.europa.eu/esco/skill/37e5bf28-bb5a-478b-aa96-fce66cb742c3",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/3882c29a-a3b4-48be-8349-00958cdfdc58",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "liaise with book publishers",
+            "altLabels": "liaising with a book publisher\ncooperate with book publishers\ncollaborate with book publishers\nliaising with book publishers\nliaise with a book publisher\nwork together with book publishers\nwork with book publishers",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:14.494Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Establish working relationships with publishing companies and their sales representatives."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 3117,
+            "sourceUri": "http://data.europa.eu/esco/skill/3882c29a-a3b4-48be-8349-00958cdfdc58",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/589798b2-4870-4459-b966-ea0622fbdd55",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "attend book fairs",
+            "altLabels": "attend book fair\njoin book fairs\ngo to book fairs\nattending book fairs\nparticipate in book fairs",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.952Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Attend fairs and events to get familiar with new book trends and to meet with authors, publishers, and others in the publishing sector."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 4860,
+            "sourceUri": "http://data.europa.eu/esco/skill/589798b2-4870-4459-b966-ea0622fbdd55",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/58fcd942-3019-4498-b685-6b2727b37031",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "evaluate writings in response to feedback",
+            "altLabels": "evaluating writings in response to feedback\nre-examine writings in response to feedback\nassess writings in response to feedback\nreview writings in response to feedback\nevaluate writing in response to feedback",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:15.968Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Edit and adapt work in response to comments from peers and publishers."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 4885,
+            "sourceUri": "http://data.europa.eu/esco/skill/58fcd942-3019-4498-b685-6b2727b37031",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/637ca2e2-0624-48b1-be6e-9ff4580344ac",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "proofread text",
+            "altLabels": "proofread content for publishing",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2025-06-25T08:45:06.159Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Read a text thoroughly, search for, review and correct errors to ensure content is valid for publishing."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 5478,
+            "sourceUri": "http://data.europa.eu/esco/skill/637ca2e2-0624-48b1-be6e-9ff4580344ac",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/691f970b-db3d-4658-aa07-5fc94baecd5d",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "negotiate publishing rights",
+            "altLabels": "obtain publishing rights\npurchase publishing rights\nnegotiate rights to publishing\nagree to publishing rights\nnegotiating publishing rights",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:14.494Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Negotiate the sale of the publishing rights of books to translate them and adapt them into movies or other genres."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 5785,
+            "sourceUri": "http://data.europa.eu/esco/skill/691f970b-db3d-4658-aa07-5fc94baecd5d",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/6e9a7927-db55-41ff-91aa-fc21ef3f654d",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "manage writing administration",
+            "altLabels": "oversee writing administration\nmanaging writing administration\nhandle writing administration",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:12.952Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Manage the financial and administrative side of writing including making up budgets, maintaining financial records, checking contracts, etc."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 6104,
+            "sourceUri": "http://data.europa.eu/esco/skill/6e9a7927-db55-41ff-91aa-fc21ef3f654d",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/807b974a-3901-49c4-87ef-86c3edaba222",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "promote one's writings",
+            "altLabels": "promote your writings\npublicize your writings\npromote your writing\npromote writings\npromoting your writings\nmarket own writings",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2021-04-01T19:03:56.278Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Talk about one's work at events and conduct readings, speeches and book signings. Establish a network among fellow writers."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 7081,
+            "sourceUri": "http://data.europa.eu/esco/skill/807b974a-3901-49c4-87ef-86c3edaba222",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/94e3fa6e-54d7-42a8-a3fe-7f1b5f6d14e4",
+            "skillType": "skill/competence",
+            "reuseLevel": "cross-sector",
+            "preferredLabel": "consult with editor",
+            "altLabels": "review with editor\nconsult with editors\ndiscuss with editor\nconsulting with editor\nconfer with editor",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:16.725Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Consult with the editor of a book, magazine, journal or other publications about expectations, requirements, and progress."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 8209,
+            "sourceUri": "http://data.europa.eu/esco/skill/94e3fa6e-54d7-42a8-a3fe-7f1b5f6d14e4",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/99bac9a4-0623-41bc-abf0-0fb1c2e5f83a",
+            "skillType": "skill/competence",
+            "reuseLevel": "occupation-specific",
+            "preferredLabel": "critique other writers",
+            "altLabels": "critique writers\nreview other writers\nevaluate other writers\nassess other writers\ncritiquing other writers",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:14.494Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Criticise the output of other writers, including sometimes providing coaching and mentoring services."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 8470,
+            "sourceUri": "http://data.europa.eu/esco/skill/99bac9a4-0623-41bc-abf0-0fb1c2e5f83a",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        },
+        {
+          "record": {
+            "conceptType": "KnowledgeSkillCompetence",
+            "conceptUri": "http://data.europa.eu/esco/skill/ea6c0bf5-fe69-4ffa-a1b4-398f46a67c95",
+            "skillType": "skill/competence",
+            "reuseLevel": "sector-specific",
+            "preferredLabel": "write to a deadline",
+            "altLabels": "write to deadline\nwriting to deadlines\ncomplete writing by the deadline\nmeet writing deadline",
+            "hiddenLabels": "",
+            "status": "released",
+            "modifiedDate": "2024-02-09T17:29:16.725Z",
+            "scopeNote": "",
+            "definition": "",
+            "inScheme": "http://data.europa.eu/esco/concept-scheme/skills,\nhttp://data.europa.eu/esco/concept-scheme/member-skills",
+            "description": "Schedule and respect tight deadlines, especially for theatre, screen and radio projects."
+          },
+          "citation": {
+            "datasetId": "esco-v1.2.1-en",
+            "version": "1.2.1",
+            "language": "en",
+            "publisher": "European Commission, DG Employment, Social Affairs and Inclusion",
+            "file": "skills_en.csv",
+            "fileSha256": "d03b10efca94b4bcfa260a992cfde89c375f0fa12095d6662a663cfd2f9f2950",
+            "recordNumber": 12726,
+            "sourceUri": "http://data.europa.eu/esco/skill/ea6c0bf5-fe69-4ffa-a1b4-398f46a67c95",
+            "downloadUrl": "https://ec.europa.eu/esco/download/ESCO%20dataset%20-%20v1.2.1%20-%20classification%20-%20en%20-%20csv.zip"
+          },
+          "originalVariants": []
+        }
+      ]
+    }
+  ],
+  "generatedKnowledge": false
+}

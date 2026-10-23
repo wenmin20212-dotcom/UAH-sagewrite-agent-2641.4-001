@@ -1,0 +1,1168 @@
+{
+    "schema":  "sagewrite-adoption-manifest/v0.1",
+    "sourceRoot":  "D:\\SageWrite",
+    "gitRemote":  "https://github.com/wenmin20212-dotcom/SageWrite",
+    "gitHead":  "1136f9744c7aed8fc252afcf74922e61779145ac",
+    "basis":  "current working-tree bytes",
+    "fileCount":  191,
+    "totalBytes":  2393824,
+    "exclusions":  [
+                       ".git",
+                       ".codebuddy",
+                       "engine/work",
+                       "engine/node_modules",
+                       "engine/mcp-server/node_modules",
+                       "engine/automation/node_modules",
+                       "book workspaces",
+                       "repository-root runtime logs",
+                       "secrets and credentials"
+                   ],
+    "files":  [
+                  {
+                      "source":  "D:\\SageWrite\\.mcp.json",
+                      "relative":  "sagewrite/.mcp.json",
+                      "bytes":  486,
+                      "sha256":  "0220fc0c45bfc8aa7798fcb00044bf0d3eb1c8d42d01541c22e0892780c81ce2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\AGENTS.md",
+                      "relative":  "sagewrite/AGENTS.md",
+                      "bytes":  1571,
+                      "sha256":  "72f76ef6685e20e362b2cc32d365fe6c00d2a5780a94d7acabab0fc993582065"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\00-common.ps1",
+                      "relative":  "sagewrite/engine/00-common.ps1",
+                      "bytes":  10148,
+                      "sha256":  "fd2122651513d8160b46e930550900ea1b8fe5abf18cbe2f1df93e364319a4ef"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\00-layout.ps1",
+                      "relative":  "sagewrite/engine/00-layout.ps1",
+                      "bytes":  2152,
+                      "sha256":  "ca74010b185d67af4d99e380f3de5b94de8050e1b4e004e37516f68ac8046a70"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\00-llm.ps1",
+                      "relative":  "sagewrite/engine/00-llm.ps1",
+                      "bytes":  12566,
+                      "sha256":  "155ab7192f642b44e362fb3c343367cc6145bc20010758359f465d11c6f9d976"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\01b-import-structure.ps1",
+                      "relative":  "sagewrite/engine/01b-import-structure.ps1",
+                      "bytes":  15351,
+                      "sha256":  "67c0e34105cf7f43b6069657a9f4eb4161195243a5301ad1e61a60d3e419e69c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\01-intake.ps1",
+                      "relative":  "sagewrite/engine/01-intake.ps1",
+                      "bytes":  3693,
+                      "sha256":  "98e90d4a920180429f47b938d3772c627807f7c1b5c2462aca623a9b4ec5987c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\02b-expand.ps1",
+                      "relative":  "sagewrite/engine/02b-expand.ps1",
+                      "bytes":  6001,
+                      "sha256":  "9e4d6d0a0e9be21db2d298ad5e74b6e5f32185975a7c0d4cbe785fdbadee2cd9"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\02-structure.ps1",
+                      "relative":  "sagewrite/engine/02-structure.ps1",
+                      "bytes":  5860,
+                      "sha256":  "b02a133bc8e83087cff30debb916534f24d3cff16f9c5eccc5816cfb12fc6973"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\03r-refine.ps1",
+                      "relative":  "sagewrite/engine/03r-refine.ps1",
+                      "bytes":  31434,
+                      "sha256":  "064444e3592c6cb04226415cbc0d49b7c36d0426c47446f5137a2098b5952805"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\03RW.ps1",
+                      "relative":  "sagewrite/engine/03RW.ps1",
+                      "bytes":  8227,
+                      "sha256":  "c0e8ec7d697288df585117cf36e75a3ab6bbea477108ba54896f54d384b66eeb"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\03RW.README.md",
+                      "relative":  "sagewrite/engine/03RW.README.md",
+                      "bytes":  2710,
+                      "sha256":  "31f2b5b669a4a95fd798be624483e4e294f4acdf4cfae50d3d23424d2a0aefa5"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\03t-translate.ps1",
+                      "relative":  "sagewrite/engine/03t-translate.ps1",
+                      "bytes":  18210,
+                      "sha256":  "1dabaa7579b60f986441ccc5018033d09f62d8fd99d65b88636d98ce9a4e1b4e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\03-write.ps1",
+                      "relative":  "sagewrite/engine/03-write.ps1",
+                      "bytes":  13427,
+                      "sha256":  "fd7d0bdc051e26fefa57d45cec0b110d6ebd44fde4ffd549e708709cce5d2a0f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04B33.ps1",
+                      "relative":  "sagewrite/engine/04B33.ps1",
+                      "bytes":  71,
+                      "sha256":  "8a11f5ea42b232945361c4cd9119c14c231f30c9dc4d38cad34ab2614b3a292f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04b33-editorial-action-review.ps1",
+                      "relative":  "sagewrite/engine/04b33-editorial-action-review.ps1",
+                      "bytes":  34422,
+                      "sha256":  "a7da9a141180dde269f530145733638a2d7288bd65af829e5c965212fcbe5288"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04B34.ps1",
+                      "relative":  "sagewrite/engine/04B34.ps1",
+                      "bytes":  70,
+                      "sha256":  "9fe205aaf4897de819bed09a7143f853cd899652c596c12d44b149bccde68251"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04b34-part-budget-statistics.ps1",
+                      "relative":  "sagewrite/engine/04b34-part-budget-statistics.ps1",
+                      "bytes":  15067,
+                      "sha256":  "8e0a96aa8a3d76ff9f6144a88f189cd3a73236920284cd92b6dd11148d9ed91a"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04b-epub.ps1",
+                      "relative":  "sagewrite/engine/04b-epub.ps1",
+                      "bytes":  21651,
+                      "sha256":  "54c65ba65b2a72be8d5b5fe80c6816b3b786ccadf4b3c516e5b9f9a07e5a8807"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04c2-third-party-audit.ps1",
+                      "relative":  "sagewrite/engine/04c2-third-party-audit.ps1",
+                      "bytes":  34049,
+                      "sha256":  "53f4242bc101fa7ade6c6237f918f7690822097d7a1ed5a0f93cdb1cd89f3d43"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04c3-accepted-audit-rewrite.ps1",
+                      "relative":  "sagewrite/engine/04c3-accepted-audit-rewrite.ps1",
+                      "bytes":  43529,
+                      "sha256":  "9431e7b4ef0dff587f0b3a57ec639be7fc9c098bb8a5bffd595e6337127a884c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04C44.ps1",
+                      "relative":  "sagewrite/engine/04C44.ps1",
+                      "bytes":  65,
+                      "sha256":  "74c3d214c30dcf394da083cccb41560676008fbbf1e09b6d01d0da61a1c29ab8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04c44-revision-executor.ps1",
+                      "relative":  "sagewrite/engine/04c44-revision-executor.ps1",
+                      "bytes":  29136,
+                      "sha256":  "bd9d69dc3a1e8bd69453af421e2d6f0dd57d4703ae98151370e4bd7740ece077"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04c-editorial-loop.ps1",
+                      "relative":  "sagewrite/engine/04c-editorial-loop.ps1",
+                      "bytes":  31783,
+                      "sha256":  "7bb315e193cfc5af858cdd6419c5ca2c42106b592cd399828cfb2bf24cffbc8f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04D.ps1",
+                      "relative":  "sagewrite/engine/04D.ps1",
+                      "bytes":  58,
+                      "sha256":  "0ee4596ebfd77873aa920e1b40184f1cbf768d245dcba23543eb41902746e78c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04d-repeat-audit.ps1",
+                      "relative":  "sagewrite/engine/04d-repeat-audit.ps1",
+                      "bytes":  6524,
+                      "sha256":  "e20d965929e07ac6b2c514a17a5e6c840c698e4994dd631b3eaf249aa7e2fada"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04-edit.ps1",
+                      "relative":  "sagewrite/engine/04-edit.ps1",
+                      "bytes":  43855,
+                      "sha256":  "3a11ef9a63e5bb32bdd063dd3a69bb618e86fccb6426fcfa44ce21f56dfc76f5"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04F.ps1",
+                      "relative":  "sagewrite/engine/04F.ps1",
+                      "bytes":  6326,
+                      "sha256":  "f12923fee6fbb1d510436d1f1d3e1a059af48c40d07eb1e21ddf37dedb10e2b8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04f-format-common.ps1",
+                      "relative":  "sagewrite/engine/04f-format-common.ps1",
+                      "bytes":  10633,
+                      "sha256":  "31239a7b0e20fde7a5a94b83810fcf0ccc3d927ac6f4d2ef3b5909ff070b9ed4"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04F-README.md",
+                      "relative":  "sagewrite/engine/04F-README.md",
+                      "bytes":  3039,
+                      "sha256":  "841c3b87ce7bdb68038b4740c355e3aa78d8e8b81da642b5530816784b8635f7"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04R.ps1",
+                      "relative":  "sagewrite/engine/04R.ps1",
+                      "bytes":  13959,
+                      "sha256":  "fbf06578bc2544b0e9c9d1e03af20d8f3347d6ffe32929df454b002405af2ed0"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04Reference2.ps1",
+                      "relative":  "sagewrite/engine/04Reference2.ps1",
+                      "bytes":  15363,
+                      "sha256":  "c61a67eb1deffae7847325401a99bdc3a2c4af0d4b046ef8ea9663e55a09cfb6"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04Reference2-README.md",
+                      "relative":  "sagewrite/engine/04Reference2-README.md",
+                      "bytes":  6114,
+                      "sha256":  "ed6b64f854c4433ee32a48cf223ea680be1fa4f0bb9d4c63d6e75e3720b4cc61"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04Reference3.ps1",
+                      "relative":  "sagewrite/engine/04Reference3.ps1",
+                      "bytes":  12827,
+                      "sha256":  "040b896ee52f6b4be450f2d0718fd174a046ea10ea8eefaab6f06dbcbefecf84"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04Reference3-README.md",
+                      "relative":  "sagewrite/engine/04Reference3-README.md",
+                      "bytes":  4251,
+                      "sha256":  "2ffb3375bb737bcedb638e0c18b3d08c5c2c932e4790bd133e514f31b1089d4e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04R-README.md",
+                      "relative":  "sagewrite/engine/04R-README.md",
+                      "bytes":  2548,
+                      "sha256":  "30575236ea39b42f8fe62a34366a64d7157fc25f78f2c25a7ff6e70b506017bf"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04Z1.ps1",
+                      "relative":  "sagewrite/engine/04Z1.ps1",
+                      "bytes":  70,
+                      "sha256":  "4011c7aa53b3ada622caaf8680f0496377f6f70ce37ea98e6fbdad125f34801f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\04z1-remove-section-renumber.ps1",
+                      "relative":  "sagewrite/engine/04z1-remove-section-renumber.ps1",
+                      "bytes":  20697,
+                      "sha256":  "7336493bfd8508a4a3abea042c771ed127ccdb474d3985d59282c59e16f4002f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05aa-simple-docx-toc.ps1",
+                      "relative":  "sagewrite/engine/05aa-simple-docx-toc.ps1",
+                      "bytes":  6405,
+                      "sha256":  "c39e4eeb380106fe7c44e6f1d07a67f3e52101e40699d4590e1c09bbb76b230b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05a-simple-docx.ps1",
+                      "relative":  "sagewrite/engine/05a-simple-docx.ps1",
+                      "bytes":  6334,
+                      "sha256":  "3f79fe22387996fe3256ef55e41bd14ee6ee5a8b01650a429d0d2977b10f1fc2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05a-simple-docx.py",
+                      "relative":  "sagewrite/engine/05a-simple-docx.py",
+                      "bytes":  12501,
+                      "sha256":  "a4c73d275345af2cc0e11a88e0277502828764867d96918b7c81714a683c6478"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05b-epub.ps1",
+                      "relative":  "sagewrite/engine/05b-epub.ps1",
+                      "bytes":  20316,
+                      "sha256":  "342b5ba4f05195d20ca12b31c433588a865fecc12fdcb865997febada7c7cc33"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05-build.ps1",
+                      "relative":  "sagewrite/engine/05-build.ps1",
+                      "bytes":  52503,
+                      "sha256":  "9374088a3232e2fa41975bf8909d00e0a0c2c815f054853d8cf7a7326e08a69f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05ca-print-docx.ps1",
+                      "relative":  "sagewrite/engine/05ca-print-docx.ps1",
+                      "bytes":  44698,
+                      "sha256":  "410e458362e6e352d0c4671294c0d899918c02fb164fd07e2d8d8a1b985bd820"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05cc-print-pdf.ps1",
+                      "relative":  "sagewrite/engine/05cc-print-pdf.ps1",
+                      "bytes":  6808,
+                      "sha256":  "5acebe8f971b10f8e9457329c919ce2d897142b2d8e98976c8ea5948bd655ac9"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\05c-pdf.ps1",
+                      "relative":  "sagewrite/engine/05c-pdf.ps1",
+                      "bytes":  9177,
+                      "sha256":  "24bbda087786a5f3c728e1c5f6d35784ef577066f3c28c071b647cc14e9cca6c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\06-web.ps1",
+                      "relative":  "sagewrite/engine/06-web.ps1",
+                      "bytes":  8128,
+                      "sha256":  "c66a30863316803b9391a19f2170f84c352cccbec5ace48ec7f80b6f187f9a47"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\07a-cover-assist.ps1",
+                      "relative":  "sagewrite/engine/07a-cover-assist.ps1",
+                      "bytes":  10998,
+                      "sha256":  "c754691ff67b4da5c2a9304d927ba04f027e2e91ce54a2ff9caf24529acec016"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\07b-install-cover.ps1",
+                      "relative":  "sagewrite/engine/07b-install-cover.ps1",
+                      "bytes":  2741,
+                      "sha256":  "97919a13e3d0e5877dbb61872abc0da0b8386bc594c92f57b0099a908001a955"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08a-brief.ps1",
+                      "relative":  "sagewrite/engine/08a-brief.ps1",
+                      "bytes":  12183,
+                      "sha256":  "aac76be019d9f4e8766e971c5938bae52c31ec37a015b77035a957916643155f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08b-strategy.ps1",
+                      "relative":  "sagewrite/engine/08b-strategy.ps1",
+                      "bytes":  16869,
+                      "sha256":  "862e188d9bcf8edcf7f4b58f9ce001981306b0290371da20758fe2612b25aa6d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08c-generate.ps1",
+                      "relative":  "sagewrite/engine/08c-generate.ps1",
+                      "bytes":  13414,
+                      "sha256":  "d99902e8fecd0678bdede71a0076e035a3867ba87e44a11433d8fc414856b751"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08-cover.ps1",
+                      "relative":  "sagewrite/engine/08-cover.ps1",
+                      "bytes":  20499,
+                      "sha256":  "8c286836f7755cdd6f51677e7536a6f2816db1846a85e7662ec65071e10c4d20"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08-cover-drafts.ps1",
+                      "relative":  "sagewrite/engine/08-cover-drafts.ps1",
+                      "bytes":  2448,
+                      "sha256":  "1863f9a69238fa5fb4b37c746a1d166d466f37c27bf3fdce4c6bcf87a6439669"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08-cover-layout.ps1",
+                      "relative":  "sagewrite/engine/08-cover-layout.ps1",
+                      "bytes":  2057,
+                      "sha256":  "f0f7a6de91ed6549545cc7c710584eb759fb788f65a9c588d7fc8395591dad79"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08-cover-mockup.ps1",
+                      "relative":  "sagewrite/engine/08-cover-mockup.ps1",
+                      "bytes":  845,
+                      "sha256":  "444cad47b0355ad651afd468bcca09ac0c7bce0cc07a2ae2fb19da30ec83cd79"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08d-review.ps1",
+                      "relative":  "sagewrite/engine/08d-review.ps1",
+                      "bytes":  13044,
+                      "sha256":  "4f7d9216951e49301e90c0900b1366465ed09668f97a930a807d10d809f9c80f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08e-layout.ps1",
+                      "relative":  "sagewrite/engine/08e-layout.ps1",
+                      "bytes":  15503,
+                      "sha256":  "57426b56409697d9908f1d0096bff80397a6777d77a454c0f973422335fc0a1b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08f-mockup.ps1",
+                      "relative":  "sagewrite/engine/08f-mockup.ps1",
+                      "bytes":  9876,
+                      "sha256":  "58af77987cf3b180e5145ee990880f808fa54f5ea59995d40502082f2072966c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08g-copy.ps1",
+                      "relative":  "sagewrite/engine/08g-copy.ps1",
+                      "bytes":  11579,
+                      "sha256":  "d31e6d654214511aa0233b7028a737f47b8799493e0917df151d2089fb2dd26a"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08h-frontmatter.ps1",
+                      "relative":  "sagewrite/engine/08h-frontmatter.ps1",
+                      "bytes":  13431,
+                      "sha256":  "3ba7ec85a61cf09bc3147a05e6b03e94976de193fe482977afb91d9c27cc46a3"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-base-brief.ps1",
+                      "relative":  "sagewrite/engine/08n-base-brief.ps1",
+                      "bytes":  4340,
+                      "sha256":  "f9cdc6484861cfea6847cc47ef0e4bd71b3cdfcc4d1bcead45374f50f3ad3d0c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-base-generate.ps1",
+                      "relative":  "sagewrite/engine/08n-base-generate.ps1",
+                      "bytes":  5645,
+                      "sha256":  "fc86b52f9aed75f5bca083316fa8e67d626cb32d07679d638eb32bf9a0eddc4d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-base-prompt.ps1",
+                      "relative":  "sagewrite/engine/08n-base-prompt.ps1",
+                      "bytes":  5196,
+                      "sha256":  "c5e7e55065cbeb42c0a80d219f1f00d59aa6f8d31ee0e8784e05a75e0d525534"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-base-review.ps1",
+                      "relative":  "sagewrite/engine/08n-base-review.ps1",
+                      "bytes":  4101,
+                      "sha256":  "7da9f6bf25eda912cc9a9430e484a6222971bd85c4b23ff60a393fc8aec2d02d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-common.ps1",
+                      "relative":  "sagewrite/engine/08n-common.ps1",
+                      "bytes":  10780,
+                      "sha256":  "44f1e6331aaee625548b596ce60081a1bebfb115edb3560a4c43d6b45898ce1a"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-cover.ps1",
+                      "relative":  "sagewrite/engine/08n-cover.ps1",
+                      "bytes":  3645,
+                      "sha256":  "68a9220b8707b028c190c40794613c387842807155473a65dc11724ad5668a58"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-export.ps1",
+                      "relative":  "sagewrite/engine/08n-export.ps1",
+                      "bytes":  5419,
+                      "sha256":  "294cd45e6a7ed58ba4e42c5f10db22606d3d01058f6b04dcba3caa4fa1f10bda"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-image-edit.ps1",
+                      "relative":  "sagewrite/engine/08n-image-edit.ps1",
+                      "bytes":  10537,
+                      "sha256":  "6abe7405cb20173274599ba1e7074ca3b1b7ce99b9f19b21894d057e5d79218c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-midjourney-prompt.ps1",
+                      "relative":  "sagewrite/engine/08n-midjourney-prompt.ps1",
+                      "bytes":  7783,
+                      "sha256":  "3bfa82a15917ef655aec06277b920b7191a77cf71b0cd473b519f0d220dd9ebc"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-mockup.ps1",
+                      "relative":  "sagewrite/engine/08n-mockup.ps1",
+                      "bytes":  4582,
+                      "sha256":  "9a3346af205d4a444949a0cc0eeac1377ff0f2f0b115bbadc543f62c762aaec0"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-print-spread.ps1",
+                      "relative":  "sagewrite/engine/08n-print-spread.ps1",
+                      "bytes":  7843,
+                      "sha256":  "aba048c0030b947655834fa49170c882e5912508ac3a99ea38b11cc50af18135"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08n-title-layout.ps1",
+                      "relative":  "sagewrite/engine/08n-title-layout.ps1",
+                      "bytes":  5978,
+                      "sha256":  "2d5a11f3a94514f745c7ce888013cbfa45176e9d5f535b927c4a056f3aeb6e1e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\08z-export.ps1",
+                      "relative":  "sagewrite/engine/08z-export.ps1",
+                      "bytes":  26403,
+                      "sha256":  "ffacb7cb3afb2affe568e3f5c83594ba73771f80770b9e8b6469ee12431f7743"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09a-collect.ps1",
+                      "relative":  "sagewrite/engine/09a-collect.ps1",
+                      "bytes":  16943,
+                      "sha256":  "662bf463a478afdfc62fb09320e9a87b67eac00bafabf9a8d2c824f781dd2a39"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09b-metadata.ps1",
+                      "relative":  "sagewrite/engine/09b-metadata.ps1",
+                      "bytes":  34670,
+                      "sha256":  "28ab71c58479cd1c3dab974506054885d920209b9dd77043a14f92466acb57ba"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09c-amazon.ps1",
+                      "relative":  "sagewrite/engine/09c-amazon.ps1",
+                      "bytes":  16669,
+                      "sha256":  "a1e345d015f485d113bac713ae170f1e00e1e66578e2f68e0a27226f4094e970"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09d-apple.ps1",
+                      "relative":  "sagewrite/engine/09d-apple.ps1",
+                      "bytes":  12502,
+                      "sha256":  "27a00a4e1019279f38e0fe902981e43e4045c937deb9474cea7f66441e46fa0a"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09e-google.ps1",
+                      "relative":  "sagewrite/engine/09e-google.ps1",
+                      "bytes":  12666,
+                      "sha256":  "2e8ff75dcd12b97da0500d682c067d7a9d54a2fd2c7a4d83e7515ddbbc6ce4d0"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09f-submit.ps1",
+                      "relative":  "sagewrite/engine/09f-submit.ps1",
+                      "bytes":  10398,
+                      "sha256":  "c2a39c08059a41274ed36b39cbc4459aff2f9753bca683e9fd3e86b314bc51f2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09g-amazon-bot.ps1",
+                      "relative":  "sagewrite/engine/09g-amazon-bot.ps1",
+                      "bytes":  4412,
+                      "sha256":  "9a21d0bedaeec7b7cd0c2f337b50f1f9523947c8615110092a0ec924de4c3ce4"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09h-google-bot.ps1",
+                      "relative":  "sagewrite/engine/09h-google-bot.ps1",
+                      "bytes":  3242,
+                      "sha256":  "1bf0bbd74da7ec0556782a328de64dde2958f56bdf21238fd55ed7e2b32adde8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09i-apple-delivery.ps1",
+                      "relative":  "sagewrite/engine/09i-apple-delivery.ps1",
+                      "bytes":  2994,
+                      "sha256":  "6ae5ba4750ee0a8e580ac1705c60253b2b5830c4a2ff221feccd3a4f7cffdc2b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\09-publish.ps1",
+                      "relative":  "sagewrite/engine/09-publish.ps1",
+                      "bytes":  20172,
+                      "sha256":  "ed9492525ee81069f757163ba15bbc0dcbfce56c214c60598d5235b7fa6916fc"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\automation\\package.json",
+                      "relative":  "sagewrite/engine/automation/package.json",
+                      "bytes":  387,
+                      "sha256":  "da080d4160a567c091ffabf0d2a0f6f8f9ea0b97117a8ef2e53d441d35be5d68"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\automation\\package-lock.json",
+                      "relative":  "sagewrite/engine/automation/package-lock.json",
+                      "bytes":  724,
+                      "sha256":  "b4345c45fcd126a499605dcb8125c271fe0cb4294c4f94c31c9ad3f25e5b302e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\automation\\submit-amazon.js",
+                      "relative":  "sagewrite/engine/automation/submit-amazon.js",
+                      "bytes":  90356,
+                      "sha256":  "2c5b3c204a01f72b670372380e6bad0453948a43c64154b089287c362e85be24"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\automation\\submit-apple.js",
+                      "relative":  "sagewrite/engine/automation/submit-apple.js",
+                      "bytes":  17869,
+                      "sha256":  "962940a2f3f06a6fc9956e7eb1f00e259ffeb91d5062ddd7f41e58105fae3332"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\automation\\submit-google.js",
+                      "relative":  "sagewrite/engine/automation/submit-google.js",
+                      "bytes":  20602,
+                      "sha256":  "1f7384b30c06cd2e64eea62329febcf6b778990b1ad6c34ffce3d630065f8da2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\clean.ps1",
+                      "relative":  "sagewrite/engine/clean.ps1",
+                      "bytes":  3593,
+                      "sha256":  "f3c569fd507d58ea71a4046fd010a64496468ec6bb3a91f423e0de3a57491eb8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Complete-SageWriteInstallation.ps1",
+                      "relative":  "sagewrite/engine/Complete-SageWriteInstallation.ps1",
+                      "bytes":  1740,
+                      "sha256":  "36620a2425f9eadc57632721ceb201b72e7b9a1615a3bdccc47f9a4ade3665ba"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\ENVIRONMENT-CHECK.md",
+                      "relative":  "sagewrite/engine/ENVIRONMENT-CHECK.md",
+                      "bytes":  3379,
+                      "sha256":  "331b0f2724e681228efc995d62ebe46b9c5303562bfdd1d640dbb563075b8817"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\export-model-template.ps1",
+                      "relative":  "sagewrite/engine/export-model-template.ps1",
+                      "bytes":  1440,
+                      "sha256":  "afea19a5481cf9013d447494d7d1bbf4b4d6f41dffb74bfbd96be32063983384"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Get-SageWrite-WebTask.ps1",
+                      "relative":  "sagewrite/engine/Get-SageWrite-WebTask.ps1",
+                      "bytes":  1383,
+                      "sha256":  "881e23ac4a815d613bbc9d7fabfb89fb8b5d0fa7b9cf5a8a311ec3a0f8135319"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Get-SageWriteWorkflowStatus.ps1",
+                      "relative":  "sagewrite/engine/Get-SageWriteWorkflowStatus.ps1",
+                      "bytes":  13014,
+                      "sha256":  "df359940878ee4c2f548e5ff4f30d7f6973be8d14b510d34a166d0bc2d17edfb"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Install-SageWrite-Agent.ps1",
+                      "relative":  "sagewrite/engine/Install-SageWrite-Agent.ps1",
+                      "bytes":  1913,
+                      "sha256":  "cf1bcda3b32a9739e06904a823eb06532aff1d03a322759c558154698233be76"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Install-SageWrite-Standalone.ps1",
+                      "relative":  "sagewrite/engine/Install-SageWrite-Standalone.ps1",
+                      "bytes":  5810,
+                      "sha256":  "93b96fc0077c077a58f5f1e4b669e61a036a463152b1def64eb069d8c02afbfa"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Install-SageWrite-WebTask.ps1",
+                      "relative":  "sagewrite/engine/Install-SageWrite-WebTask.ps1",
+                      "bytes":  4783,
+                      "sha256":  "c59ab4a356da9a36729cfbdbe2e31cbf43a41e159fd02ab6652f711cd96f0a41"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-acceptance-files.ps1",
+                      "relative":  "sagewrite/engine/kdp-acceptance-files.ps1",
+                      "bytes":  3977,
+                      "sha256":  "1f0291d0d195611216bf5838590e9dcf65804a8f17e9db08c12178d7c6e7756f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-composite-image-region.ps1",
+                      "relative":  "sagewrite/engine/kdp-composite-image-region.ps1",
+                      "bytes":  8243,
+                      "sha256":  "bff661cf5365db5881c31eb983230e6fe193a31a9398f31b293884f2b84be916"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-crop-image-region.ps1",
+                      "relative":  "sagewrite/engine/kdp-crop-image-region.ps1",
+                      "bytes":  7395,
+                      "sha256":  "41d4766f8849039b0186fdcd13ab4137973a6a74941682a77e617b0dd4b3169f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-fill-image-region.ps1",
+                      "relative":  "sagewrite/engine/kdp-fill-image-region.ps1",
+                      "bytes":  11203,
+                      "sha256":  "d1a13af38dc504b216fa178b8c907a69183a752ff65c65e71a21e151ea9609f0"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-fix-image-edit.ps1",
+                      "relative":  "sagewrite/engine/kdp-fix-image-edit.ps1",
+                      "bytes":  12406,
+                      "sha256":  "574d23dd197df7ce502971b9c3437b2908fe0100bfd113fcd2e0348fe1079a93"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-imagemagick-fix.ps1",
+                      "relative":  "sagewrite/engine/kdp-imagemagick-fix.ps1",
+                      "bytes":  14704,
+                      "sha256":  "18182c4f3192f5a3da47c75045298feb326f932e9a7ca78b1d0dacc8d068c104"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-png-to-pdf.ps1",
+                      "relative":  "sagewrite/engine/kdp-png-to-pdf.ps1",
+                      "bytes":  6264,
+                      "sha256":  "420fa11d7a07db4b1932090e3809e2b6d1ec8808657ca59a68040fe69f4614f3"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\kdp-resize-image-region.ps1",
+                      "relative":  "sagewrite/engine/kdp-resize-image-region.ps1",
+                      "bytes":  7018,
+                      "sha256":  "a32f9e33f409caf4f6f20b8eb7dae1264912fffc57619f87c115a8a89e5a8110"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\llm-config.json",
+                      "relative":  "sagewrite/engine/llm-config.json",
+                      "bytes":  41,
+                      "sha256":  "a367ea03235e8d1971cd1aae45d27df0a06cf4f38dfe24fed89dabbf9c1b3191"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\LLM-CONFIG.md",
+                      "relative":  "sagewrite/engine/LLM-CONFIG.md",
+                      "bytes":  5046,
+                      "sha256":  "dc0fdf4780a4af915466c338e12cfd68e26e1e5cbccff87db58fcd359e859f7e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\mcp-config.example.json",
+                      "relative":  "sagewrite/engine/mcp-server/mcp-config.example.json",
+                      "bytes":  405,
+                      "sha256":  "7867710558264ca7126c07c634221dc708af823a695cb67c186b0a42b8acd357"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\package.json",
+                      "relative":  "sagewrite/engine/mcp-server/package.json",
+                      "bytes":  503,
+                      "sha256":  "ebb2ed3a2a61a691ccfee514a48123e5e097c32f1edcdc6939b880dd9e39032b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\pnpm-lock.yaml",
+                      "relative":  "sagewrite/engine/mcp-server/pnpm-lock.yaml",
+                      "bytes":  3879,
+                      "sha256":  "9bb8ad31e82a9bbf0c832c18176f0207c6b13dbfe258a51b816894c991213fee"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\README.md",
+                      "relative":  "sagewrite/engine/mcp-server/README.md",
+                      "bytes":  4916,
+                      "sha256":  "7603c9805553fb1c56c9442d3bb0cbff92beaad5fa070d09167a2e7282876205"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\src\\index.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/src/index.mjs",
+                      "bytes":  30535,
+                      "sha256":  "1a2dab4eb17e19952c6bc32a202756f60eb74db55b51fe814d1dcbec97561c9d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\src\\runner.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/src/runner.mjs",
+                      "bytes":  4054,
+                      "sha256":  "99cbfeb7569ddf78e3d90eb5493abab7c6ed3df07b95730e52112d09d470980b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\Start-SageWrite-Mcp.ps1",
+                      "relative":  "sagewrite/engine/mcp-server/Start-SageWrite-Mcp.ps1",
+                      "bytes":  826,
+                      "sha256":  "80649b4b6cda74c9e23c3e12a9493f668895c76205c9f239fe288da124ad9cde"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\test\\codebuddy-config.test.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/test/codebuddy-config.test.mjs",
+                      "bytes":  1321,
+                      "sha256":  "6af945a468af9679066e4fd2caa3fdeb6d81c12c8606041201c6e951705d9235"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\test\\protocol.test.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/test/protocol.test.mjs",
+                      "bytes":  2412,
+                      "sha256":  "57f7fff3100e352a1e94eee8ef4cd14e624fe86c57c3f479390baf970c448e28"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\test\\runner.test.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/test/runner.test.mjs",
+                      "bytes":  1523,
+                      "sha256":  "b40fea48c5bace37aef55cd209a48da065ff933d2e488cdb3f5867acecf8390c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\mcp-server\\test\\workflow-status.test.mjs",
+                      "relative":  "sagewrite/engine/mcp-server/test/workflow-status.test.mjs",
+                      "bytes":  2272,
+                      "sha256":  "1a5cc4f12582a69b1aafdbf93e7da1babc7019fb2a7182683a0d545bf13bb468"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\New-SageWrite-StandalonePackage.ps1",
+                      "relative":  "sagewrite/engine/New-SageWrite-StandalonePackage.ps1",
+                      "bytes":  1612,
+                      "sha256":  "690f9033f10c348dac313ed6f22cc651103e3628470557e8a2434d4994530bb2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\RELEASE-20260917.md",
+                      "relative":  "sagewrite/engine/RELEASE-20260917.md",
+                      "bytes":  2325,
+                      "sha256":  "e89452fd7037bca29957ffcac168255753ae65fb5fa2559c379b587eb7a7f321"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\RELEASE-20260918.md",
+                      "relative":  "sagewrite/engine/RELEASE-20260918.md",
+                      "bytes":  1366,
+                      "sha256":  "77cb57bc1fc273b16ee2cc8d8054da8d4d59f5acce923509ec78da99b4fd504d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\RELEASE-20260924.md",
+                      "relative":  "sagewrite/engine/RELEASE-20260924.md",
+                      "bytes":  1546,
+                      "sha256":  "04ca4226c3b9a13b77c2f2815a500931aed2647b89519dc6afc68de3e5ed223e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\RELEASE-20260924-LLM-UNIFIED.md",
+                      "relative":  "sagewrite/engine/RELEASE-20260924-LLM-UNIFIED.md",
+                      "bytes":  1406,
+                      "sha256":  "b7c2ad9c6efa11c6794b77e1c9a79e86c0a7502a16982b64b5977ed24f68363f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\RELEASE-20260928.md",
+                      "relative":  "sagewrite/engine/RELEASE-20260928.md",
+                      "bytes":  2658,
+                      "sha256":  "950e0277130100397462fdb5b233b6287c5d6768e2c80b92ded06b5d6a1a3aa6"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Run-SageWrite-WebTask.ps1",
+                      "relative":  "sagewrite/engine/Run-SageWrite-WebTask.ps1",
+                      "bytes":  2453,
+                      "sha256":  "7f9001533422f997494522d9aa4024501e5389cf67b1a174ad6af319ce8bc1c9"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Start-SageWrite-Agent.ps1",
+                      "relative":  "sagewrite/engine/Start-SageWrite-Agent.ps1",
+                      "bytes":  4151,
+                      "sha256":  "dd0cc48ff9fc691c3fedd33069bdb6527698d70ca66cb07e6cb79379c8e6d685"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Start-SageWrite-Web.ps1",
+                      "relative":  "sagewrite/engine/Start-SageWrite-Web.ps1",
+                      "bytes":  6927,
+                      "sha256":  "2a65d77c105b2e6f14fdad16e95d90474db206ebd504c5155792b23b3329a86a"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\STRUCTURE-IMPORT.md",
+                      "relative":  "sagewrite/engine/STRUCTURE-IMPORT.md",
+                      "bytes":  1485,
+                      "sha256":  "b1f92c2d2aa9103d25b24fcab30985f86e49efcc66735616f2994925ea75252e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Test-03RW.ps1",
+                      "relative":  "sagewrite/engine/Test-03RW.ps1",
+                      "bytes":  2306,
+                      "sha256":  "9f8fe02644e565ad7fb9174a32eeca9078dd16f704add1da8b931469d90c4c92"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\test-broken.ps1",
+                      "relative":  "sagewrite/engine/test-broken.ps1",
+                      "bytes":  237,
+                      "sha256":  "416147f04749bcc98708d88fdb585a3c85d045b59c46d221195ec1f4ff67ba64"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Test-SageWriteEnvironment.ps1",
+                      "relative":  "sagewrite/engine/Test-SageWriteEnvironment.ps1",
+                      "bytes":  13838,
+                      "sha256":  "ce44362ba0377068cde0b3f03b9b2a1423658d92cf493c35814bf6220ef98511"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\Uninstall-SageWrite-WebTask.ps1",
+                      "relative":  "sagewrite/engine/Uninstall-SageWrite-WebTask.ps1",
+                      "bytes":  469,
+                      "sha256":  "b47a821455f2c218490c5758e28d9868947e6259d27d9e560f4c07c2f3f48e57"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\VERSION-NOTES.md",
+                      "relative":  "sagewrite/engine/VERSION-NOTES.md",
+                      "bytes":  2341,
+                      "sha256":  "efe15ae0781120c7d1a77c80751cfa550d387ca5dd103a41b358b082edc8d2f9"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1775964497008-d68d09dd-6eb7-4e5e-a269-7da4f25298be.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1775964497008-d68d09dd-6eb7-4e5e-a269-7da4f25298be.ps1",
+                      "bytes":  201,
+                      "sha256":  "10cedd1857cd8a36b2a44e53f530f0274c90b63e4eef9b3d3b9f6fd8a47f282c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1775965427509-be109acb-6b55-4c23-a761-3beacd234173.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1775965427509-be109acb-6b55-4c23-a761-3beacd234173.ps1",
+                      "bytes":  201,
+                      "sha256":  "10cedd1857cd8a36b2a44e53f530f0274c90b63e4eef9b3d3b9f6fd8a47f282c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1775978384869-c75faf37-7a70-4ccc-a104-2b30e2ef3d69.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1775978384869-c75faf37-7a70-4ccc-a104-2b30e2ef3d69.ps1",
+                      "bytes":  201,
+                      "sha256":  "10cedd1857cd8a36b2a44e53f530f0274c90b63e4eef9b3d3b9f6fd8a47f282c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776082260991-f4a28e5a-b6dc-4f7f-858f-7fe9fbe2cf1a.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776082260991-f4a28e5a-b6dc-4f7f-858f-7fe9fbe2cf1a.ps1",
+                      "bytes":  201,
+                      "sha256":  "2651cc2c17b31af304a5d2eb22857ab3974e7e842ac3d01f7a27472fe2b00d0d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776124205463-1a0d72ad-1b51-41a0-b257-87fc7307f110.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776124205463-1a0d72ad-1b51-41a0-b257-87fc7307f110.ps1",
+                      "bytes":  201,
+                      "sha256":  "2651cc2c17b31af304a5d2eb22857ab3974e7e842ac3d01f7a27472fe2b00d0d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776154326142-5bbe3294-7df9-4446-be79-f163cc8b051d.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776154326142-5bbe3294-7df9-4446-be79-f163cc8b051d.ps1",
+                      "bytes":  222,
+                      "sha256":  "2911aef6a436fe8d4ac7d802c82be008efb42d9b99dca5e160ccdff49edddb46"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776156484600-59ad2035-7cdc-4e02-9fcf-6223cd0c24ff.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776156484600-59ad2035-7cdc-4e02-9fcf-6223cd0c24ff.ps1",
+                      "bytes":  222,
+                      "sha256":  "63d0e06369b0d4f999c04977f9d7d85ec90062e6206a8c7431c6efc5b18bb3b5"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776156556793-d50fca8a-8489-437c-85c6-a5fad74d38fb.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776156556793-d50fca8a-8489-437c-85c6-a5fad74d38fb.ps1",
+                      "bytes":  222,
+                      "sha256":  "2911aef6a436fe8d4ac7d802c82be008efb42d9b99dca5e160ccdff49edddb46"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776156755036-ba56482b-1f5b-4f84-97f0-69647666d8d2.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776156755036-ba56482b-1f5b-4f84-97f0-69647666d8d2.ps1",
+                      "bytes":  222,
+                      "sha256":  "63d0e06369b0d4f999c04977f9d7d85ec90062e6206a8c7431c6efc5b18bb3b5"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776158730701-a3e5f404-0aef-4a35-bc14-57ccb95c5ea9.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776158730701-a3e5f404-0aef-4a35-bc14-57ccb95c5ea9.ps1",
+                      "bytes":  240,
+                      "sha256":  "8370612867fcf2a259cd423dde5c43e85d4d4b1247cefd5ce9b0443264380f41"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776159111013-327175f0-2bee-4f4a-8934-29341ba73dcb.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776159111013-327175f0-2bee-4f4a-8934-29341ba73dcb.ps1",
+                      "bytes":  222,
+                      "sha256":  "2911aef6a436fe8d4ac7d802c82be008efb42d9b99dca5e160ccdff49edddb46"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776579464979-3e6c8660-36c2-46a9-af5f-4f8a2f8035ed.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776579464979-3e6c8660-36c2-46a9-af5f-4f8a2f8035ed.ps1",
+                      "bytes":  225,
+                      "sha256":  "d07ed3da831d5e1099fc36a12c933bffdc436dcb9f2142bd592a95a96cc8668d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launchers\\1776580028199-31b74416-0ec1-4f10-a388-47beffb6c548.ps1",
+                      "relative":  "sagewrite/engine/webui/launchers/1776580028199-31b74416-0ec1-4f10-a388-47beffb6c548.ps1",
+                      "bytes":  243,
+                      "sha256":  "ee341718096e7f30599f07dce92d39c5bac37cc27725b561b14f2a7a6c1c1f3c"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\launch-powershell-file.vbs",
+                      "relative":  "sagewrite/engine/webui/launch-powershell-file.vbs",
+                      "bytes":  588,
+                      "sha256":  "7e2fdcdfeeb9aaa54ae404e4ec6ee24c3dcefabc1bcaa367b35efb3665afc4e6"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\open-target.vbs",
+                      "relative":  "sagewrite/engine/webui/open-target.vbs",
+                      "bytes":  275,
+                      "sha256":  "365499187b2e58e2fbb5bd8f0f48cc20529a8cf942eb5798a3df397d75ef7fee"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\package.json",
+                      "relative":  "sagewrite/engine/webui/package.json",
+                      "bytes":  226,
+                      "sha256":  "21460395cb3754677ec7458f43f08937a5a85069f4594aa82429058ef4ceaa19"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\powershell-test-launcher.vbs",
+                      "relative":  "sagewrite/engine/webui/powershell-test-launcher.vbs",
+                      "bytes":  517,
+                      "sha256":  "443459194ea8cef9e3104ca20f90be6c5f74f723111a0cd689f3da443c14fc22"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\powershell-test-window.ps1",
+                      "relative":  "sagewrite/engine/webui/powershell-test-window.ps1",
+                      "bytes":  220,
+                      "sha256":  "c8809921df53c00b9f4f16589754f178ee609cbc852efe6dae27cf6a0702718e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\public\\app.js",
+                      "relative":  "sagewrite/engine/webui/public/app.js",
+                      "bytes":  375759,
+                      "sha256":  "96fc97da92d2f39f1dda4a2ca06c5e9a52b21c85cbd506b5af86c64210dabf3b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\public\\index.html",
+                      "relative":  "sagewrite/engine/webui/public/index.html",
+                      "bytes":  105479,
+                      "sha256":  "c09ac029d2308e20d074ab4085f0c73801896e572a77dab4e9fea50516cc2dc7"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\public\\login.html",
+                      "relative":  "sagewrite/engine/webui/public/login.html",
+                      "bytes":  4936,
+                      "sha256":  "3e0b2133e7ab097b92c56bd9cd152670c578a05399a805b42f72196c5ce4c17b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\public\\sagewrite-press-mark.svg",
+                      "relative":  "sagewrite/engine/webui/public/sagewrite-press-mark.svg",
+                      "bytes":  2197,
+                      "sha256":  "aed308c9a548b59d31170fd3d6437039d08f13184dc6f010692252c832dbc738"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\public\\styles.css",
+                      "relative":  "sagewrite/engine/webui/public/styles.css",
+                      "bytes":  75451,
+                      "sha256":  "859a76f2dcc7172987802ed1b860f8032cbda0279e71c0b99be80067afb760e8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\README.md",
+                      "relative":  "sagewrite/engine/webui/README.md",
+                      "bytes":  6482,
+                      "sha256":  "3ea32c7a37f9abe5b322e9344094895c24042311700f475ef605f5ec6abb2b58"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\engine\\webui\\server.js",
+                      "relative":  "sagewrite/engine/webui/server.js",
+                      "bytes":  326574,
+                      "sha256":  "88c072e5d8b51a1b327fc169e1594b2200336d3ce023237fdc9759efcfcc41ff"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\LICENSE",
+                      "relative":  "sagewrite/LICENSE",
+                      "bytes":  1084,
+                      "sha256":  "967ed614af84de01df6e4987c9ab76b1f0411afa0bc93452cdb70b4850eee39e"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\README.md",
+                      "relative":  "sagewrite/README.md",
+                      "bytes":  31639,
+                      "sha256":  "3f2268efa94014b418fd262b17c73f29a34c07dadb2a04a8174067da897d4f14"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-create-cover\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-create-cover/agents/openai.yaml",
+                      "bytes":  334,
+                      "sha256":  "1ebb05c5d5797bf672c5281d5e9c0363f5ce12a03cf5bfafd855b0e28e73782b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-create-cover\\references\\cover-workflow.md",
+                      "relative":  "sagewrite/skills/sagewrite-create-cover/references/cover-workflow.md",
+                      "bytes":  3676,
+                      "sha256":  "074f9e25c5cdcc8ca48cd579c6d8dca600502609281787cbe8b64ff411ef6739"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-create-cover\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-create-cover/SKILL.md",
+                      "bytes":  3643,
+                      "sha256":  "46b824d0417c4de88aa0dd89872b1db634ffe0ced5b1ad5f48dd2d7e78cefbf8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-generate-toc\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-generate-toc/agents/openai.yaml",
+                      "bytes":  261,
+                      "sha256":  "186ecf8a09b4ad885feb894710a79a0b4e3e58da044d48793ac06ebfc2133d37"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-generate-toc\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-generate-toc/SKILL.md",
+                      "bytes":  4879,
+                      "sha256":  "2162d6e517744b79614769814a8f22854e906d9e9768ed1fc6d35edb1934f2e9"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-manage-environment\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-manage-environment/agents/openai.yaml",
+                      "bytes":  275,
+                      "sha256":  "a27566d9d93fafef033bc0f67d940943bf96086953c8a3b13c97076720d23aa7"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-manage-environment\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-manage-environment/SKILL.md",
+                      "bytes":  7032,
+                      "sha256":  "296a523208db11895d44b59cf6286ce44521327f52b964ac39d0430593c6b49f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-new-book\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-new-book/agents/openai.yaml",
+                      "bytes":  250,
+                      "sha256":  "6711d64906c4a5d8f2d47ddc70fc455b194fe6487d5582a2c9b6fafcd0fa4e86"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-new-book\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-new-book/SKILL.md",
+                      "bytes":  3851,
+                      "sha256":  "517fa7b5d3838793a3e8130300a5f12ea2a7f8639c76c25aac746c7b628070d3"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-publish-book\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-publish-book/agents/openai.yaml",
+                      "bytes":  330,
+                      "sha256":  "35f9d8a00908690ad6e82dcbd1e93a65b2fe17384126dfc48d24b67435efdd62"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-publish-book\\references\\export-routing.md",
+                      "relative":  "sagewrite/skills/sagewrite-publish-book/references/export-routing.md",
+                      "bytes":  6456,
+                      "sha256":  "c54d2d3931723d9356c4f149a2990b94826459b089b9902d6fa4a647d0609708"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-publish-book\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-publish-book/SKILL.md",
+                      "bytes":  5436,
+                      "sha256":  "d654c13c82cd6598f943ff27564b06b75958550f7a3460cf80925d20a5fbfc75"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-review-edit\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-review-edit/agents/openai.yaml",
+                      "bytes":  347,
+                      "sha256":  "873c712c90efadd34745d45beb77ffb1bf742aafc0ab17df4add9d4c11b20146"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-review-edit\\references\\tool-routing.md",
+                      "relative":  "sagewrite/skills/sagewrite-review-edit/references/tool-routing.md",
+                      "bytes":  7715,
+                      "sha256":  "6dd7d37ba4a5cda7b342af6029efd8566ba8f59d0323449450fdb982539f2228"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-review-edit\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-review-edit/SKILL.md",
+                      "bytes":  4784,
+                      "sha256":  "1be95147203b4ffb5220e3995c7b6dc438b67236b0aba4e26633ad1f987d9009"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-workflow-status\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-workflow-status/agents/openai.yaml",
+                      "bytes":  303,
+                      "sha256":  "1022488c0f402aca3a06872d5625404078147639683f3c15a3a1eec8e255c3d8"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-workflow-status\\references\\status-record.md",
+                      "relative":  "sagewrite/skills/sagewrite-workflow-status/references/status-record.md",
+                      "bytes":  3457,
+                      "sha256":  "61efec8e780a3ae4c2b8a29b95e23b943f99f2da28e7f773e409eb9fda4e16d2"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-workflow-status\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-workflow-status/SKILL.md",
+                      "bytes":  8125,
+                      "sha256":  "7853370be1003050627e844aa95cef0e8940b3811eca7957b7321f77ae097e2f"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-write-chapters\\agents\\openai.yaml",
+                      "relative":  "sagewrite/skills/sagewrite-write-chapters/agents/openai.yaml",
+                      "bytes":  271,
+                      "sha256":  "8b7930edd33c89571bf418ec8e1667f2bda61925fbb8f1beb1c3b50c37931103"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\skills\\sagewrite-write-chapters\\SKILL.md",
+                      "relative":  "sagewrite/skills/sagewrite-write-chapters/SKILL.md",
+                      "bytes":  5741,
+                      "sha256":  "daf878b250a381c7e40a96291a43d9846e7de83fa9467a55b98a805e5a7ac29b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\Start-SageWrite-Agent.cmd",
+                      "relative":  "sagewrite/Start-SageWrite-Agent.cmd",
+                      "bytes":  298,
+                      "sha256":  "10100e98adfd1a6b7d2334d7cffea2a84196021386ef745603035edab2a1b1cf"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\.gitignore",
+                      "relative":  "sagewrite/templates/model-calling/.gitignore",
+                      "bytes":  60,
+                      "sha256":  "d9c7309ae6e7d111821f08430a59c5fd9494e90d8e13c8ae9e561e1907ad9ad7"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\AGENTS.md",
+                      "relative":  "sagewrite/templates/model-calling/AGENTS.md",
+                      "bytes":  1328,
+                      "sha256":  "e9620671863d6505bd8f6a317a4c3b5666f3873b169677d0049da6c253956588"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\llm-config.json",
+                      "relative":  "sagewrite/templates/model-calling/llm-config.json",
+                      "bytes":  41,
+                      "sha256":  "a367ea03235e8d1971cd1aae45d27df0a06cf4f38dfe24fed89dabbf9c1b3191"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\prompt.md",
+                      "relative":  "sagewrite/templates/model-calling/prompt.md",
+                      "bytes":  144,
+                      "sha256":  "dc665fa5289d7c8e30a0bcd460389a3a16f4047bb8302b448d538fbc0e279fde"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\README.md",
+                      "relative":  "sagewrite/templates/model-calling/README.md",
+                      "bytes":  4762,
+                      "sha256":  "f0f11f22b02e71385a0ff9a47b2c7e1c407368d7aaa3ccdc584869cb87513a0d"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\run.ps1",
+                      "relative":  "sagewrite/templates/model-calling/run.ps1",
+                      "bytes":  1061,
+                      "sha256":  "27a2a792b0ae4a7d98ee39e337d82784407b407cc8254393b7052f25ef9f1df1"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\test.ps1",
+                      "relative":  "sagewrite/templates/model-calling/test.ps1",
+                      "bytes":  5107,
+                      "sha256":  "84ce2f23e18982dbba3bcdfa397b6b907a03932873346bcf7d218f78d32ee032"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\model-calling\\test.yml",
+                      "relative":  "sagewrite/templates/model-calling/test.yml",
+                      "bytes":  359,
+                      "sha256":  "62c73c078e009ddc0d675d59f341683d69544ee9430a7e771ab7642bb8f1592b"
+                  },
+                  {
+                      "source":  "D:\\SageWrite\\templates\\README.md",
+                      "relative":  "sagewrite/templates/README.md",
+                      "bytes":  972,
+                      "sha256":  "23ddb00f5c9e38212627768c751cf943bb01c6c7836dde134e11312a603799e6"
+                  }
+              ]
+}
