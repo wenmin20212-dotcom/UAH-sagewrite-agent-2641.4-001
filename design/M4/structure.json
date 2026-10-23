@@ -1,0 +1,600 @@
+{
+    "schema":  "uahraf9m-M4-task-structure/v0.1",
+    "instanceId":  "role-dc5dae12889c4522a86f5e465b5cf4dc",
+    "taskId":  "sagewrite-book-lifecycle",
+    "basisHash":  "e0fe0d737489b1caea2ed923742a12475f3b70a34669ecff09438a94579e1512",
+    "overview":  "定义长篇书籍项目从创作目标、结构、正文、审改、翻译、参考文献、视觉资源、质量检查到成书与出版准备所需的输入、过程记录和工作成果类型。类型仅表达实际书籍任务的数据归属和版本关系；SageWrite 既有 PS1、模型调用和 MCP 接口在 M7 登记，不在 M4 重复实现。",
+    "types":  [
+                  {
+                      "id":  "M4.1",
+                      "name":  "书籍创作简报",
+                      "definition":  "作者对当前书籍目的、读者、类型、主旨、范围、语言和文风的输入；未确认内容保持待定。",
+                      "category":  "input",
+                      "fields":  [
+                                     {
+                                         "name":  "workingTitle",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "书籍暂定名称；未知保持 null。"
+                                     },
+                                     {
+                                         "name":  "audience",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "作者指定的目标读者。"
+                                     },
+                                     {
+                                         "name":  "bookType",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "虚构、非虚构或作者指定的书籍类型。"
+                                     },
+                                     {
+                                         "name":  "coreThesis",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "核心主旨或创作意图。"
+                                     },
+                                     {
+                                         "name":  "scope",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "纳入和排除的内容范围。"
+                                     },
+                                     {
+                                         "name":  "sourceLanguage",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "源书稿主要语言。"
+                                     },
+                                     {
+                                         "name":  "styleRequirements",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "文风、语气及其他写作要求。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.2",
+                                           "M4.3",
+                                           "M4.4"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.2",
+                      "name":  "书稿结构资料",
+                      "definition":  "当前书籍的目录、章节提纲、章节映射和结构版本输入，不等于结构已经获得作者定稿。",
+                      "category":  "input",
+                      "fields":  [
+                                     {
+                                         "name":  "outlineRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "实际目录或提纲资料引用。"
+                                     },
+                                     {
+                                         "name":  "chapterMap",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "章、节、标题与实际写作单元之间的映射。"
+                                     },
+                                     {
+                                         "name":  "structureVersion",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "当前结构版本标识。"
+                                     },
+                                     {
+                                         "name":  "confirmedScope",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "作者已确认用于当前工作的结构范围。"
+                                     },
+                                     {
+                                         "name":  "unresolvedConflicts",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "目录、提纲和正文之间尚未解决的冲突。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.1",
+                                           "M4.3",
+                                           "M4.5",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.3",
+                      "name":  "书稿内容资料",
+                      "definition":  "实际源稿、章节正文、写作规范、术语及翻译输入；不同版本和语言分别记录。",
+                      "category":  "input",
+                      "fields":  [
+                                     {
+                                         "name":  "manuscriptRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "实际书稿或章节资料引用。"
+                                     },
+                                     {
+                                         "name":  "contentScope",
+                                         "type":  "object",
+                                         "required":  true,
+                                         "description":  "单章、多章连续范围或整书范围。"
+                                     },
+                                     {
+                                         "name":  "language",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "该内容的语言。"
+                                     },
+                                     {
+                                         "name":  "writingSpecificationRef",
+                                         "type":  "reference",
+                                         "required":  false,
+                                         "description":  "适用写作规范引用；没有时保持 null。"
+                                     },
+                                     {
+                                         "name":  "terminology",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "需保持一致的术语、专名和表达。"
+                                     },
+                                     {
+                                         "name":  "contentVersion",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "该书稿内容版本标识。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.1",
+                                           "M4.2",
+                                           "M4.5",
+                                           "M4.6",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.4",
+                      "name":  "研究来源与参考文献资料",
+                      "definition":  "实际提供或取得的背景资料、引用候选、来源证据和适用限制；未经核验不得标为可信。",
+                      "category":  "input",
+                      "fields":  [
+                                     {
+                                         "name":  "sourceRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "原始来源或来源索引引用。"
+                                     },
+                                     {
+                                         "name":  "sourceKind",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "书籍、论文、网页、访谈或其他来源类型。"
+                                     },
+                                     {
+                                         "name":  "claimedPurpose",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "该来源拟支持的内容。"
+                                     },
+                                     {
+                                         "name":  "accessCondition",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "已取得全文、仅索引、无法访问或其他实际状态。"
+                                     },
+                                     {
+                                         "name":  "licenseOrPermission",
+                                         "type":  "string",
+                                         "required":  false,
+                                         "description":  "保存或使用条件；未知保持 null。"
+                                     },
+                                     {
+                                         "name":  "verificationStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "待核验、已核验、无法核验或冲突。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.1",
+                                           "M4.7",
+                                           "M4.9"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.5",
+                      "name":  "创作操作范围记录",
+                      "definition":  "记录作者对本轮写作、审改或翻译范围和关键要求的实际决定。",
+                      "category":  "record",
+                      "fields":  [
+                                     {
+                                         "name":  "operationKind",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "写作、审改、精修、校对或翻译。"
+                                     },
+                                     {
+                                         "name":  "scope",
+                                         "type":  "object",
+                                         "required":  true,
+                                         "description":  "单章、多章连续范围或整书。"
+                                     },
+                                     {
+                                         "name":  "basisRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "对应创作简报、目录、原稿和规范引用。"
+                                     },
+                                     {
+                                         "name":  "authorDecisionRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "作者真实决定的来源引用。"
+                                     },
+                                     {
+                                         "name":  "overwriteAllowed",
+                                         "type":  "boolean",
+                                         "required":  true,
+                                         "description":  "是否明确允许替换既有成果。"
+                                     },
+                                     {
+                                         "name":  "targetLanguage",
+                                         "type":  "string",
+                                         "required":  false,
+                                         "description":  "翻译目标语言；非翻译任务保持 null。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.2",
+                                           "M4.3",
+                                           "M4.6",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.6",
+                      "name":  "书稿版本关系记录",
+                      "definition":  "连接原稿、生成稿、修订稿和译稿，记录其范围与派生关系，不评价内容已定稿。",
+                      "category":  "record",
+                      "fields":  [
+                                     {
+                                         "name":  "sourceContentRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "源版本引用。"
+                                     },
+                                     {
+                                         "name":  "resultContentRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "结果版本引用。"
+                                     },
+                                     {
+                                         "name":  "relationship",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "新写、改写、精修、校对或翻译关系。"
+                                     },
+                                     {
+                                         "name":  "affectedScope",
+                                         "type":  "object",
+                                         "required":  true,
+                                         "description":  "受影响写作范围。"
+                                     },
+                                     {
+                                         "name":  "preservedOriginalRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "保留原稿或备份引用。"
+                                     },
+                                     {
+                                         "name":  "reviewStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "待审阅、接受、退回或部分接受。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.3",
+                                           "M4.5",
+                                           "M4.9",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.7",
+                      "name":  "参考文献治理记录",
+                      "definition":  "记录计划、核验、证据、决定、批准、应用和复检各轮结果及其书稿版本依据。",
+                      "category":  "record",
+                      "fields":  [
+                                     {
+                                         "name":  "roundKind",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "计划、核验、证据记录、决定、批准、应用或复检。"
+                                     },
+                                     {
+                                         "name":  "manuscriptVersionRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "对应书稿版本引用。"
+                                     },
+                                     {
+                                         "name":  "sourceRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "本轮涉及的来源引用。"
+                                     },
+                                     {
+                                         "name":  "evidenceRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "实际核验依据；没有时为空。"
+                                     },
+                                     {
+                                         "name":  "decisionRef",
+                                         "type":  "reference",
+                                         "required":  false,
+                                         "description":  "作者或责任人的决定引用。"
+                                     },
+                                     {
+                                         "name":  "outcome",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "本轮实际结果及限制。"
+                                     },
+                                     {
+                                         "name":  "unresolvedItems",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "未核实、冲突或无法访问事项。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.4",
+                                           "M4.6",
+                                           "M4.9",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.8",
+                      "name":  "视觉与出版条件记录",
+                      "definition":  "记录封面、插图和成书所需的文字、图像、尺寸、页数、格式与使用条件。",
+                      "category":  "record",
+                      "fields":  [
+                                     {
+                                         "name":  "assetKind",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "封面、插图、样机或其他视觉资源。"
+                                     },
+                                     {
+                                         "name":  "assetRef",
+                                         "type":  "reference",
+                                         "required":  false,
+                                         "description":  "实际视觉资源引用；尚未形成时为 null。"
+                                     },
+                                     {
+                                         "name":  "textRequirements",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "书名、作者等视觉文字要求。"
+                                     },
+                                     {
+                                         "name":  "productionRequirements",
+                                         "type":  "object",
+                                         "required":  true,
+                                         "description":  "尺寸、分辨率、页数、出血和目标格式等已知条件。"
+                                     },
+                                     {
+                                         "name":  "usageStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "占位、候选、已审阅或最终采用。"
+                                     },
+                                     {
+                                         "name":  "permissionStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "来源与许可的实际状态。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.9",
+                                           "M4.10",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.9",
+                      "name":  "书稿与成品检查成果",
+                      "definition":  "汇总实际检查发现、影响范围和未验证事项；自动检查不表示内容或出版质量已获专业确认。",
+                      "category":  "product",
+                      "fields":  [
+                                     {
+                                         "name":  "subjectVersionRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "被检查书稿、视觉资源或成品版本。"
+                                     },
+                                     {
+                                         "name":  "checkScope",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "结构、重复、篇幅、引用、格式、封面、插图或文件可读性等范围。"
+                                     },
+                                     {
+                                         "name":  "findings",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "实际检查发现。"
+                                     },
+                                     {
+                                         "name":  "evidenceRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "报告、回执和实际检查证据。"
+                                     },
+                                     {
+                                         "name":  "resultStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "checked、failed 或 unverified 等实际状态。"
+                                     },
+                                     {
+                                         "name":  "limitations",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "检查未覆盖或仍需人工判断的内容。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.4",
+                                           "M4.6",
+                                           "M4.7",
+                                           "M4.8",
+                                           "M4.10"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.10",
+                      "name":  "成书与出版材料成果",
+                      "definition":  "记录实际形成的 DOCX、PDF、EPUB、封面及平台材料，并区分准备、检查、人工确认和提交状态。",
+                      "category":  "product",
+                      "fields":  [
+                                     {
+                                         "name":  "artifactKind",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "DOCX、PDF、EPUB、封面、印刷展开图或平台材料。"
+                                     },
+                                     {
+                                         "name":  "artifactRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "实际成果引用。"
+                                     },
+                                     {
+                                         "name":  "sourceVersionRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "构建该成果所依据的书稿、封面和配置版本。"
+                                     },
+                                     {
+                                         "name":  "intendedUse",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "阅读、印刷、上传、展示或出版准备。"
+                                     },
+                                     {
+                                         "name":  "generationStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "已生成、失败或被依赖阻塞。"
+                                     },
+                                     {
+                                         "name":  "verificationStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "未检查、自动检查、人工确认或其他实际状态。"
+                                     },
+                                     {
+                                         "name":  "submissionStatus",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "未准备、已准备、草稿、已提交、平台确认或结果不确定。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.8",
+                                           "M4.9",
+                                           "M4.11"
+                                       ]
+                  },
+                  {
+                      "id":  "M4.11",
+                      "name":  "任务续接成果",
+                      "definition":  "汇总当前书籍任务的关键决定、版本、实际产物、错误、阻塞和恢复位置。",
+                      "category":  "product",
+                      "fields":  [
+                                     {
+                                         "name":  "currentBookRef",
+                                         "type":  "reference",
+                                         "required":  true,
+                                         "description":  "当前书籍身份引用。"
+                                     },
+                                     {
+                                         "name":  "currentVersionRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "当前采用的目录、书稿、译稿、视觉和成品版本。"
+                                     },
+                                     {
+                                         "name":  "decisionRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "关键作者决定引用。"
+                                     },
+                                     {
+                                         "name":  "artifactRefs",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "实际已有工作成果引用。"
+                                     },
+                                     {
+                                         "name":  "blockedItems",
+                                         "type":  "array",
+                                         "required":  true,
+                                         "description":  "当前阻塞、失败和未验证事项。"
+                                     },
+                                     {
+                                         "name":  "recoveryPoint",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "可恢复位置和下一步所需信息。"
+                                     },
+                                     {
+                                         "name":  "nextAction",
+                                         "type":  "string",
+                                         "required":  true,
+                                         "description":  "基于真实状态的下一行动。"
+                                     }
+                                 ],
+                      "relatedTypes":  [
+                                           "M4.2",
+                                           "M4.3",
+                                           "M4.5",
+                                           "M4.6",
+                                           "M4.7",
+                                           "M4.8",
+                                           "M4.9",
+                                           "M4.10"
+                                       ]
+                  }
+              ],
+    "gaps":  [
+                 "尚无具体书籍客户任务及其 objective、toc、章节、写作规范或成书原件，本阶段只定义类型。",
+                 "D:\\SageWrite 当前工作树有未提交变更；进入实际装配前需生成采用文件清单和内容指纹。",
+                 "统一模型调用与 MCP 的实际可移植配置、运行依赖和目标 Agent 安装位置将在 M7 中核对。",
+                 "出版平台账号、权利、税务、定价、协议和外部服务授权均未提供，不构造连接或提交结果。"
+             ],
+    "directories":  [
+                        "inputs",
+                        "records",
+                        "products"
+                    ],
+    "commonFields":  [
+                         "recordId",
+                         "instanceId",
+                         "taskId",
+                         "typeRef",
+                         "sourceRef",
+                         "contentLocator",
+                         "versionRef",
+                         "relatedRefs"
+                     ]
+}

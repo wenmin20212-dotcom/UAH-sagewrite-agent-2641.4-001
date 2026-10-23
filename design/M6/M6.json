@@ -1,0 +1,847 @@
+{
+    "schema":  "uahraf9m-M6/v0.1",
+    "instanceId":  "role-dc5dae12889c4522a86f5e465b5cf4dc",
+    "taskId":  "sagewrite-book-lifecycle",
+    "basisHash":  "155fcc3b84010917e8d5622c21f2b1d32088ec7420ef3fbff91c4008c81c12ec",
+    "overview":  "以作者确认和实际书籍工作区为依据，沿用 SageWrite 既有执行层组织从创作定义、结构、分范围写作/审改/翻译、多轮参考文献治理、质量检查、视觉协作、成书构建到授权出版准备的业务流程。设计节点只表达活动、分支及证据要求；具体 PS1、统一模型调用和 MCP 接口由 M7 映射，当前不执行任何书籍业务。",
+    "entryNodeId":  "M6.1",
+    "nodes":  [
+                  {
+                      "id":  "M6.1",
+                      "name":  "识别书籍项目与任务边界",
+                      "activity":  "确认当前书籍身份、作者目标、已有工作区、源语言、业务阶段和本轮范围；区分新书、已有书稿、翻译、审改、构建或出版准备，不用聊天记忆代替实际资料。",
+                      "inputs":  [
+                                     "M4.1 书籍创作简报",
+                                     "M4.2 书稿结构资料",
+                                     "M4.3 书稿内容资料",
+                                     "作者真实决定"
+                                 ],
+                      "outputs":  [
+                                      "当前书籍身份和业务阶段",
+                                      "已知输入、版本与缺口清单",
+                                      "本轮工作范围候选"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.1",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.1",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "仅在作者提供新的关键资料或修订边界后返回本节点重核一次；仍缺关键身份或范围时进入未解决事项终点。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.2",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.15",
+                                              "criterionRef":  "M5.1"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.2",
+                      "name":  "确认创作定义与结构",
+                      "activity":  "整理并由作者确认书籍目的、读者、类型、主旨、范围、文风、目录及章节映射；已有书稿时核对目录与实际章节，不在未确认时重排或覆盖结构。",
+                      "inputs":  [
+                                     "M4.1 书籍创作简报",
+                                     "M4.2 书稿结构资料",
+                                     "当前书稿标题和章节映射"
+                                 ],
+                      "outputs":  [
+                                      "作者确认的创作定义",
+                                      "目录及章节提纲",
+                                      "结构冲突与待定事项"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.1",
+                                             "M2.2"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.1",
+                                            "M5.2",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "作者退回结构时最多按新增意见形成一个新版本并再次确认；无新决定或仍冲突时进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.3",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.2"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.3",
+                      "name":  "核对执行基线与接口闭合",
+                      "activity":  "在设计或实际任务开始前核对所需 SageWrite 既有 PS1、共享模块、统一模型调用和 MCP 工具是否已登记并能映射当前活动；记录采用文件版本、指纹、依赖与未验证状态，不在流程中重写程序。",
+                      "inputs":  [
+                                     "D:\\SageWrite 实际程序基线清单",
+                                     "M7 接口定义与可用性状态",
+                                     "当前业务所需能力和范围"
+                                 ],
+                      "outputs":  [
+                                      "节点到 PS1/MCP 的映射结果",
+                                      "模型与程序依赖状态",
+                                      "缺失接口、指纹或环境问题"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "现有 M2 仅覆盖版本证据续接；程序清单核验与接口可用性由 M7 实际承担。",
+                      "criterionRefs":  [
+                                            "M5.4",
+                                            "M5.5",
+                                            "M5.6",
+                                            "M5.10"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "接口定义更新后只重新核对受影响映射；缺少真实程序、指纹或依赖时不循环模拟成功，进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.4",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.4"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.4",
+                      "name":  "确定本轮创作操作与范围",
+                      "activity":  "由作者选择写作、审改、精修、校对或翻译，并明确单章、连续多章或整书范围；核对原稿版本、写作规范、术语、目标语言和是否允许覆盖，先保留原稿及恢复点。",
+                      "inputs":  [
+                                     "M4.2 结构资料",
+                                     "M4.3 书稿内容资料",
+                                     "作者对操作、范围与覆盖的决定"
+                                 ],
+                      "outputs":  [
+                                      "M4.5 创作操作范围记录",
+                                      "原稿与备份引用",
+                                      "所需规范、术语和目标语言缺口"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.3",
+                                             "M2.4",
+                                             "M2.5",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.2",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "范围冲突只等待作者一次明确选择；未选择不执行并进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.5",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.2"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.5",
+                      "name":  "执行分范围写作审改或翻译",
+                      "activity":  "按确认的操作和范围调用对应既有 SageWrite 执行入口：支持单章、连续多章及整书；统一模型调用返回待交接时保留请求并等待响应，重跑相同命令完成验证。不得擅自扩大范围或覆盖未授权成果。",
+                      "inputs":  [
+                                     "M4.5 操作范围记录",
+                                     "确认目录、源稿、写作规范和术语",
+                                     "可用统一模型调用及 PS1/MCP 接口"
+                                 ],
+                      "outputs":  [
+                                      "正文草稿、修订稿或译稿",
+                                      "M4.6 书稿版本关系记录",
+                                      "模型待处理、错误或未完成范围"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.3",
+                                             "M2.4",
+                                             "M2.5",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.2",
+                                            "M5.4",
+                                            "M5.5",
+                                            "M5.6",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "同一范围只在取得新的模型响应或作者修订意见后重试；外部结果不确定、输入未变或失败原因未解决时进入 M6.15，不自动重复生成。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.6",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.7"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.6",
+                      "name":  "作者审阅与版本取舍",
+                      "activity":  "向作者或指定编辑展示实际范围、原稿与结果关系、风险和未解决事项，登记接受、部分接受、退回或修改意见；不把模型审校或自动检查当作定稿。",
+                      "inputs":  [
+                                     "正文草稿、修订稿或译稿",
+                                     "原稿与版本关系",
+                                     "风险和审校记录"
+                                 ],
+                      "outputs":  [
+                                      "作者审阅决定",
+                                      "采用版本或返修范围",
+                                      "保留的未解决事项"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.3",
+                                             "M2.4",
+                                             "M2.5",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.1",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "退回时仅携带新的明确意见返回 M6.4；连续两次无新增要求或作者暂停时进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.7",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.4",
+                                              "criterionRef":  "M5.7"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.7",
+                      "name":  "规划参考文献处理范围",
+                      "activity":  "识别当前采用书稿中的事实与引用需求，建立对应书稿版本的来源计划；区分现有来源、仅索引、待核验、无法访问和冲突，不在此阶段生成可信引用或修改正文。",
+                      "inputs":  [
+                                     "采用书稿版本",
+                                     "M4.4 研究来源与参考文献资料",
+                                     "引用需求及已有参考文献状态"
+                                 ],
+                      "outputs":  [
+                                      "参考文献计划",
+                                      "来源核验任务与范围",
+                                      "M4.7 计划轮记录"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.6",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.3",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "若本书明确无需引用，经作者记录决定后可跳至 M6.11；否则缺少可识别来源时进入 M6.14，不用模型补造。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.8",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.3"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.8",
+                      "name":  "核验来源并记录证据",
+                      "activity":  "按计划逐项取得和核对实际来源，保存访问状态、证据、适用限制和结论；形成 modify、no_change 或 defer 建议，不能从模型陈述推断来源真实性。",
+                      "inputs":  [
+                                     "参考文献计划",
+                                     "实际来源或来源索引",
+                                     "专业核验人员提供的证据"
+                                 ],
+                      "outputs":  [
+                                      "来源核验记录与证据",
+                                      "待批准的修改计划",
+                                      "未核实、冲突和无法访问清单"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.6",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.3",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "每项来源在新增证据后可复核一次；无法取得证据则标记 defer 并继续，不无限搜索。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.9",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.3"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.9",
+                      "name":  "人工批准参考文献变更",
+                      "activity":  "由作者或相应专业责任人审阅核验证据和具体旧值、新值、任务范围，明确批准可应用的任务 ID；未批准、待定或正文叙事修改不得进入自动应用。",
+                      "inputs":  [
+                                     "来源证据与核验结论",
+                                     "待批准修改计划",
+                                     "作者或专业责任人决定"
+                                 ],
+                      "outputs":  [
+                                      "带明确范围的批准记录",
+                                      "退回、延后或不可应用事项",
+                                      "M4.7 决定与批准轮记录"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.6",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.3",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "退回只在补充新证据后返回 M6.8；没有批准则跳至 M6.11 并保留未解决事项。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.10",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.11",
+                                              "criterionRef":  "M5.3"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.10",
+                      "name":  "应用批准变更并复检",
+                      "activity":  "先预览，再仅应用批准范围内的来源字段或引用变更；核对输入快照和证据指纹，应用后运行参考文献复检。输入过期、证据变化或复检失败时保留备份并拒绝宣称完成。",
+                      "inputs":  [
+                                     "批准的修改计划",
+                                     "对应书稿与来源状态快照",
+                                     "可用参考文献执行接口"
+                                 ],
+                      "outputs":  [
+                                      "应用后的参考文献及允许变更",
+                                      "复检结果",
+                                      "M4.7 应用和复检轮记录"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.6",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.3",
+                                            "M5.4",
+                                            "M5.6",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "复检失败只在修复明确输入或批准范围后再执行一次；仍失败进入 M6.15。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.11",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.3"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.11",
+                      "name":  "检查书稿一致性和质量",
+                      "activity":  "对当前采用版本检查目录、标题、编号、术语、跨章关系、重复、篇幅、引用状态及格式问题，生成实际发现和限制；作者或编辑决定是否返修，不把自动检查当作内容定稿。",
+                      "inputs":  [
+                                     "当前采用书稿与目录",
+                                     "参考文献状态",
+                                     "写作规范和目标格式"
+                                 ],
+                      "outputs":  [
+                                      "M4.9 书稿检查成果",
+                                      "问题、失败和未验证事项",
+                                      "返修建议与作者决定需求"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.7",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.7",
+                                            "M5.8"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "作者批准返修且提供明确范围时返回 M6.4；无新决定或检查仍有阻断项时进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.12",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.4",
+                                              "criterionRef":  "M5.8"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.12",
+                      "name":  "形成并确认视觉成果",
+                      "activity":  "依据当前书稿和出版用途形成或导入封面、插图候选，核对文字、来源、尺寸、分辨率、页数和许可；区分占位图、候选、样机与正式成果，由作者或出版责任方确认采用版本。",
+                      "inputs":  [
+                                     "当前书稿和目录版本",
+                                     "M4.8 视觉与出版条件",
+                                     "候选图像及许可信息"
+                                 ],
+                      "outputs":  [
+                                      "已审阅视觉候选",
+                                      "作者确认的封面或插图版本",
+                                      "未解决的许可、尺寸或文字问题"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.8",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.7",
+                                            "M5.8"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "退回候选时仅在新增设计要求或新图像后再审阅；缺少许可或生产参数时进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.13",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.8"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.13",
+                      "name":  "格式预检构建并核验成书",
+                      "activity":  "核对编辑、引用、格式和视觉前提后，按用途构建 DOCX、PDF、EPUB、印刷版或上传版；验证当前输入版本、实际文件可打开性、目录、封面、插图和内容完整性，区分生成、自动检查、人工确认和出版验收。",
+                      "inputs":  [
+                                     "当前采用书稿、参考文献和视觉版本",
+                                     "目标格式与用途",
+                                     "依赖环境和格式预检结果"
+                                 ],
+                      "outputs":  [
+                                      "M4.10 成书成果",
+                                      "M4.9 成品核验结果",
+                                      "依赖阻塞、失败或未验证事项"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.7",
+                                             "M2.8",
+                                             "M2.9",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.4",
+                                            "M5.6",
+                                            "M5.7",
+                                            "M5.8"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "构建失败只在依赖或输入版本得到明确修复后重试一次；不得回退旧产物冒充成功。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.16",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.8"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.14",
+                      "name":  "报告缺失资料和未验证事项",
+                      "activity":  "保存当前有效版本、已有成果、缺失输入、接口或依赖、未满足标准和恢复条件，形成可续接说明后结束本轮；不删除成果或伪造完成。",
+                      "inputs":  [
+                                     "来源节点缺口",
+                                     "已有 M4 资料和成果",
+                                     "未满足 M5 条件"
+                                 ],
+                      "outputs":  [
+                                      "M4.11 任务续接成果",
+                                      "缺口、恢复点和下一步",
+                                      "设计或业务未完成说明"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.7",
+                                            "M5.10"
+                                        ],
+                      "terminal":  true,
+                      "loopExitRule":  "",
+                      "transitions":  [
+
+                                      ]
+                  },
+                  {
+                      "id":  "M6.15",
+                      "name":  "记录执行失败并结束本轮",
+                      "activity":  "记录实际错误、受影响范围、已形成文件、外部结果不确定性和安全恢复位置；不静默重试模型、构建或外部提交，不覆盖既有有效成果。",
+                      "inputs":  [
+                                     "实际错误和工具回执",
+                                     "受影响版本与范围",
+                                     "现有备份和成果"
+                                 ],
+                      "outputs":  [
+                                      "失败记录",
+                                      "影响说明与恢复点",
+                                      "需人工处理或重新授权事项"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.5",
+                                            "M5.7",
+                                            "M5.9",
+                                            "M5.10"
+                                        ],
+                      "terminal":  true,
+                      "loopExitRule":  "",
+                      "transitions":  [
+
+                                      ]
+                  },
+                  {
+                      "id":  "M6.16",
+                      "name":  "准备出版材料并确认授权范围",
+                      "activity":  "根据已核验成书版本准备目标平台元数据和材料，区分准备、草稿与实际提交；确认平台、资源、操作、定价、权利、税务、协议和账号责任。未要求实际提交时直接进入交付终点。",
+                      "inputs":  [
+                                     "已核验成书和封面",
+                                     "平台及元数据要求",
+                                     "用户对是否提交的决定"
+                                 ],
+                      "outputs":  [
+                                      "出版材料包和缺口",
+                                      "具体授权范围或不提交决定",
+                                      "登录及敏感步骤提示"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.10",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.8",
+                                            "M5.9"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "缺少平台条件或用户不授权时不追问重试，保留材料并进入 M6.18；授权范围不清时进入 M6.14。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.17",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.18",
+                                              "criterionRef":  "M5.9"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.17",
+                      "name":  "执行获授权的出版操作",
+                      "activity":  "仅按明确平台、资源和操作范围推进上传、草稿或提交；登录、验证码、支付及协议交由用户本人处理。保存真实回执，结果不确定时停止并查询原操作状态，不换编号或自动重试。",
+                      "inputs":  [
+                                     "明确的外部操作授权",
+                                     "出版材料和平台条件",
+                                     "用户完成的敏感步骤"
+                                 ],
+                      "outputs":  [
+                                      "实际提交或平台回执",
+                                      "结果不确定、失败或平台确认状态",
+                                      "M4.10 提交状态更新"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.10",
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.9",
+                                            "M5.7"
+                                        ],
+                      "terminal":  false,
+                      "loopExitRule":  "只有用户明确要求且原操作状态已确定失败后才可新一轮执行；不确定结果直接进入 M6.15。",
+                      "transitions":  [
+                                          {
+                                              "outcome":  "success",
+                                              "target":  "M6.18",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "condition_not_met",
+                                              "target":  "M6.14",
+                                              "criterionRef":  "M5.9"
+                                          },
+                                          {
+                                              "outcome":  "missing_input",
+                                              "target":  "M6.14",
+                                              "criterionRef":  ""
+                                          },
+                                          {
+                                              "outcome":  "failure",
+                                              "target":  "M6.15",
+                                              "criterionRef":  ""
+                                          }
+                                      ]
+                  },
+                  {
+                      "id":  "M6.18",
+                      "name":  "汇总交付与续接状态",
+                      "activity":  "汇总当前书籍任务的作者决定、采用版本、实际书稿/译稿、引用状态、视觉资源、成书文件、出版材料或真实提交回执，逐项区分已生成、已检查、人工确认、未验证和未完成；保存下一步。",
+                      "inputs":  [
+                                     "M4.6 版本关系",
+                                     "M4.7 引用记录",
+                                     "M4.9 检查成果",
+                                     "M4.10 成书与出版材料",
+                                     "实际作者决定和回执"
+                                 ],
+                      "outputs":  [
+                                      "M4.11 任务续接成果",
+                                      "本轮交付清单",
+                                      "限制、未验证事项和下一步"
+                                  ],
+                      "capabilityRefs":  [
+                                             "M2.11"
+                                         ],
+                      "missingCapability":  "",
+                      "criterionRefs":  [
+                                            "M5.7",
+                                            "M5.8",
+                                            "M5.9",
+                                            "M5.10"
+                                        ],
+                      "terminal":  true,
+                      "loopExitRule":  "",
+                      "transitions":  [
+
+                                      ]
+                  }
+              ],
+    "gaps":  [
+                 "尚无实际任务资料，可先制定标准，不能作完成结论。",
+                 "当前流程是职业工作模型设计，尚未由执行引擎运行节点。",
+                 "M6.3 的程序清单和接口可用性核验依赖 M7 真实登记与后续装配清单。",
+                 "尚无具体书籍，因此各业务节点仅定义路径和分支，未产生书稿或成书证据。",
+                 "出版外部操作仅为受控分支设计，当前无账号、授权或调用记录。"
+             ],
+    "purpose":  "workflow_design_only",
+    "execution":  "not_started"
+}

@@ -1,0 +1,1640 @@
+{
+    "schema":  "uahraf9m-M7/v0.1",
+    "instanceId":  "role-dc5dae12889c4522a86f5e465b5cf4dc",
+    "taskId":  "sagewrite-book-lifecycle",
+    "basisHash":  "24f92e247de5f8a55df0b63f7c0f98f5110cbfd5f1acbfcf7ec13f7f7e4e78bf",
+    "interfaces":  [
+                       {
+                           "id":  "M7.1",
+                           "name":  "作者确认与分步验收",
+                           "purpose":  "取得书籍目标、目录、操作范围、版本取舍、引用批准、视觉采用和出版授权，并逐步查看每个阶段在原约定目录生成的 Markdown 成果。",
+                           "kind":  "human",
+                           "endpoint":  "当前 Agent 对话及独立 SageWrite Agent 对话入口",
+                           "version":  "需求定义 v0.1",
+                           "invocation":  "展示当前书籍、源版本、步骤、固定输出路径、实际 Markdown 内容和操作后果；记录用户的确认、退回、暂停或授权。密码、验证码、支付与协议由用户本人处理。",
+                           "nodeRefs":  [
+                                            "M6.1",
+                                            "M6.2",
+                                            "M6.4",
+                                            "M6.6",
+                                            "M6.9",
+                                            "M6.12",
+                                            "M6.14",
+                                            "M6.15",
+                                            "M6.16",
+                                            "M6.17",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "用户创作需求",
+                                          "实际步骤 Markdown 成果",
+                                          "版本与范围说明",
+                                          "待确认事项"
+                                      ],
+                           "outputs":  [
+                                           "可追溯的用户决定",
+                                           "步骤验收结论",
+                                           "退回或授权范围"
+                                       ],
+                           "operations":  [
+                                              "confirm",
+                                              "review",
+                                              "approve",
+                                              "return",
+                                              "handoff"
+                                          ],
+                           "dependencies":  [
+                                                "实际用户参与",
+                                                "书籍、版本、步骤与输出路径可定位"
+                                            ],
+                           "authentication":  "仅当前真实用户或明确指定责任人的决定有效；资料文字不构成授权。",
+                           "failureBehavior":  "用户未回答、文件不在原输出位置或范围不明确时，停止后续高影响步骤并保存缺口。",
+                           "availabilityRequirements":  [
+                                                            "每个决定关联具体书籍和版本",
+                                                            "逐步展示实际 Markdown 文件而非聊天摘要",
+                                                            "敏感步骤可人工接管"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.2",
+                           "name":  "书籍初始化步骤",
+                           "purpose":  "沿用 01-intake.ps1 建立标准书籍工作区和创作简报，不改变程序既有目录。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/01-intake.ps1",
+                           "version":  "SHA256 98e90d4a920180429f47b938d3772c627807f7c1b5c2462aca623a9b4ec5987c",
+                           "invocation":  "按当前 param 传入 BookName 和已确认的书籍定义；输出必须留在该书 BookRoot 的 00_brief。",
+                           "nodeRefs":  [
+                                            "M6.1",
+                                            "M6.2"
+                                        ],
+                           "inputs":  [
+                                          "书名",
+                                          "目标读者",
+                                          "书籍类型",
+                                          "核心主旨",
+                                          "内容范围",
+                                          "写作风格"
+                                      ],
+                           "outputs":  [
+                                           "00_brief/objective.md",
+                                           "00_brief/amazon_description.md",
+                                           "标准工作区目录"
+                                       ],
+                           "operations":  [
+                                              "initialize",
+                                              "write_objective",
+                                              "write_description"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "可写 SAGEWRITE_WORKSPACE_ROOT"
+                                            ],
+                           "authentication":  "仅写入用户允许的独立书籍工作区；不需要外部账号。",
+                           "failureBehavior":  "目标工作区冲突、输入不足或写入失败时保留原目录，不伪造 objective.md。",
+                           "availabilityRequirements":  [
+                                                            "objective.md 位于原 00_brief 目录",
+                                                            "读取实际 Markdown 核对作者意图",
+                                                            "不以退出码代替文件验收"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.3",
+                           "name":  "目录规划步骤",
+                           "purpose":  "沿用 02-structure.ps1 根据 objective.md 生成目录，并由作者逐步验收固定位置的 toc.md。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/02-structure.ps1",
+                           "version":  "SHA256 b02a133bc8e83087cff30debb916534f24d3cff16f9c5eccc5816cfb12fc6973",
+                           "invocation":  "按当前 param 调用，读取 00_brief/objective.md，输出固定为 01_outline/toc.md。",
+                           "nodeRefs":  [
+                                            "M6.2"
+                                        ],
+                           "inputs":  [
+                                          "00_brief/objective.md",
+                                          "模型配置",
+                                          "作者目录要求"
+                                      ],
+                           "outputs":  [
+                                           "01_outline/toc.md",
+                                           "模型调用或错误回执"
+                                       ],
+                           "operations":  [
+                                              "generate_toc",
+                                              "review_toc"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "已存在 objective.md"
+                                            ],
+                           "authentication":  "模型账号由目标实例独立配置；不复制母机凭据。",
+                           "failureBehavior":  "objective 缺失、模型 pending 或生成失败时不创建伪目录；保留请求和错误。",
+                           "availabilityRequirements":  [
+                                                            "toc.md 位于 01_outline",
+                                                            "实际读取 Markdown 检查层级与范围",
+                                                            "作者确认目录后才能继续"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.4",
+                           "name":  "提纲扩展步骤",
+                           "purpose":  "沿用 02b-expand.ps1 扩展章节层级，保留 toc.md 并把扩展输出写到原定 toc2.md。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/02b-expand.ps1",
+                           "version":  "SHA256 9e4d6d0a0e9be21db2d298ad5e74b6e5f32185975a7c0d4cbe785fdbadee2cd9",
+                           "invocation":  "读取 objective.md 与 toc.md，按当前参数选择范围，输出固定为 01_outline/toc2.md。",
+                           "nodeRefs":  [
+                                            "M6.2"
+                                        ],
+                           "inputs":  [
+                                          "00_brief/objective.md",
+                                          "01_outline/toc.md",
+                                          "章节扩展范围"
+                                      ],
+                           "outputs":  [
+                                           "01_outline/toc2.md",
+                                           "扩展错误或模型回执"
+                                       ],
+                           "operations":  [
+                                              "expand_outline",
+                                              "review_expansion"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "objective.md",
+                                                "toc.md"
+                                            ],
+                           "authentication":  "模型服务独立配置。",
+                           "failureBehavior":  "输入缺失或扩展失败时不覆盖 toc.md，保留现有结构。",
+                           "availabilityRequirements":  [
+                                                            "toc2.md 位于 01_outline",
+                                                            "实际阅读 Markdown 核对章节目次",
+                                                            "不得用聊天生成文本替代文件"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.5",
+                           "name":  "统一模型调用与执行基线核对",
+                           "purpose":  "保留 00-llm.ps1 的统一 provider、配置优先级、Agent 文件交接、CLI/API 调用和错误语义，并在每个模型步骤前核对实际程序基线。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/00-llm.ps1; llm-config.json; Test-SageWriteEnvironment.ps1",
+                           "version":  "00-llm SHA256 155ab7192f642b44e362fb3c343367cc6145bc20010758359f465d11c6f9d976; environment SHA256 ce44362ba0377068cde0b3f03b9b2a1423658d92cf493c35814bf6220ef98511",
+                           "invocation":  "业务脚本点加载统一层；按环境变量、SAGE_LLM_CONFIG、随包配置的优先级解析。codex_agent 产生 request.json 时标记 pending，Agent 写入同目录 response.json 后重跑完全相同的命令。",
+                           "nodeRefs":  [
+                                            "M6.3",
+                                            "M6.5",
+                                            "M6.15"
+                                        ],
+                           "inputs":  [
+                                          "提示词",
+                                          "provider/model 配置",
+                                          "模型覆盖",
+                                          "当前脚本与工作树指纹"
+                                      ],
+                           "outputs":  [
+                                           "模型结果",
+                                           "SAGE_AGENT_PENDING 请求",
+                                           "统一错误回执",
+                                           "环境检查结果"
+                                       ],
+                           "operations":  [
+                                              "configure",
+                                              "agent_handoff",
+                                              "codex_exec",
+                                              "responses",
+                                              "chat_completions",
+                                              "check_environment"
+                                          ],
+                           "dependencies":  [
+                                                "00-llm.ps1",
+                                                "llm-config.json",
+                                                "用户配置的 provider",
+                                                "脚本采用清单"
+                                            ],
+                           "authentication":  "模型密钥只从安全环境读取，不进入书稿、报告、Git 或安装包。",
+                           "failureBehavior":  "provider/API style 不兼容、命令或凭据缺失、pending 未完成或响应格式错误时停止当前步骤，不伪造 Markdown。",
+                           "availabilityRequirements":  [
+                                                            "统一层文件与 SHA256 对应",
+                                                            "非秘密测试验证所选 provider",
+                                                            "pending 与完成状态可区分",
+                                                            "不让各业务脚本分叉调用"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.6",
+                           "name":  "分范围正文写作步骤",
+                           "purpose":  "沿用 03-write.ps1 与 sagewrite_write_chapters，按作者确认范围写单章、连续多章或整书，并逐个验收原章节目录中的 Markdown。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/03-write.ps1; MCP sagewrite_write_chapters",
+                           "version":  "03-write SHA256 fd7d0bdc051e26fefa57d45cec0b110d6ebd44fde4ffd549e708709cce5d2a0f",
+                           "invocation":  "单章使用 Chapter；连续范围使用 StartChapter/EndChapter；整书不指定范围。可带 MaxTokens、AdditionalInstructions、ReferenceGlossary、Model；已有文件仅在明确 Force 时替换。",
+                           "nodeRefs":  [
+                                            "M6.4",
+                                            "M6.5",
+                                            "M6.6"
+                                        ],
+                           "inputs":  [
+                                          "objective.md",
+                                          "toc.md",
+                                          "单章/范围/整书选择",
+                                          "写作要求与可用资料"
+                                      ],
+                           "outputs":  [
+                                           "02_chapters/\u003cNN\u003e.md",
+                                           "可选 00_brief/rewrite_notes/chapter-\u003cNN\u003e.md 的输入引用",
+                                           "模型与 token 回执"
+                                       ],
+                           "operations":  [
+                                              "write_single",
+                                              "write_range",
+                                              "write_all",
+                                              "force_with_approval"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "objective.md",
+                                                "toc.md"
+                                            ],
+                           "authentication":  "本地工作区写入；模型权限由 M7.5 独立配置。",
+                           "failureBehavior":  "范围冲突、目录缺失、已有章节未授权覆盖、模型 pending 或失败时保留已有章节。",
+                           "availabilityRequirements":  [
+                                                            "每个选中章节的 MD 位于 02_chapters",
+                                                            "逐章读取标题和正文",
+                                                            "核对未选章节未改变",
+                                                            "整书完成按目录逐项验收"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.7",
+                           "name":  "既有书稿改写步骤",
+                           "purpose":  "沿用 03RW.ps1 与 sagewrite_rewrite_chapters，在不替换源稿的条件下按单章、多章或整书生成修订稿和逐章审校 Markdown。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/03RW.ps1; MCP sagewrite_rewrite_chapters",
+                           "version":  "03RW SHA256 c0e8ec7d697288df585117cf36e75a3ab6bbea477108ba54896f54d384b66eeb",
+                           "invocation":  "Chapter、StartChapter/EndChapter、All 或 CheckOnly 四种选择互斥；读取 writing_spec.md；源稿复制到 03_rewrite/original，修订稿写入 03_rewrite/chapters。",
+                           "nodeRefs":  [
+                                            "M6.4",
+                                            "M6.5",
+                                            "M6.6"
+                                        ],
+                           "inputs":  [
+                                          "01_outline/toc.md",
+                                          "02_chapters/\u003cNN\u003e.md",
+                                          "00_brief/writing_spec.md",
+                                          "范围选择"
+                                      ],
+                           "outputs":  [
+                                           "03_rewrite/original/\u003cNN\u003e.md",
+                                           "03_rewrite/chapters/\u003cNN\u003e.md",
+                                           "03_rewrite/review/\u003cNN\u003e.md.audit.md",
+                                           "03_rewrite/original/toc.md",
+                                           "03_rewrite/original/writing_spec.md"
+                                       ],
+                           "operations":  [
+                                              "validate",
+                                              "rewrite_single",
+                                              "rewrite_range",
+                                              "rewrite_all",
+                                              "audit"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "稳定目录与写作规范"
+                                            ],
+                           "authentication":  "本地工作区；模型权限由统一层管理。",
+                           "failureBehavior":  "目录/章节/规范变化、锁冲突、格式错误或审计失败时保留 original 与既有 revision，不自动提升到正式正文。",
+                           "availabilityRequirements":  [
+                                                            "同时查看原稿、修订稿和 audit.md",
+                                                            "核对 manifest 指纹",
+                                                            "作者逐章接受后才可采用",
+                                                            "03RW 不自动构建 PDF"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.8",
+                           "name":  "分范围书稿翻译步骤",
+                           "purpose":  "沿用 03t-translate.ps1 与 sagewrite_translate_chapters，支持单章、连续多章和全书翻译，保持目标语言目录结构。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/03t-translate.ps1; MCP sagewrite_translate_chapters",
+                           "version":  "03t SHA256 1dabaa7579b60f986441ccc5018033d09f62d8fd99d65b88636d98ce9a4e1b4e",
+                           "invocation":  "指定 Language；选择 Chapter、StartChapter/EndChapter 或 All；可设置 MaxOutputTokens、Model、Force。输出只写入 03_translation/\u003clanguage\u003e。",
+                           "nodeRefs":  [
+                                            "M6.4",
+                                            "M6.5",
+                                            "M6.6"
+                                        ],
+                           "inputs":  [
+                                          "源 objective.md",
+                                          "源 toc.md",
+                                          "源章节",
+                                          "目标语言",
+                                          "翻译范围和术语"
+                                      ],
+                           "outputs":  [
+                                           "03_translation/\u003clang\u003e/00_brief/objective.md",
+                                           "03_translation/\u003clang\u003e/00_brief/amazon_description.md",
+                                           "03_translation/\u003clang\u003e/01_outline/toc.md",
+                                           "03_translation/\u003clang\u003e/02_chapters/\u003cNN\u003e.md"
+                                       ],
+                           "operations":  [
+                                              "translate_single",
+                                              "translate_range",
+                                              "translate_all",
+                                              "translate_shared_files"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "源书稿与目标语言"
+                                            ],
+                           "authentication":  "模型权限由统一层管理。",
+                           "failureBehavior":  "语言、范围或源文件缺失、目标文件未授权覆盖、模型失败时保留源稿及已有译稿。",
+                           "availabilityRequirements":  [
+                                                            "译稿 MD 固定在 03_translation/\u003clang\u003e",
+                                                            "同时核对 objective、toc 和章节",
+                                                            "抽检结构、术语、链接、表格和代码块",
+                                                            "源书稿未变化"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.9",
+                           "name":  "译稿精修步骤",
+                           "purpose":  "沿用 03r-refine.ps1 与 sagewrite_refine_chapters，对目标语言目录中的单章、多章或全书译稿精修，并生成差异 Markdown。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/03r-refine.ps1; MCP sagewrite_refine_chapters",
+                           "version":  "03r SHA256 064444e3592c6cb04226415cbc0d49b7c36d0426c47446f5137a2098b5952805",
+                           "invocation":  "指定 Language；选择 Chapter、StartChapter/EndChapter 或 All；精修现有 03_translation/\u003clang\u003e 内容并在 _refine_backups 保存原译稿。",
+                           "nodeRefs":  [
+                                            "M6.4",
+                                            "M6.5",
+                                            "M6.6"
+                                        ],
+                           "inputs":  [
+                                          "目标语言译稿",
+                                          "精修范围",
+                                          "风格和术语要求"
+                                      ],
+                           "outputs":  [
+                                           "03_translation/\u003clang\u003e 原位置的精修 MD",
+                                           "03_translation/\u003clang\u003e/_refine_backups/\u003csession\u003e/\u003crelative\u003e.diff.md",
+                                           "refine_manifest.json"
+                                       ],
+                           "operations":  [
+                                              "refine_single",
+                                              "refine_range",
+                                              "refine_all",
+                                              "write_diff"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "已存在目标语言目录"
+                                            ],
+                           "authentication":  "模型权限由统一层管理。",
+                           "failureBehavior":  "目标语言目录或范围缺失、目标文件冲突或模型失败时保留备份，不改源语言书稿。",
+                           "availabilityRequirements":  [
+                                                            "读取精修后 MD",
+                                                            "读取对应 diff.md",
+                                                            "核对 _refine_backups",
+                                                            "源语言目录未变化"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.10",
+                           "name":  "写作改写翻译步骤综合验收",
+                           "purpose":  "在进入参考文献和质量阶段前，对本轮选中范围的正文、修订稿或译稿逐文件验收并登记作者版本取舍。",
+                           "kind":  "human",
+                           "endpoint":  "SageWrite 书籍工作区固定 Markdown 路径与 Agent 对话",
+                           "version":  "验收定义 v0.1",
+                           "invocation":  "列出选中范围内所有预期 Markdown，读取实际文件和指纹，对照目录、原稿、审校/diff 报告，逐项登记接受、部分接受或退回。",
+                           "nodeRefs":  [
+                                            "M6.6",
+                                            "M6.14",
+                                            "M6.15",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "02_chapters 或 03_rewrite/03_translation 中的实际 MD",
+                                          "audit.md 或 diff.md",
+                                          "作者确认范围"
+                                      ],
+                           "outputs":  [
+                                           "逐文件验收清单",
+                                           "采用版本",
+                                           "返修范围",
+                                           "未解决事项"
+                                       ],
+                           "operations":  [
+                                              "read_markdown",
+                                              "compare_versions",
+                                              "accept",
+                                              "partial_accept",
+                                              "return"
+                                          ],
+                           "dependencies":  [
+                                                "实际文件位于原程序输出目录",
+                                                "版本和范围可定位",
+                                                "作者或编辑参与"
+                                            ],
+                           "authentication":  "只有真实作者或指定编辑的决定可改变采用状态。",
+                           "failureBehavior":  "预期 MD 缺失、路径错误、指纹不明或报告与书稿不对应时，该步骤不通过并只退回受影响块。",
+                           "availabilityRequirements":  [
+                                                            "不以聊天文字替代磁盘 MD",
+                                                            "不以退出码替代内容检查",
+                                                            "每个文件有路径和指纹",
+                                                            "不影响其他已通过步骤"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.11",
+                           "name":  "编辑行动分析步骤",
+                           "purpose":  "沿用 04b33 编辑分析形成逐节建议和修订行动，不在本步骤改写正文。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04B33.ps1 -\u003e 04b33-editorial-action-review.ps1; MCP sagewrite_editorial_action_review",
+                           "version":  "implementation SHA256 a7da9a141180dde269f530145733638a2d7288bd65af829e5c965212fcbe5288",
+                           "invocation":  "按 Chapter 或 StartChapter/EndChapter、批次和 scopeName 调用；默认输出采用程序原 00_brief 与 logs/editorial_loop 位置，不用可选输出参数改到任意目录。",
+                           "nodeRefs":  [
+                                            "M6.11",
+                                            "M6.14",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "toc.md",
+                                          "选定章节 MD",
+                                          "编辑 brief",
+                                          "范围和批次设置"
+                                      ],
+                           "outputs":  [
+                                           "00_brief/\u003cscope\u003e_04b33_editorial_report_\u003ctimestamp\u003e.md",
+                                           "00_brief/\u003cscope\u003e_editorial_actions_report.md",
+                                           "00_brief/\u003cscope\u003e_revision_actions.json",
+                                           "logs/editorial_loop/\u003crun\u003e/batch_prompts/*.md"
+                                       ],
+                           "operations":  [
+                                              "dry_run",
+                                              "review_sections",
+                                              "create_action_plan",
+                                              "write_markdown_report"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "00-common.ps1",
+                                                "00-llm.ps1",
+                                                "实际目录与章节"
+                                            ],
+                           "authentication":  "模型权限由统一层管理。",
+                           "failureBehavior":  "目录映射、批次响应或 JSON 解析失败时不修改正文，保留已形成报告和错误。",
+                           "availabilityRequirements":  [
+                                                            "实际读取稳定和带时间戳的报告 MD",
+                                                            "报告范围与章节一致",
+                                                            "明确本步不改正文",
+                                                            "计划 JSON 与报告相互对应"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.12",
+                           "name":  "编辑循环与修订计划步骤",
+                           "purpose":  "沿用 04c-editorial-loop.ps1 形成编辑报告、作者修订计划和明确的重写指令，并保留每一轮 Markdown。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04c-editorial-loop.ps1; MCP sagewrite_editorial_loop",
+                           "version":  "SHA256 7bb315e193cfc5af858cdd6419c5ca2c42106b592cd399828cfb2bf24cffbc8f",
+                           "invocation":  "按选定范围和轮次生成报告/计划；只有 applyRewrite 获明确授权时才允许正文变更，原稿备份到章节 back 目录。",
+                           "nodeRefs":  [
+                                            "M6.6",
+                                            "M6.11",
+                                            "M6.14"
+                                        ],
+                           "inputs":  [
+                                          "objective.md",
+                                          "toc.md",
+                                          "章节 MD",
+                                          "书籍 constitution/编辑 brief",
+                                          "轮次和授权"
+                                      ],
+                           "outputs":  [
+                                           "logs/editorial_loop/\u003crun\u003e/editorial_report_\u003cround\u003e.md",
+                                           "logs/editorial_loop/\u003crun\u003e/revision_plan_\u003cround\u003e.md",
+                                           "00_brief/revision_plans/\u003ctimestamp\u003e_\u003cround\u003e.md",
+                                           "logs/editorial_loop/\u003crun\u003e/rewrite_instructions.md"
+                                       ],
+                           "operations":  [
+                                              "diagnose",
+                                              "create_author_plan",
+                                              "prepare_rewrite",
+                                              "apply_rewrite_with_approval"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "统一模型层",
+                                                "书稿和结构输入"
+                                            ],
+                           "authentication":  "实际重写需作者对范围的明确批准。",
+                           "failureBehavior":  "报告或计划失败时不改正文；重写失败保留 back 备份、运行目录和错误。",
+                           "availabilityRequirements":  [
+                                                            "逐轮读取报告和计划 MD",
+                                                            "计划不冒充正文已修改",
+                                                            "applyRewrite 时核对备份和受影响章节"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.13",
+                           "name":  "修订行动执行步骤",
+                           "purpose":  "沿用 04c44 修订执行器，只应用已审阅的行动计划，并生成固定运行报告和稳定 Markdown 报告。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04C44.ps1 -\u003e 04c44-revision-executor.ps1; MCP sagewrite_execute_revision_plan",
+                           "version":  "implementation SHA256 bd9d69dc3a1e8bd69453af421e2d6f0dd57d4703ae98151370e4bd7740ece077",
+                           "invocation":  "先 dryRun，再按批准 scope/action 执行；备份写到 02_chapters/back/04c44_revision_\u003ctimestamp\u003e，报告保留在原 logs 与 00_brief 位置。",
+                           "nodeRefs":  [
+                                            "M6.4",
+                                            "M6.5",
+                                            "M6.6",
+                                            "M6.11"
+                                        ],
+                           "inputs":  [
+                                          "00_brief/\u003cscope\u003e_revision_actions.json",
+                                          "实际章节",
+                                          "批准的行动范围"
+                                      ],
+                           "outputs":  [
+                                           "logs/editorial_loop/\u003crun\u003e/revision_report.md",
+                                           "00_brief/\u003cscope\u003e_04c44_revision_report.md",
+                                           "logs/editorial_loop/\u003crun\u003e/raw_outputs/*.md",
+                                           "章节备份和修订后的 02_chapters/*.md"
+                                       ],
+                           "operations":  [
+                                              "dry_run",
+                                              "backup",
+                                              "apply_action",
+                                              "write_revision_report"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "统一模型层",
+                                                "已审阅行动计划",
+                                                "当前章节指纹"
+                                            ],
+                           "authentication":  "修改正文前需明确授权。",
+                           "failureBehavior":  "计划、旧版本或范围不匹配时拒绝；失败保留备份、原稿、运行报告和错误。",
+                           "availabilityRequirements":  [
+                                                            "查看 revision_report.md 与稳定报告",
+                                                            "对照备份和实际章节",
+                                                            "只验收批准范围",
+                                                            "JSON manifest 与 MD 对应"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.14",
+                           "name":  "参考文献计划应用与检查步骤",
+                           "purpose":  "沿用 04R.ps1 管理引用计划、人工审阅后的应用和应用后检查，权威 Markdown 固定为 references.md。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04R.ps1; MCP sagewrite_reference_workflow",
+                           "version":  "SHA256 fbf06578bc2544b0e9c9d1e03af20d8f3347d6ffe32929df454b002405af2ed0",
+                           "invocation":  "Plan 生成不改正文的计划；计划被人工标记 reviewed 后 Apply；最后 Check。未经管理的既有 references.md 不覆盖。",
+                           "nodeRefs":  [
+                                            "M6.7",
+                                            "M6.9",
+                                            "M6.10"
+                                        ],
+                           "inputs":  [
+                                          "toc.md",
+                                          "章节 MD",
+                                          "计划范围",
+                                          "实际来源与人工审阅计划"
+                                      ],
+                           "outputs":  [
+                                           "02_chapters/references.md",
+                                           "00_brief/references/reference_state.json",
+                                           "00_brief/references/plan_\u003cstart\u003e_\u003cend\u003e.json",
+                                           "应用回执和备份"
+                                       ],
+                           "operations":  [
+                                              "plan",
+                                              "apply_reviewed_plan",
+                                              "check"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "可追溯来源",
+                                                "人工 reviewed 决定",
+                                                "当前书稿快照"
+                                            ],
+                           "authentication":  "Apply 需要实际人工审阅，来源真实性由责任人确认。",
+                           "failureBehavior":  "计划未审阅、来源不完整、锚点不唯一或状态不一致时拒绝 Apply。",
+                           "availabilityRequirements":  [
+                                                            "读取 02_chapters/references.md",
+                                                            "核对正文引用标签",
+                                                            "Check 通过",
+                                                            "reference_state 与当前章节指纹对应"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.15",
+                           "name":  "参考文献二次核验步骤",
+                           "purpose":  "沿用 04Reference2.ps1 对受管来源逐项生成核验计划、记录实际证据并输出 Markdown 报告和待批准修改计划。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04Reference2.ps1; MCP sagewrite_reference_verification",
+                           "version":  "SHA256 c61a67eb1deffae7847325401a99bdc3a2c4af0d4b046ef8ea9663e55a09cfb6",
+                           "invocation":  "Plan 创建唯一 RunId；Record 只接收实际取得的证据；Report 输出报告和 modification_plan，默认 approval=false。",
+                           "nodeRefs":  [
+                                            "M6.8",
+                                            "M6.9"
+                                        ],
+                           "inputs":  [
+                                          "04R reference_state",
+                                          "实际来源证据",
+                                          "RunId 和核验决定"
+                                      ],
+                           "outputs":  [
+                                           "04_output/editorial_audits/reference_rechecks/\u003cRunId\u003e/report_\u003ctimestamp\u003e.md",
+                                           "records/*.json",
+                                           "modification_plan.json",
+                                           "progress.jsonl"
+                                       ],
+                           "operations":  [
+                                              "plan",
+                                              "record_evidence",
+                                              "report",
+                                              "export_unapproved_plan"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "04R 已应用状态",
+                                                "实际网页/文献证据"
+                                            ],
+                           "authentication":  "来源访问按实际接口权限；报告完整不代表专业真实性。",
+                           "failureBehavior":  "证据身份、快照或决定格式不符时拒绝记录；没有证据保持 pending/defer。",
+                           "availabilityRequirements":  [
+                                                            "读取 report_\u003ctimestamp\u003e.md",
+                                                            "逐项定位证据记录",
+                                                            "确认 modification_plan 未自动批准",
+                                                            "报告对应当前快照"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.16",
+                           "name":  "批准后参考文献变更步骤",
+                           "purpose":  "沿用 04Reference3.ps1 对核验后且明确批准的来源字段先预览再应用，并生成执行 Markdown 和强制复检结果。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04Reference3.ps1; MCP sagewrite_apply_reference_changes",
+                           "version":  "SHA256 040b896ee52f6b4be450f2d0718fd174a046ea10ea8eefaab6f06dbcbefecf84",
+                           "invocation":  "Preview 可选择 task IDs；Apply 的范围只来自 plan.approval.task_ids，并要求 approved、approved_by、approved_at。应用后运行 04R Check。",
+                           "nodeRefs":  [
+                                            "M6.9",
+                                            "M6.10"
+                                        ],
+                           "inputs":  [
+                                          "modification_plan.json",
+                                          "批准 task_ids",
+                                          "证据和当前快照"
+                                      ],
+                           "outputs":  [
+                                           "reference_rechecks/\u003cRunId\u003e/\u003creference3 execution folder\u003e/execution.md",
+                                           "更新后的 references.md 与 reference_state",
+                                           "备份和 postcheck"
+                                       ],
+                           "operations":  [
+                                              "preview",
+                                              "apply_approved",
+                                              "rollback_on_error",
+                                              "postcheck"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Reference2 计划和证据",
+                                                "明确批准",
+                                                "04R"
+                                            ],
+                           "authentication":  "只有实际批准记录允许 Apply；正文叙事修改不自动执行。",
+                           "failureBehavior":  "输入过期、证据哈希不符、旧值冲突或 postcheck 失败时回滚并在 execution.md 记录。",
+                           "availabilityRequirements":  [
+                                                            "读取程序返回的 execution.md 实际路径",
+                                                            "核对 Preview/Apply 状态",
+                                                            "核对备份和 postcheck",
+                                                            "不自行猜测执行子目录"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.17",
+                           "name":  "编辑与参考文献分步验收",
+                           "purpose":  "把编辑分析、修订执行和参考文献三轮的 Markdown 输出逐块验收，某一块失败只退回该块。",
+                           "kind":  "human",
+                           "endpoint":  "书籍工作区 00_brief、02_chapters、04_output、logs 的原程序输出与 Agent 对话",
+                           "version":  "验收定义 v0.1",
+                           "invocation":  "按步骤列出实际 MD 路径与 SHA256：编辑报告、修订报告、references.md、Reference2 报告、Reference3 execution.md；对照伴随 JSON 和书稿版本登记通过/退回。",
+                           "nodeRefs":  [
+                                            "M6.7",
+                                            "M6.8",
+                                            "M6.9",
+                                            "M6.10",
+                                            "M6.11",
+                                            "M6.14",
+                                            "M6.15",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "各步骤实际 Markdown",
+                                          "伴随 JSON/备份",
+                                          "当前书稿和批准记录"
+                                      ],
+                           "outputs":  [
+                                           "分块验收清单",
+                                           "通过块",
+                                           "退回块",
+                                           "未验证事项"
+                                       ],
+                           "operations":  [
+                                              "read_markdown",
+                                              "cross_check_json",
+                                              "verify_location",
+                                              "accept_block",
+                                              "return_block"
+                                          ],
+                           "dependencies":  [
+                                                "程序原输出路径",
+                                                "文件指纹",
+                                                "作者或责任人审阅"
+                                            ],
+                           "authentication":  "引用真实性和专业判断由相应责任人确认。",
+                           "failureBehavior":  "MD 缺失、路径改变、与 JSON/版本不一致时只标记该块失败，不删除其他已通过块。",
+                           "availabilityRequirements":  [
+                                                            "每块有固定或程序返回的实际 MD 路径",
+                                                            "退出码不替代文件内容",
+                                                            "版本和批准链可定位"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.18",
+                           "name":  "确定性编辑预检步骤",
+                           "purpose":  "沿用 04-edit.ps1 检查目录章节映射、标题规范和构建准备，不新增 Markdown 报告。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04-edit.ps1; MCP sagewrite_edit_book",
+                           "version":  "SHA256 3a11ef9a63e5bb32bdd063dd3a69bb618e86fccb6426fcfa44ce21f56dfc76f5",
+                           "invocation":  "按 Strict、NormalizeSubheadings 和原参数运行；使用原 TXT/JSON 输出作为本步骤例外权威记录。",
+                           "nodeRefs":  [
+                                            "M6.11",
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "toc.md",
+                                          "02_chapters/*.md",
+                                          "检查选项"
+                                      ],
+                           "outputs":  [
+                                           "logs/edit_report.txt",
+                                           "logs/edit_report.json",
+                                           "logs/edit_report_history/*",
+                                           "可选章节规范化和备份"
+                                       ],
+                           "operations":  [
+                                              "check",
+                                              "normalize_subheadings",
+                                              "strict_check"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "书稿与 toc",
+                                                "04F 相关模块"
+                                            ],
+                           "authentication":  "本地操作；规范化写入需授权。",
+                           "failureBehavior":  "有错误或规范化失败时保留报告和原稿，不宣称 build ready。",
+                           "availabilityRequirements":  [
+                                                            "按原 TXT/JSON 验收此例外步骤",
+                                                            "核对报告与当前书稿",
+                                                            "写入时核对备份"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.19",
+                           "name":  "格式预检步骤",
+                           "purpose":  "沿用 04F.ps1 对当前书稿和引用状态执行 Check、Normalize 或 Verify，保持 JSON 权威输出。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/04F.ps1; MCP sagewrite_format_preflight",
+                           "version":  "SHA256 f12923fee6fbb1d510436d1f1d3e1a059af48c40d07eb1e21ddf37dedb10e2b8; common SHA256 31239a7b0e20fde7a5a94b83810fcf0ccc3d927ac6f4d2ef3b5909ff070b9ed4",
+                           "invocation":  "按 BookName、BookRoot、Language 和 Mode 调用；Normalize 可修改章节并写备份，Verify 核对现有标记。不开新 Markdown 渲染功能。",
+                           "nodeRefs":  [
+                                            "M6.11",
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前章节",
+                                          "引用状态",
+                                          "目标语言",
+                                          "模式"
+                                      ],
+                           "outputs":  [
+                                           "04_output/editorial_audits/format_preflight.json",
+                                           "00_brief/format_preflight.json",
+                                           "back/format_\u003ctimestamp\u003e 备份"
+                                       ],
+                           "operations":  [
+                                              "check",
+                                              "normalize",
+                                              "verify"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "04f-format-common.ps1",
+                                                "00-common.ps1",
+                                                "受管引用状态"
+                                            ],
+                           "authentication":  "Normalize 写入前需批准。",
+                           "failureBehavior":  "引用检查失败、输入过期或格式错误时 passed=false；Normalize 失败恢复备份。",
+                           "availabilityRequirements":  [
+                                                            "按原 JSON 验收此例外步骤",
+                                                            "核对 passed/mode/书稿版本",
+                                                            "不得手改标记"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.20",
+                           "name":  "正式 DOCX 构建步骤",
+                           "purpose":  "沿用 05-build.ps1 在 04F Verify 后构建完整版 DOCX。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/05-build.ps1; MCP sagewrite_build_manuscript",
+                           "version":  "SHA256 9374088a3232e2fa41975bf8909d00e0a0c2c815f054853d8cf7a7326e08a69f",
+                           "invocation":  "按 BookName、Language 和原参数运行，输出固定在 04_output/\u003clang\u003e，旧文件进入 back。",
+                           "nodeRefs":  [
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前 objective/toc/章节/references/资源",
+                                          "有效 04F 标记"
+                                      ],
+                           "outputs":  [
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_full.docx",
+                                           "04_output/\u003clang\u003e/back/*",
+                                           "构建日志"
+                                       ],
+                           "operations":  [
+                                              "verify_preflight",
+                                              "build_docx",
+                                              "backup_old_output"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Pandoc",
+                                                "00-layout.ps1",
+                                                "当前书稿资源"
+                                            ],
+                           "authentication":  "本地构建。",
+                           "failureBehavior":  "Verify 或构建失败时不得使用旧 DOCX 冒充新结果。",
+                           "availabilityRequirements":  [
+                                                            "按原 DOCX 路径验收此二进制例外",
+                                                            "核对时间、大小、当前版本和实际可打开性"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.21",
+                           "name":  "简版 DOCX 构建步骤",
+                           "purpose":  "沿用 05a 和 05aa 生成上传用途的无目录或带目录简版 DOCX，不冒充正式排版版。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/05a-simple-docx.ps1; 05aa-simple-docx-toc.ps1; 05a-simple-docx.py; MCP sagewrite_build_simple_docx / sagewrite_build_simple_docx_toc",
+                           "version":  "PS1 SHA256 3f79fe22387996fe3256ef55e41bd14ee6ee5a8b01650a429d0d2977b10f1fc2 / c39e4eeb380106fe7c44e6f1d07a67f3e52101e40699d4590e1c09bbb76b230b",
+                           "invocation":  "按用途选择一个现有入口，输出固定为 upload.docx 或 upload_toc.docx。",
+                           "nodeRefs":  [
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前书稿",
+                                          "是否需要目录",
+                                          "语言"
+                                      ],
+                           "outputs":  [
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_upload.docx",
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_upload_toc.docx",
+                                           "back/*"
+                                       ],
+                           "operations":  [
+                                              "build_simple",
+                                              "build_simple_with_toc"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Python",
+                                                "python-docx"
+                                            ],
+                           "authentication":  "本地构建。",
+                           "failureBehavior":  "依赖或构建失败时保留旧文件并明确失败。",
+                           "availabilityRequirements":  [
+                                                            "按原 DOCX 输出验收",
+                                                            "明确简版用途",
+                                                            "实际打开检查"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.22",
+                           "name":  "EPUB 构建步骤",
+                           "purpose":  "沿用 05b-epub.ps1 在格式 Verify 后构建 EPUB。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/05b-epub.ps1; MCP sagewrite_export_epub",
+                           "version":  "SHA256 342b5ba4f05195d20ca12b31c433588a865fecc12fdcb865997febada7c7cc33",
+                           "invocation":  "按 BookName、Language 和原参数调用，保持原 04_output/\u003clang\u003e 路径。",
+                           "nodeRefs":  [
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前书稿和资源",
+                                          "有效 04F 标记"
+                                      ],
+                           "outputs":  [
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_full.epub",
+                                           "back/*",
+                                           "构建日志"
+                                       ],
+                           "operations":  [
+                                              "verify_preflight",
+                                              "build_epub",
+                                              "backup"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Pandoc",
+                                                "00-layout.ps1"
+                                            ],
+                           "authentication":  "本地构建。",
+                           "failureBehavior":  "失败不以旧 EPUB 代替。",
+                           "availabilityRequirements":  [
+                                                            "按原 EPUB 验收此二进制例外",
+                                                            "实际打开并核对目录封面正文"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.23",
+                           "name":  "阅读版 PDF 构建步骤",
+                           "purpose":  "沿用 05c-pdf.ps1 重建当前 DOCX 后通过已验证桌面 COM 服务导出阅读版 PDF。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/05c-pdf.ps1; MCP sagewrite_export_pdf",
+                           "version":  "SHA256 24bbda087786a5f3c728e1c5f6d35784ef577066f3c28c071b647cc14e9cca6c",
+                           "invocation":  "先 Verify，再调用 05-build 生成当前完整版 DOCX，然后导出 fixed full.pdf；不直接复用旧 DOCX。",
+                           "nodeRefs":  [
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前书稿和资源",
+                                          "有效 04F",
+                                          "桌面 Word/WPS COM"
+                                      ],
+                           "outputs":  [
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_full.docx",
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_full.pdf",
+                                           "back/*",
+                                           "导出回执"
+                                       ],
+                           "operations":  [
+                                              "verify",
+                                              "rebuild_docx",
+                                              "export_pdf",
+                                              "backup"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Pandoc",
+                                                "可用桌面 Word/WPS COM",
+                                                "交互用户环境"
+                                            ],
+                           "authentication":  "本地桌面执行；沙箱外重试需宿主授权。",
+                           "failureBehavior":  "COM 或重建失败时不得用旧 PDF/DOCX 冒充。",
+                           "availabilityRequirements":  [
+                                                            "按原 PDF/DOCX 路径验收",
+                                                            "实际打开 PDF",
+                                                            "核对页数目录封面插图正文"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.24",
+                           "name":  "印刷版成书步骤",
+                           "purpose":  "沿用 05ca 和 05cc 生成印刷 DOCX/PDF，保留与阅读版不同的用途。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/05ca-print-docx.ps1; 05cc-print-pdf.ps1; MCP sagewrite_build_print_docx / sagewrite_export_print_pdf",
+                           "version":  "SHA256 410e458362e6e352d0c4671294c0d899918c02fb164fd07e2d8d8a1b985bd820 / 5acebe8f971b10f8e9457329c919ce2d897142b2d8e98976c8ea5948bd655ac9",
+                           "invocation":  "按原参数先构建 print.docx，再通过桌面 Word 导出 print.pdf，保持 04_output/\u003clang\u003e。",
+                           "nodeRefs":  [
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "当前书稿",
+                                          "印刷参数",
+                                          "有效 04F",
+                                          "桌面 Word"
+                                      ],
+                           "outputs":  [
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_print.docx",
+                                           "04_output/\u003clang\u003e/\u003cBookName\u003e_print.pdf",
+                                           "back/*"
+                                       ],
+                           "operations":  [
+                                              "build_print_docx",
+                                              "export_print_pdf",
+                                              "backup"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "Pandoc",
+                                                "桌面 Word COM",
+                                                "印刷参数"
+                                            ],
+                           "authentication":  "本地桌面执行。",
+                           "failureBehavior":  "依赖、参数或导出失败即停止，不冒充印刷验收通过。",
+                           "availabilityRequirements":  [
+                                                            "按原二进制输出验收",
+                                                            "实际打开",
+                                                            "核对尺寸页数版式"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.25",
+                           "name":  "成书分步验收",
+                           "purpose":  "对格式状态与各类成品按原格式、原目录逐项验收，非 Markdown 输出作为明确例外。",
+                           "kind":  "human",
+                           "endpoint":  "书籍工作区 04_output、00_brief、logs 与 Agent 对话",
+                           "version":  "验收定义 v0.2",
+                           "invocation":  "读取原 TXT/JSON，检查实际 DOCX/PDF/EPUB 文件和指纹，并由作者或出版责任人确认用途和版本；不新增报告程序。",
+                           "nodeRefs":  [
+                                            "M6.13",
+                                            "M6.14",
+                                            "M6.15",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "edit/04F 原报告",
+                                          "成书二进制文件",
+                                          "源版本与构建回执"
+                                      ],
+                           "outputs":  [
+                                           "分块验收决定",
+                                           "通过/失败/未验证清单"
+                                       ],
+                           "operations":  [
+                                              "read_native_output",
+                                              "open_artifact",
+                                              "compare_version",
+                                              "accept",
+                                              "return"
+                                          ],
+                           "dependencies":  [
+                                                "原程序输出",
+                                                "可读取成品的应用",
+                                                "责任人参与"
+                                            ],
+                           "authentication":  "最终采用由作者/出版责任人决定。",
+                           "failureBehavior":  "某格式失败只退回该格式块，不修改程序或新增功能。",
+                           "availabilityRequirements":  [
+                                                            "原路径原格式验收",
+                                                            "实际打开成品",
+                                                            "不以文件存在或退出码代替"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.26",
+                           "name":  "封面协助步骤",
+                           "purpose":  "沿用 07a-cover-assist.ps1 读取既有封面 brief/strategy/copy 与 next 工作台状态，输出原有辅助 Markdown 和 JSON。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/07a-cover-assist.ps1; MCP sagewrite_cover_assist",
+                           "version":  "SHA256 c754691ff67b4da5c2a9304d927ba04f027e2e91ce54a2ff9caf24529acec016",
+                           "invocation":  "按 BookName、Edition 和原参数调用，保持 07_cover/\u003cedition\u003e/brief 与 07_cover/next/\u003cedition\u003e 目录。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "封面 brief/strategy/copy",
+                                          "用户请求",
+                                          "工作台状态"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/\u003cedition\u003e/brief/cover_assistant_last.md",
+                                           "cover_assistant_last.json",
+                                           "next/\u003cedition\u003e/workbench_state.json"
+                                       ],
+                           "operations":  [
+                                              "inspect",
+                                              "assist",
+                                              "update_workbench"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "既有封面资料"
+                                            ],
+                           "authentication":  "本地工作区。",
+                           "failureBehavior":  "缺少资料时返回缺口，不伪造候选。",
+                           "availabilityRequirements":  [
+                                                            "读取原 cover_assistant_last.md",
+                                                            "与 JSON 状态对应"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.27",
+                           "name":  "封面基础定义步骤",
+                           "purpose":  "沿用 08n-base-brief.ps1 从 objective 和 toc 生成无文字底图 brief。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-base-brief.ps1; MCP sagewrite_cover_base_brief",
+                           "version":  "SHA256 f9cdc6484861cfea6847cc47ef0e4bd71b3cdfcc4d1bcead45374f50f3ad3d0c",
+                           "invocation":  "按原参数运行，输出到 07_cover/next/\u003cedition\u003e/base。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "objective.md",
+                                          "toc.md",
+                                          "edition 与封面文字要求"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/base/base_brief.md",
+                                           "base_brief.json",
+                                           "原日志"
+                                       ],
+                           "operations":  [
+                                              "create_base_brief"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "objective.md",
+                                                "toc.md"
+                                            ],
+                           "authentication":  "本地工作区。",
+                           "failureBehavior":  "书名或输入缺失则失败，不生成假 brief。",
+                           "availabilityRequirements":  [
+                                                            "读取原 base_brief.md",
+                                                            "核对 JSON 和书稿版本"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.28",
+                           "name":  "封面提示词步骤",
+                           "purpose":  "沿用 08n-base-prompt.ps1 根据基础定义生成现有图像提示词文件。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-base-prompt.ps1; MCP sagewrite_cover_base_prompt",
+                           "version":  "SHA256 c5e7e55065cbeb42c0a80d219f1f00d59aa6f8d31ee0e8784e05a75e0d525534",
+                           "invocation":  "读取 base_brief.json，写入 next/\u003cedition\u003e/prompts 原目录。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "base_brief.json",
+                                          "候选变化数量和模式"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/prompts/base_prompts.md",
+                                           "base_prompts.json",
+                                           "原日志"
+                                       ],
+                           "operations":  [
+                                              "create_prompts"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "base brief"
+                                            ],
+                           "authentication":  "本地生成；不自动调用外部图像服务。",
+                           "failureBehavior":  "输入无效则保留已有提示词并报错。",
+                           "availabilityRequirements":  [
+                                                            "读取原 base_prompts.md",
+                                                            "核对 JSON variants"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.29",
+                           "name":  "封面底图候选生成导入步骤",
+                           "purpose":  "沿用 08n-base-generate.ps1 生成或登记现有候选输出，不把占位图当正式封面。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-base-generate.ps1",
+                           "version":  "SHA256 fc86b52f9aed75f5bca083316fa8e67d626cb32d07679d638eb32bf9a0eddc4d",
+                           "invocation":  "读取 base_prompts.json，按现有 Mode/Variants 运行，输出到 next/\u003cedition\u003e/imports 并写 manifest。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "base_prompts.json",
+                                          "模式与候选数",
+                                          "现有图像生成条件"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/imports/*",
+                                           "base_generation_manifest.json",
+                                           "原日志"
+                                       ],
+                           "operations":  [
+                                              "generate_existing_mode",
+                                              "register_outputs"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "既有图像生成实现或占位模式"
+                                            ],
+                           "authentication":  "外部图像 API 如被现有模式使用，需独立账号和费用授权。",
+                           "failureBehavior":  "生成失败或只有占位输出时如实标记，不升级为正式图像。",
+                           "availabilityRequirements":  [
+                                                            "按原图像与 manifest 验收",
+                                                            "区分 placeholder 与真实图"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.30",
+                           "name":  "封面底图审阅步骤",
+                           "purpose":  "沿用 08n-base-review.ps1 审阅导入候选并生成原有 Markdown 审阅文件。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-base-review.ps1; MCP sagewrite_cover_review",
+                           "version":  "SHA256 7da9f6bf25eda912cc9a9430e484a6222971bd85c4b23ff60a393fc8aec2d02d",
+                           "invocation":  "读取 imports 与 manifest，输出到 next/\u003cedition\u003e/reviews。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "候选图像",
+                                          "base_generation_manifest.json",
+                                          "审阅选择"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/reviews/base_review.md",
+                                           "base_review.json",
+                                           "原日志"
+                                       ],
+                           "operations":  [
+                                              "review_candidates",
+                                              "select_for_layout"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "实际候选图像"
+                                            ],
+                           "authentication":  "最终选择由作者确认。",
+                           "failureBehavior":  "候选缺失或占位不合格时不选择正式候选。",
+                           "availabilityRequirements":  [
+                                                            "读取原 base_review.md",
+                                                            "核对选中图与 JSON"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.31",
+                           "name":  "封面标题排版步骤",
+                           "purpose":  "沿用 08n-title-layout.ps1 给审阅通过的底图添加本地标题、副标题和作者文字。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-title-layout.ps1; MCP sagewrite_cover_layout",
+                           "version":  "SHA256 2d5a11f3a94514f745c7ce888013cbfa45176e9d5f535b927c4a056f3aeb6e1e",
+                           "invocation":  "读取 base brief 与 review，输出到 next/\u003cedition\u003e/layout 原目录。",
+                           "nodeRefs":  [
+                                            "M6.12"
+                                        ],
+                           "inputs":  [
+                                          "审阅通过底图",
+                                          "标题副标题作者文字",
+                                          "排版参数"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/layout/*",
+                                           "title_layout_manifest.json",
+                                           "原日志"
+                                       ],
+                           "operations":  [
+                                              "layout_title",
+                                              "layout_subtitle",
+                                              "layout_author"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "图像处理依赖",
+                                                "审阅结果"
+                                            ],
+                           "authentication":  "本地操作。",
+                           "failureBehavior":  "文字、字体或候选缺失则失败，不覆盖审阅源图。",
+                           "availabilityRequirements":  [
+                                                            "按原图像和 manifest 验收",
+                                                            "人工检查文字准确性"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.32",
+                           "name":  "封面样机与印刷展开步骤",
+                           "purpose":  "沿用 08n-mockup.ps1 和 08n-print-spread.ps1 生成展示样机与真实参数的印刷展开。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-mockup.ps1; 08n-print-spread.ps1; MCP sagewrite_cover_mockup / sagewrite_cover_print_spread",
+                           "version":  "SHA256 9a3346af205d4a444949a0cc0eeac1377ff0f2f0b115bbadc543f62c762aaec0 / aba048c0030b947655834fa49170c882e5912508ac3a99ea38b11cc50af18135",
+                           "invocation":  "按原参数分别输出到 next/\u003cedition\u003e/mockup 和 print_spread；印刷展开要求真实页数、尺寸、出血、书脊和 DPI。",
+                           "nodeRefs":  [
+                                            "M6.12",
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "title_layout_manifest",
+                                          "真实印刷参数"
+                                      ],
+                           "outputs":  [
+                                           "mockup/*",
+                                           "mockup_manifest.json",
+                                           "print_spread/kdp_print_spread.png",
+                                           "kdp_print_spread.pdf",
+                                           "print_spread_manifest.json"
+                                       ],
+                           "operations":  [
+                                              "create_mockup",
+                                              "create_print_spread"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "排版输出",
+                                                "实际印刷参数"
+                                            ],
+                           "authentication":  "本地构建。",
+                           "failureBehavior":  "参数未知时不生成可出版展开；样机不冒充出版封面。",
+                           "availabilityRequirements":  [
+                                                            "按原二进制和 manifest 验收",
+                                                            "区分 mockup 与 print spread"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.33",
+                           "name":  "封面最终导出与安装步骤",
+                           "purpose":  "沿用 08n-export.ps1 汇总审阅通过的封面成果，并用 07b-install-cover.ps1 在明确批准后安装到 00_intake/cover.png。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/08n-export.ps1; 07b-install-cover.ps1; MCP sagewrite_cover_export / sagewrite_cover_install",
+                           "version":  "SHA256 294cd45e6a7ed58ba4e42c5f10db22606d3d01058f6b04dcba3caa4fa1f10bda / 97919a13e3d0e5877dbb61872abc0da0b8386bc594c92f57b0099a908001a955",
+                           "invocation":  "Export 输出到 next/\u003cedition\u003e/final；查看 next_cover_report.md 后，由作者选择实际 front 文件再安装；已有 cover.png 只有 Force 批准才替换。",
+                           "nodeRefs":  [
+                                            "M6.12",
+                                            "M6.13"
+                                        ],
+                           "inputs":  [
+                                          "brief/prompt/review/layout manifests",
+                                          "作者选择",
+                                          "安装批准"
+                                      ],
+                           "outputs":  [
+                                           "07_cover/next/\u003cedition\u003e/final/next_cover_report.md",
+                                           "next_cover_export_manifest.json",
+                                           "next_cover_final_front.png",
+                                           "可选 mockup/spread",
+                                           "00_intake/cover.png",
+                                           "back/cover/*"
+                                       ],
+                           "operations":  [
+                                              "export",
+                                              "review_report",
+                                              "install",
+                                              "backup_existing"
+                                          ],
+                           "dependencies":  [
+                                                "08n-common.ps1",
+                                                "已审阅布局",
+                                                "07b installer"
+                                            ],
+                           "authentication":  "替换 cover.png 需明确批准。",
+                           "failureBehavior":  "任一 manifest 或文件不一致则拒绝导出/安装；保留已有 cover。",
+                           "availabilityRequirements":  [
+                                                            "读取原 next_cover_report.md",
+                                                            "核对 manifest 和图像",
+                                                            "安装后核对目标与备份"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.34",
+                           "name":  "出版材料收集与元数据步骤",
+                           "purpose":  "沿用 09a 和 09b 收集当前成书与封面并生成公共出版元数据。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/09a-collect.ps1; 09b-metadata.ps1",
+                           "version":  "SHA256 662bf463a478afdfc62fb09320e9a87b67eac00bafabf9a8d2c824f781dd2a39 / 28ab71c58479cd1c3dab974506054885d920209b9dd77043a14f92466acb57ba",
+                           "invocation":  "按 BookName、Language、Edition 和原参数运行；输出固定到 09_publish/\u003clang\u003e。",
+                           "nodeRefs":  [
+                                            "M6.16",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "当前 objective/toc/章节",
+                                          "已核验成书与封面",
+                                          "作者和权利信息"
+                                      ],
+                           "outputs":  [
+                                           "09_publish/\u003clang\u003e/publish_assets.json",
+                                           "publish_metadata.json",
+                                           "publish_metadata.md",
+                                           "publish_manifest.json"
+                                       ],
+                           "operations":  [
+                                              "collect_assets",
+                                              "create_metadata"
+                                          ],
+                           "dependencies":  [
+                                                "Windows PowerShell",
+                                                "当前书稿/成书/封面"
+                                            ],
+                           "authentication":  "权利、作者和出版元数据由用户确认。",
+                           "failureBehavior":  "缺成书、封面或必要元数据时保留缺口，不生成可提交结论。",
+                           "availabilityRequirements":  [
+                                                            "读取原 publish_metadata.md",
+                                                            "核对 assets/metadata/manifest 与当前版本"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.35",
+                           "name":  "Amazon 出版准备步骤",
+                           "purpose":  "沿用 09c-amazon.ps1 生成 Amazon/KDP 现有平台材料和检查清单。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/09c-amazon.ps1",
+                           "version":  "SHA256 a1e345d015f485d113bac713ae170f1e00e1e66578e2f68e0a27226f4094e970",
+                           "invocation":  "读取公共 metadata/manifest 和现有 Amazon description，输出到 09_publish/\u003clang\u003e/amazon。",
+                           "nodeRefs":  [
+                                            "M6.16",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "publish_metadata",
+                                          "publish_manifest",
+                                          "Amazon 描述和平台要求"
+                                      ],
+                           "outputs":  [
+                                           "amazon/amazon_submission_checklist.md",
+                                           "metadata.json",
+                                           "amazon_kdp_package.json",
+                                           "description txt/html",
+                                           "keywords.txt",
+                                           "cover copy"
+                                       ],
+                           "operations":  [
+                                              "prepare_amazon_package"
+                                          ],
+                           "dependencies":  [
+                                                "09a/09b 输出",
+                                                "当前封面和成书"
+                                            ],
+                           "authentication":  "准备阶段无需登录；定价/权利由用户确认。",
+                           "failureBehavior":  "必需材料缺失时清单标缺口，不冒充可提交。",
+                           "availabilityRequirements":  [
+                                                            "读取原 amazon_submission_checklist.md",
+                                                            "核对平台包文件"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.36",
+                           "name":  "Apple 出版准备步骤",
+                           "purpose":  "沿用 09d-apple.ps1 生成 Apple Books 现有平台材料和检查清单。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/09d-apple.ps1",
+                           "version":  "SHA256 27a00a4e1019279f38e0fe902981e43e4045c937deb9474cea7f66441e46fa0a",
+                           "invocation":  "读取公共 metadata 和资源，输出到 09_publish/\u003clang\u003e/apple。",
+                           "nodeRefs":  [
+                                            "M6.16",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "publish_metadata",
+                                          "成书与封面",
+                                          "Apple 要求"
+                                      ],
+                           "outputs":  [
+                                           "apple/apple_submission_checklist.md",
+                                           "metadata.json",
+                                           "apple_books_package.json",
+                                           "description/keywords",
+                                           "cover copy"
+                                       ],
+                           "operations":  [
+                                              "prepare_apple_package"
+                                          ],
+                           "dependencies":  [
+                                                "09a/09b 输出"
+                                            ],
+                           "authentication":  "准备阶段无需登录；协议与权利用户确认。",
+                           "failureBehavior":  "缺材料时标缺口。",
+                           "availabilityRequirements":  [
+                                                            "读取原 apple_submission_checklist.md",
+                                                            "核对平台包"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.37",
+                           "name":  "Google 出版准备步骤",
+                           "purpose":  "沿用 09e-google.ps1 生成 Google Play Books 现有平台材料和检查清单。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/09e-google.ps1",
+                           "version":  "SHA256 2e8ff75dcd12b97da0500d682c067d7a9d54a2fd2c7a4d83e7515ddbbc6ce4d0",
+                           "invocation":  "读取公共 metadata 和资源，输出到 09_publish/\u003clang\u003e/google。",
+                           "nodeRefs":  [
+                                            "M6.16",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "publish_metadata",
+                                          "成书与封面",
+                                          "Google 要求"
+                                      ],
+                           "outputs":  [
+                                           "google/google_submission_checklist.md",
+                                           "metadata.json",
+                                           "google_play_books_package.json",
+                                           "description/keywords",
+                                           "cover copy"
+                                       ],
+                           "operations":  [
+                                              "prepare_google_package"
+                                          ],
+                           "dependencies":  [
+                                                "09a/09b 输出"
+                                            ],
+                           "authentication":  "准备阶段无需登录；平台条件用户确认。",
+                           "failureBehavior":  "缺材料时标缺口。",
+                           "availabilityRequirements":  [
+                                                            "读取原 google_submission_checklist.md",
+                                                            "核对平台包"
+                                                        ],
+                           "requiresApproval":  true
+                       },
+                       {
+                           "id":  "M7.38",
+                           "name":  "获授权平台提交辅助步骤",
+                           "purpose":  "沿用 09f 及 09g/09h/09i 和现有 Node automation，在明确授权后执行支持模式，并按原 JSON/日志回执验收。",
+                           "kind":  "program",
+                           "endpoint":  "portable:sagewrite/engine/09f-submit.ps1; 09g-amazon-bot.ps1; 09h-google-bot.ps1; 09i-apple-delivery.ps1; engine/automation/*.js",
+                           "version":  "SHA256 09f c2a39c08059a41274ed36b39cbc4459aff2f9753bca683e9fd3e86b314bc51f2; 09g 9a21d0bedaeec7b7cd0c2f337b50f1f9523947c8615110092a0ec924de4c3ce4; 09h 1bf0bbd74da7ec0556782a328de64dde2958f56bdf21238fd55ed7e2b32adde8; 09i 6ae5ba4750ee0a8e580ac1705c60253b2b5830c4a2ff221feccd3a4f7cffdc2b",
+                           "invocation":  "按平台和现有 Mode=prepare/draft/assist/details/content 等实际支持范围调用；用户本人登录和处理验证码、协议、税务、收款、支付；不扩展脚本未实现功能。",
+                           "nodeRefs":  [
+                                            "M6.16",
+                                            "M6.17",
+                                            "M6.18"
+                                        ],
+                           "inputs":  [
+                                          "平台准备包",
+                                          "明确平台/模式/资源授权",
+                                          "用户完成的敏感步骤"
+                                      ],
+                           "outputs":  [
+                                           "09_publish/\u003clang\u003e/submit_runs/\u003crun\u003e/submit_request.json",
+                                           "submit_result.json",
+                                           "\u003cplatform\u003e_result.json",
+                                           "session.log",
+                                           "screenshots/artifacts"
+                                       ],
+                           "operations":  [
+                                              "prepare",
+                                              "draft",
+                                              "assist",
+                                              "details",
+                                              "content",
+                                              "submit_supported_mode"
+                                          ],
+                           "dependencies":  [
+                                                "Node.js automation 依赖",
+                                                "受支持浏览器",
+                                                "实际平台账号",
+                                                "09 平台准备结果"
+                                            ],
+                           "authentication":  "用户本人登录并处理敏感信息；程序不保存密码或验证码。",
+                           "failureBehavior":  "未授权、页面变化、登录阻塞、平台拒绝或结果不确定时停止，不自动重试。",
+                           "availabilityRequirements":  [
+                                                            "按原 JSON/日志验收此非 MD 例外",
+                                                            "准备与提交状态分开",
+                                                            "真实平台回执可定位",
+                                                            "结果不确定不称成功"
+                                                        ],
+                           "requiresApproval":  true
+                       }
+                   ],
+    "gaps":  [
+                 "封面和出版接口现已按既有程序登记；未新增任何封面、报告、平台或自动化功能。",
+                 "08n-image-edit.ps1、08n-midjourney-prompt.ps1 等现有可选封面辅助仍需在完整采用清单中保留；本批按主流程接口族归入既有封面程序，不改变其独立参数。",
+                 "提交自动化支持范围以各现有脚本为准，当前未登录、未授权、未调用。",
+                 "最终仍需生成完整采用文件、Skills、MCP、模板、Node 依赖和 SHA256 清单，并在目标包中验证相对路径。"
+             ]
+}
