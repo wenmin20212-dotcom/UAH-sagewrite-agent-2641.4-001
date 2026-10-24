@@ -4,3 +4,6 @@
 
 # Required raw reference carried by the original release
 !agent/exports/58a5053f/M3/esco.zip
+
+node_modules/
+/build/

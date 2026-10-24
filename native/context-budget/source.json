@@ -1,0 +1,35 @@
+{
+  "baseBossCommit": "df13de345e215e7eb6f3896dc3f65f362ebf5be6",
+  "files": [
+    {
+      "path": "crates/goose/src/agents/agent.rs",
+      "sha256": "43628eb27ed63cc94f7e8ee403c058bbfab199196971da946cf34c4e1c0088c1"
+    },
+    {
+      "path": "crates/goose/src/agents/state_machine/ops_compaction.rs",
+      "sha256": "4d6d955d899d2d38562ea6828d8f98d31225afacceb73834556899cca8bdd6da"
+    },
+    {
+      "path": "crates/goose/src/context_mgmt/mod.rs",
+      "sha256": "4dc90a7e83a519997d427305f8532f868ce21bff62a70a270c8b65216d7af243"
+    },
+    {
+      "path": "crates/goose/src/context_mgmt/budget.rs",
+      "sha256": "5d0818ee54664a4c9736196865f7f48c62378e25bccfe6cdb107e575b7e73a4a"
+    },
+    {
+      "path": "crates/goose/tests/compaction.rs",
+      "sha256": "f6c0245eeb66bcaae428470bd204c0d4faadc9b2d910f18a64cb008bb9d677ba"
+    }
+  ],
+  "backendVersion": "1.52.0",
+  "schema": "uah-native-context-budget-source/v1",
+  "configKeys": [
+    "GOOSE_AUTO_COMPACT_THRESHOLD",
+    "GOOSE_AUTO_COMPACT_TOKEN_LIMIT",
+    "GOOSE_COMPACT_TARGET_TOKENS"
+  ],
+  "sourceCommit": "121998cf75ba8b0a18d8220918c4334702b415d8",
+  "hashMode": "lf-normalized",
+  "shippedWith": "0.9.12"
+}

@@ -1,0 +1,425 @@
+diff --git a/source/goose-1.52.0/crates/goose/src/agents/agent.rs b/source/goose-1.52.0/crates/goose/src/agents/agent.rs
+index 790a110bae5d59f6fb77fff7d594a00cd57ef81d..2197e9d03e9bff33c9c26216db4a0d1aacc6efcf 100644
+--- a/source/goose-1.52.0/crates/goose/src/agents/agent.rs
++++ b/source/goose-1.52.0/crates/goose/src/agents/agent.rs
+@@ -2350,7 +2350,7 @@ impl Agent {
+                 let threshold_percentage = (threshold * 100.0) as u32;
+ 
+                 let inline_msg = format!(
+-                    "Exceeded auto-compact threshold of {}%. Performing auto-compaction...",
++                    "Reached automatic compaction threshold (ratio setting: {}%). Performing auto-compaction...",
+                     threshold_percentage
+                 );
+ 
+diff --git a/source/goose-1.52.0/crates/goose/src/agents/state_machine/ops_compaction.rs b/source/goose-1.52.0/crates/goose/src/agents/state_machine/ops_compaction.rs
+index a86a9debd9e4e1b92f97aefa7ee6a5666c6b8b1c..7350718554e097175dfce1c7a5857d8539c37674 100644
+--- a/source/goose-1.52.0/crates/goose/src/agents/state_machine/ops_compaction.rs
++++ b/source/goose-1.52.0/crates/goose/src/agents/state_machine/ops_compaction.rs
+@@ -29,11 +29,12 @@ fn compaction_part(
+     threshold: f64,
+ ) -> Option<String> {
+     let total_tokens = total_tokens?;
+-    if total_tokens <= 0 || context_limit == 0 || threshold <= 0.0 || threshold >= 1.0 {
++    if total_tokens <= 0 {
+         return None;
+     }
+ 
+-    let compaction_at = (context_limit as f64 * threshold) as i32;
++    let compaction_at = crate::context_mgmt::auto_compaction_trigger(context_limit, threshold)?;
++    let compaction_at = compaction_at.min(i32::MAX as usize) as i32;
+     if compaction_at <= 0 || (total_tokens as f64 / compaction_at as f64) < 0.5 {
+         return None;
+     }
+@@ -70,10 +71,8 @@ impl CompactionOperation {
+     }
+ 
+     fn over_threshold(&self, tokens: usize) -> bool {
+-        if self.threshold <= 0.0 || self.threshold >= 1.0 {
+-            return false;
+-        }
+-        (tokens as f64 / self.context_limit as f64) > self.threshold
++        crate::context_mgmt::auto_compaction_trigger(self.context_limit, self.threshold)
++            .is_some_and(|limit| tokens >= limit)
+     }
+ 
+     async fn context_tokens(&self, session: &Session, conversation: &Conversation) -> Result<i32> {
+@@ -270,7 +269,7 @@ impl Operation<Session, GooseEffect> for CompactionOperation {
+         emit.message(Message::assistant().with_system_notification(
+             SystemNotificationType::InlineMessage,
+             format!(
+-                "Exceeded auto-compact threshold of {threshold_percentage}%. \
++                "Reached automatic compaction threshold (ratio setting: {threshold_percentage}%). \
+                      Performing auto-compaction..."
+             ),
+         ))
+diff --git a/source/goose-1.52.0/crates/goose/src/context_mgmt/budget.rs b/source/goose-1.52.0/crates/goose/src/context_mgmt/budget.rs
+new file mode 100644
+index 0000000000000000000000000000000000000000..176cb88c2f56a585e54488094e2d93602ca53d1d
+--- /dev/null
++++ b/source/goose-1.52.0/crates/goose/src/context_mgmt/budget.rs
+@@ -0,0 +1,24 @@
++/// Select the earliest enabled trigger. A disabled ratio does not disable a fixed limit.
++pub fn trigger_limit(context_limit: usize, ratio: f64, fixed: Option<usize>) -> Option<usize> {
++    let proportional = (context_limit > 0 && ratio.is_finite() && ratio > 0.0 && ratio < 1.0)
++        .then(|| ((context_limit as f64 * ratio).ceil() as usize).max(1));
++    match (proportional, fixed.filter(|n| *n > 0)) {
++        (Some(a), Some(b)) => Some(a.min(b)),
++        (a, b) => a.or(b),
++    }
++}
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    #[test]
++    fn earliest_trigger_wins() {
++        assert_eq!(trigger_limit(1_000_000, 0.8, Some(30_000)), Some(30_000));
++        assert_eq!(trigger_limit(100_000, 0.2, Some(50_000)), Some(20_000));
++        assert_eq!(trigger_limit(100_000, 0.8, None), Some(80_000));
++        assert_eq!(trigger_limit(0, 0.8, Some(30_000)), Some(30_000));
++        assert_eq!(trigger_limit(100_000, 1.0, Some(30_000)), Some(30_000));
++        assert_eq!(trigger_limit(100_000, 0.0, None), None);
++        assert_eq!(trigger_limit(100_000, f64::NAN, Some(0)), None);
++    }
++}
+diff --git a/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs b/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
+index a206133f1e1729416ed4af9ac9e5ef038001202d..f0bff21027b128480bac85d2321c18be9f7883d6 100644
+--- a/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
++++ b/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
+@@ -21,6 +21,20 @@ use tracing::info;
+ use tracing::log::warn;
+ 
+ pub use goose_context_management::DEFAULT_COMPACTION_THRESHOLD;
++pub mod budget;
++pub fn auto_compaction_trigger(context_limit: usize, ratio: f64) -> Option<usize> {
++    let fixed = Config::global()
++        .get_param::<usize>("GOOSE_AUTO_COMPACT_TOKEN_LIMIT")
++        .ok()
++        .filter(|n| *n > 0);
++    budget::trigger_limit(context_limit, ratio, fixed)
++}
++fn summary_token_target() -> Option<usize> {
++    Config::global()
++        .get_param::<usize>("GOOSE_COMPACT_TARGET_TOKENS")
++        .ok()
++        .filter(|n| (256..=100_000).contains(n))
++}
+ 
+ pub(crate) const TOOLCALL_SUMMARIZATION_BATCH_SIZE: usize = 10;
+ 
+@@ -199,6 +213,25 @@ pub async fn compact_messages(
+         }
+     };
+ 
++    // A large current question can remain larger than the trigger even after a valid summary.
++    // Do not enter a proactive re-compaction loop in the state machine.
++    if Config::global()
++        .get_param::<usize>("GOOSE_AUTO_COMPACT_TOKEN_LIMIT")
++        .ok()
++        .is_some_and(|n| n > 0)
++        || summary_token_target().is_some()
++    {
++        let ratio = Config::global()
++            .get_param::<f64>("GOOSE_AUTO_COMPACT_THRESHOLD")
++            .unwrap_or(DEFAULT_COMPACTION_THRESHOLD);
++        let capacity =
++            crate::context_limit::get_context_limit(provider, &model_config.model_name).await?;
++        if auto_compaction_trigger(capacity, ratio)
++            .is_some_and(|limit| retained_context_tokens.max(0) as usize >= limit)
++        {
++            return Err(anyhow::anyhow!("The retained current question and summary still exceed the compaction trigger. Original conversation was retained; shorten the question or raise the trigger."));
++        }
++    }
+     Ok(CompactionResult {
+         conversation,
+         usage: summarization_usage,
+@@ -264,13 +297,8 @@ pub async fn check_if_compaction_needed(
+         }
+     };
+ 
+-    let usage_ratio = current_tokens as f64 / context_limit as f64;
+-
+-    let needs_compaction = if threshold <= 0.0 || threshold >= 1.0 {
+-        false // Auto-compact is disabled.
+-    } else {
+-        usage_ratio > threshold
+-    };
++    let needs_compaction = auto_compaction_trigger(context_limit, threshold)
++        .is_some_and(|limit| current_tokens >= limit);
+     Ok(needs_compaction)
+ }
+ 
+@@ -336,6 +364,23 @@ async fn do_compact(
+     model_config: &ModelConfig,
+     session_id: &str,
+     messages: &[Message],
++) -> Result<(Message, ProviderUsage), anyhow::Error> {
++    do_compact_with_target(
++        provider,
++        model_config,
++        session_id,
++        messages,
++        summary_token_target(),
++    )
++    .await
++}
++
++async fn do_compact_with_target(
++    provider: &dyn Provider,
++    model_config: &ModelConfig,
++    session_id: &str,
++    messages: &[Message],
++    target: Option<usize>,
+ ) -> Result<(Message, ProviderUsage), anyhow::Error> {
+     // Keep stale per-turn state out of the summary.
+     let agent_visible_messages = Conversation::new_unvalidated(
+@@ -351,14 +396,28 @@ async fn do_compact(
+         model_config,
+         session_id,
+     };
++    let mut templates = compaction_templates()?;
++    if let Some(tokens) = target {
++        templates.compaction.push_str(&format!("\n\nSummary length budget: target at most {tokens} tokens in the final rendered summary. Prioritize the user's current goal, explicit decisions, constraints, pending tasks and essential file references. Consolidate repeated details. Never replace the summary with a report about summarizing. Keep the requested structured format concise.\n"));
++    }
+     let summary = goose_context_management::summarize(
+         &model,
+         Some(&GooseTokenEstimator),
+-        &compaction_templates()?,
++        &templates,
+         &agent_visible_messages,
+     )
+     .await?;
+ 
++    if let Some(tokens) = target {
++        let actual = goose_context_management::TokenEstimator::count_text_tokens(
++            &GooseTokenEstimator,
++            &summary.message.as_concat_text(),
++        )
++        .await;
++        if actual == 0 || actual > tokens {
++            return Err(anyhow::anyhow!("Summary exceeded configured token target ({actual}/{tokens}); original conversation was retained. Try a larger summary target or retry compaction."));
++        }
++    }
+     Ok((summary.message, summary.usage))
+ }
+ 
+@@ -705,6 +764,52 @@ mod tests {
+         }
+     }
+ 
++    #[tokio::test]
++    async fn configured_summary_target_is_enforced_without_truncation() {
++        let messages = vec![Message::user().with_text("Retain the user's current question")];
++        let small = MockProvider::new(
++            Message::assistant().with_text("Concise task summary"),
++            100_000,
++        );
++        let (message, _) = do_compact_with_target(
++            &small,
++            &small.config,
++            "summary-budget-test",
++            &messages,
++            Some(256),
++        )
++        .await
++        .unwrap();
++        assert_eq!(message.as_concat_text(), "Concise task summary");
++        assert!(small
++            .captured_system
++            .lock()
++            .unwrap()
++            .as_ref()
++            .unwrap()
++            .contains("at most 256 tokens"));
++        let large = MockProvider::new(
++            Message::assistant().with_text("excessive detail ".repeat(3000)),
++            100_000,
++        );
++        let error = do_compact_with_target(
++            &large,
++            &large.config,
++            "summary-budget-test",
++            &messages,
++            Some(256),
++        )
++        .await
++        .unwrap_err();
++        assert!(error
++            .to_string()
++            .contains("original conversation was retained"));
++        assert_eq!(
++            messages[0].as_concat_text(),
++            "Retain the user's current question"
++        );
++    }
++
+     #[tokio::test]
+     async fn test_keeps_tool_request() {
+         let response_message = Message::assistant().with_text("<mock summary>");
+diff --git a/source/goose-1.52.0/crates/goose/tests/compaction.rs b/source/goose-1.52.0/crates/goose/tests/compaction.rs
+index 82dcec1f1befcc75d14496bd1c47c83d1f30d3a5..469561e6c2b6ef29c0a6762272686b4ad7420545 100644
+--- a/source/goose-1.52.0/crates/goose/tests/compaction.rs
++++ b/source/goose-1.52.0/crates/goose/tests/compaction.rs
+@@ -835,3 +835,162 @@ async fn test_context_limit_recovery_compaction() -> Result<()> {
+ 
+     Ok(())
+ }
++
++/// Run only in a process with a synthetic GOOSE_PATH_ROOT and explicit budget settings.
++#[tokio::test]
++#[ignore = "requires isolated GOOSE_AUTO_COMPACT_TOKEN_LIMIT/GOOSE_CONTEXT_LIMIT and UAH_TEST_TRIGGER_TOKENS"]
++async fn configured_token_budgets_work_in_both_loops() -> Result<()> {
++    let trigger: i32 = std::env::var("UAH_TEST_TRIGGER_TOKENS")?.parse()?;
++    for machine in [false, true] {
++        for (tokens, expected) in [(trigger - 1, false), (trigger, true)] {
++            let temp = TempDir::new()?;
++            let agent = Agent::new();
++            let session = setup_test_session(
++                &agent,
++                &temp,
++                "budget-both-loops",
++                vec![
++                    Message::user().with_text("old relevant history"),
++                    Message::assistant().with_text("old reply"),
++                ],
++            )
++            .await?;
++            let provider = Arc::new(MockCompactionProvider::new());
++            agent
++                .update_provider(
++                    provider.clone(),
++                    ModelConfig::new("mock-model"),
++                    &session.id,
++                )
++                .await?;
++            agent
++                .config
++                .session_manager
++                .update(&session.id)
++                .usage(Usage::new(Some(tokens), Some(0), Some(tokens)))
++                .apply()
++                .await?;
++            let session_config = SessionConfig {
++                id: session.id.clone(),
++                schedule_id: None,
++                max_turns: Some(3),
++                retry_config: None,
++            };
++            let stream = agent
++                .reply(
++                    Message::user().with_text("hello, retain this current question"),
++                    session_config,
++                    machine,
++                    None,
++                )
++                .await?;
++            tokio::pin!(stream);
++            let mut replaced = false;
++            while let Some(event) = stream.next().await {
++                if matches!(event?, AgentEvent::HistoryReplaced(_)) {
++                    replaced = true;
++                }
++            }
++            assert_eq!(
++                replaced, expected,
++                "state_machine={machine} tokens={tokens}"
++            );
++            assert_eq!(provider.has_compacted.load(Ordering::SeqCst), expected);
++            if expected {
++                let result = agent
++                    .config
++                    .session_manager
++                    .get_session(&session.id, true)
++                    .await?;
++                let conversation = result.conversation.unwrap();
++                assert!(
++                    conversation
++                        .messages()
++                        .iter()
++                        .any(|m| m.as_concat_text().contains("old relevant history")),
++                    "original history must remain stored"
++                );
++                assert!(
++                    conversation
++                        .agent_visible_messages()
++                        .iter()
++                        .any(|m| m.as_concat_text().contains("retain this current question")),
++                    "current question must remain visible to the model"
++                );
++            }
++        }
++    }
++    for machine in [false, true] {
++        let temp = TempDir::new()?;
++        let agent = Agent::new();
++        let session = setup_test_session(
++            &agent,
++            &temp,
++            "oversized-current-question",
++            vec![Message::user().with_text("old history")],
++        )
++        .await?;
++        let provider = Arc::new(MockCompactionProvider::new());
++        provider.has_compacted.store(true, Ordering::SeqCst); // allow the synthetic summarizer's large input
++        agent
++            .update_provider(provider, ModelConfig::new("mock-model"), &session.id)
++            .await?;
++        agent
++            .config
++            .session_manager
++            .update(&session.id)
++            .usage(Usage::new(Some(trigger), Some(0), Some(trigger)))
++            .apply()
++            .await?;
++        let question = "hello, very long current question ".repeat(trigger as usize);
++        let session_config = SessionConfig {
++            id: session.id.clone(),
++            schedule_id: None,
++            max_turns: Some(3),
++            retry_config: None,
++        };
++        let stream = agent
++            .reply(
++                Message::user().with_text(&question),
++                session_config,
++                machine,
++                None,
++            )
++            .await?;
++        tokio::pin!(stream);
++        let mut reported = false;
++        tokio::time::timeout(std::time::Duration::from_secs(20), async {
++            while let Some(event) = stream.next().await {
++                match event? {
++                    AgentEvent::HistoryReplaced(_) => {
++                        panic!("oversized retained context must not replace history")
++                    }
++                    AgentEvent::Message(message) => {
++                        reported |= message
++                            .as_concat_text()
++                            .contains("retained current question");
++                    }
++                    _ => {}
++                }
++            }
++            Ok::<(), anyhow::Error>(())
++        })
++        .await??;
++        assert!(
++            reported,
++            "must report preserved oversized context, state_machine={machine}"
++        );
++        let stored = agent
++            .config
++            .session_manager
++            .get_session(&session.id, true)
++            .await?
++            .conversation
++            .unwrap();
++        assert!(stored
++            .messages()
++            .iter()
++            .any(|m| m.as_concat_text() == question));
++    }
++    Ok(())
++}

@@ -1,0 +1,9 @@
+{
+  "name": "sagewrite-mcp-runtime",
+  "version": "0.1.1",
+  "private": true,
+  "dependencies": {
+    "@modelcontextprotocol/server": "2.0.0",
+    "zod": "4.6.5"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "uah-update-config/v1",
+  "productId": "role-dc5dae12889c4522a86f5e465b5cf4dc",
+  "productVersion": "0.1.1",
+  "hostVersion": "0.9.12",
+  "hostAbi": "uah-native-1.52-v1",
+  "instanceId": null,
+  "profileMode": "auto",
+  "profileRoot": null,
+  "workspace": null,
+  "repository": "wenmin20212-dotcom/UAH-agent-updates",
+  "channel": "stable",
+  "trustedKeys": {
+    "f98dea745a89ab9f": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAN+3qgZZDM06Hy7jTBAfxQYQPM0FA9t2scx2ChhtV6Hg=\n-----END PUBLIC KEY-----\n"
+  },
+  "updaterVersion": "1.1.0",
+  "interactiveUpdates": true,
+  "autoCheck": true,
+  "autoDownload": false,
+  "productUpdatesEnabled": true
+}

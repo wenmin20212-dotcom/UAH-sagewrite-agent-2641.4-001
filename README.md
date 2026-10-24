@@ -1,7 +1,11 @@
+## 当前版本 0.1.1 · Token 压缩控制
+
+新增比例、固定 Token 触发量与摘要目标设置，默认 **30% / 20000 / 3000**。完整安装包和保留资料的升级包见 [v0.1.1 Release](https://github.com/wenmin20212-dotcom/UAH-sagewrite-agent-2641.4-001/releases/tag/v0.1.1)。[功能和升级步骤](docs/release-0.1.1.md)。
+
 # SageWrite 长篇书籍创作 Agent
 
 ESCO: 2641.4-001
-Version: 0.1.0
+Version: 0.1.1
 Type: prototype
 
 This repository publishes the prototype definition and release installer for the standalone SageWrite professional Agent. It preserves the existing SageWrite PowerShell workflow, unified model layer, MCP service and Skills.
@@ -34,8 +38,8 @@ SageWrite source files retain the MIT license in LICENSE-SageWrite. The desktop 
 |---|---|---|---|---|
 | B-01 | Windows | 已完成 | 发布 v0.1.0 原始 `agent.json` 和 191 个采用源码快照（8fdd4be） | Mac：已直接用它转换成功，见 B-02 |
 | B-02 | Mac | 已完成 | 用 8fdd4be 转出 Mac 版（Apple 芯片，临时签名）：窗口启动正常；sagewrite MCP 列出 40 个工具；实际运行初始化书籍、项目状态、工作流状态通过；8 个 Skills 已装。尚未配置模型，写书全流程未验收 | |
-| B-03 | Windows | 待处理 | 确认 sagewrite MCP 的依赖在 Windows 包里怎么带上：`agent/portable-source` 里没有 `node_modules`。Mac 版目前从孵化师运行时补入 `@modelcontextprotocol/server` 2.0.0 和 `zod` 4.6.5 | |
-| B-04 | Windows | 待处理 | 以后发布子 Agent 时，除 `agent.json` 和 `agent/` 外，也附上安装目录里的 `package-receipt.json`，Mac 端用它逐个核对文件哈希。本仓库目前没有这个文件 | |
+| B-03 | Windows | 已完成 | 确认 sagewrite MCP 的依赖在 Windows 包里怎么带上：`agent/portable-source` 里没有 `node_modules`。Mac 版目前从孵化师运行时补入 `@modelcontextprotocol/server` 2.0.0 和 `zod` 4.6.5 | 0.1.1 将固定依赖及传递依赖随包放入 MCP 自己的 node_modules；packaging/mcp-runtime/package-lock.json 可复现，stdio tools/list 已验证 40 项工具 |
+| B-04 | Windows | 已完成 | 以后发布子 Agent 时，除 `agent.json` 和 `agent/` 外，也附上安装目录里的 `package-receipt.json`，Mac 端用它逐个核对文件哈希。本仓库目前没有这个文件 | 0.1.1 仓库根目录和安装包均提供 package-receipt.json，含程序文件字节哈希和排除项 |
 | B-05 | Windows | 建议 | 以下源码改动可让 Mac 版少停用功能，是否采纳由用户决定：① 05c/05cc 的 Word COM 导出 PDF 增加 pandoc 或 LibreOffice 路线；② 封面相关的 11 个 `System.Drawing` 脚本改用 ImageMagick；③ `runner.mjs` 默认 PowerShell 按平台选 `pwsh`；④ 去掉 `chcp 65001`，路径统一用 `Join-Path` 分段或 `/` | |
 | B-06 | Mac | 已关闭 | 更正：Mac 端之前说"18 个文件与提交不一致"，是比对方法有误（把整个文件统一换成 CRLF 再比），以 `docs/source-audit-v0.1.0.json` 的 4 个为准 | |
 

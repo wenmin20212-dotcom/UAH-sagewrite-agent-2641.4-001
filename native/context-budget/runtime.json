@@ -1,0 +1,16 @@
+{
+  "schema": "uah-context-budget-native/v1",
+  "backendVersion": "1.52.0",
+  "sourceCommit": "121998cf75ba8b0a18d8220918c4334702b415d8",
+  "baseBossCommit": "df13de345e215e7eb6f3896dc3f65f362ebf5be6",
+  "platform": "win32-x64",
+  "profile": "release",
+  "features": [
+    "live-voice",
+    "rustls-tls",
+    "system-keyring"
+  ],
+  "bytes": 134350336,
+  "sha256": "5fe1e79be250892430214dc24887f17c9d73ce7359f3983569f9ca04c355bf2b",
+  "builtAt": "2026-10-23T11:27:55.433Z"
+}

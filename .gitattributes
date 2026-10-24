@@ -1,2 +1,10 @@
+* whitespace=cr-at-eol
 agent/** -text
 agent.json -text
+native/context-budget/*.patch -whitespace
+execution/** -text
+updater/** -text
+host/** -text
+README.md -text
+docs/** -text
+package-receipt.json -text
