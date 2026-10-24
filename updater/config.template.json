@@ -1,7 +1,7 @@
 {
   "schema": "uah-update-config/v1",
   "productId": "role-dc5dae12889c4522a86f5e465b5cf4dc",
-  "productVersion": "0.1.1",
+  "productVersion": "0.1.2",
   "hostVersion": "0.9.12",
   "hostAbi": "uah-native-1.52-v1",
   "instanceId": null,

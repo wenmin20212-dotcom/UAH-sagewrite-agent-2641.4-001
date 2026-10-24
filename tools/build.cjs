@@ -3,7 +3,7 @@ const root=path.resolve(__dirname,'..'),arg=n=>{const i=process.argv.indexOf(n);
 const hash=f=>crypto.createHash('sha256').update(fs.readFileSync(f)).digest('hex');
 const {files}=require('./apply-child-upgrade.cjs');
 (async()=>{
- const base=path.resolve(arg('--base')||''),output=path.resolve(arg('--output')||'.release-work/payload-0.1.1');
+ const base=path.resolve(arg('--base')||''),output=path.resolve(arg('--output')||'.release-work/payload-0.1.2');
  if(!arg('--base'))throw Error('Supply --base <matching desktop runtime directory>');
  if(!output.startsWith(path.join(root,'.release-work')+path.sep)||fs.existsSync(output))throw Error('Choose a fresh output under .release-work');
  const backend=path.resolve(arg('--backend')||path.join(base,'app/BOSS-win32-x64/resources/bin/goose.exe')),native=JSON.parse(fs.readFileSync(path.join(root,'native/context-budget/runtime.json')));

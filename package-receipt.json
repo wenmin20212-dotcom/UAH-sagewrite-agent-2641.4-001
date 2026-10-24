@@ -1,7 +1,7 @@
 {
   "schema": "uah-sagewrite-package-receipt/v1",
   "productId": "role-dc5dae12889c4522a86f5e465b5cf4dc",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "excluded": [
     "package-receipt.json",
     "release-manifest.json"
@@ -5978,8 +5978,8 @@
     },
     {
       "path": "agent.json",
-      "bytes": 5172,
-      "sha256": "7c18774eb082680bcbc0d0e69cf88939bc38d10ed9dab9c05c6ef15c9368c614"
+      "bytes": 5174,
+      "sha256": "5941faf49cc8836c3f75f13a08da97acfce67672e15d4efddcd58b15243ecc1a"
     },
     {
       "path": "app/BOSS-win32-x64/BOSS.exe",
@@ -6323,8 +6323,8 @@
     },
     {
       "path": "app/BOSS-win32-x64/resources/bin/goose.exe",
-      "bytes": 134350336,
-      "sha256": "5fe1e79be250892430214dc24887f17c9d73ce7359f3983569f9ca04c355bf2b"
+      "bytes": 134225920,
+      "sha256": "00cffc152234d9cda4db4f7809fc09e45e94e6cc79cb7179421dad37e4d3f1e5"
     },
     {
       "path": "app/BOSS-win32-x64/resources/bin/jbang.cmd",
@@ -6470,6 +6470,11 @@
       "path": "docs/release-0.1.1.md",
       "bytes": 2812,
       "sha256": "4d415ffbbb5e2bbad21f3198d16f9a8d7436b0606d14dbc3cda0c9c872259041"
+    },
+    {
+      "path": "docs/release-0.1.2.md",
+      "bytes": 2542,
+      "sha256": "829b2a46abf31cdf0567c1a2795e7e0faef9999fefca1e9fe9ffd21c38af9f47"
     },
     {
       "path": "docs/source-audit-v0.1.0.json",
@@ -13183,13 +13188,13 @@
     },
     {
       "path": "native-backend.json",
-      "bytes": 474,
-      "sha256": "2ff5c9ff808bb74ad0263efcb139bb4765abcd9c58f57930c86d3afd744dcda9"
+      "bytes": 537,
+      "sha256": "77fb02745a4ac8c2b08d055f3f23dcbc8c56b037a146d4bbc285cd54da4a9008"
     },
     {
       "path": "README.md",
-      "bytes": 4868,
-      "sha256": "0e76c3d9c89d96ef7d146f5a7aaeba46853b55dcb598867277bf966f252f7581"
+      "bytes": 6300,
+      "sha256": "158b16971bf3ec9df90d470e06833b0f17f4ded66423ba686999b624c0368ae3"
     },
     {
       "path": "runtime/CHANGELOG.md",
@@ -23174,7 +23179,7 @@
     {
       "path": "updater/config.json",
       "bytes": 518278,
-      "sha256": "9b78034cf37c85db19429544c11ef63bb55af5ca17c1f74064a7b2f84860455e"
+      "sha256": "c88bb03ce96a72d15026fc414b200cdbc50123323662ae50daa9a4a3e261bf54"
     },
     {
       "path": "updater/core.cjs",

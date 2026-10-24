@@ -10,7 +10,8 @@
     "rustls-tls",
     "system-keyring"
   ],
-  "bytes": 134350336,
-  "sha256": "5fe1e79be250892430214dc24887f17c9d73ce7359f3983569f9ca04c355bf2b",
-  "builtAt": "2026-10-23T11:27:55.433Z"
+  "bytes": 134225920,
+  "sha256": "00cffc152234d9cda4db4f7809fc09e45e94e6cc79cb7179421dad37e4d3f1e5",
+  "builtAt": "2026-10-24T05:38:43.9287660Z",
+  "localPatch": "compaction-headroom-85pct-bounded-retry"
 }

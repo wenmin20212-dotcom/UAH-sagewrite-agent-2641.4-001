@@ -1,0 +1,163 @@
+diff --git a/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs b/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
+index f0bff21..d560669 100644
+--- a/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
++++ b/source/goose-1.52.0/crates/goose/src/context_mgmt/mod.rs
+@@ -396,29 +396,52 @@ async fn do_compact_with_target(
+         model_config,
+         session_id,
+     };
+-    let mut templates = compaction_templates()?;
+-    if let Some(tokens) = target {
+-        templates.compaction.push_str(&format!("\n\nSummary length budget: target at most {tokens} tokens in the final rendered summary. Prioritize the user's current goal, explicit decisions, constraints, pending tasks and essential file references. Consolidate repeated details. Never replace the summary with a report about summarizing. Keep the requested structured format concise.\n"));
+-    }
+-    let summary = goose_context_management::summarize(
+-        &model,
+-        Some(&GooseTokenEstimator),
+-        &templates,
+-        &agent_visible_messages,
+-    )
+-    .await?;
+-
+-    if let Some(tokens) = target {
+-        let actual = goose_context_management::TokenEstimator::count_text_tokens(
+-            &GooseTokenEstimator,
+-            &summary.message.as_concat_text(),
++    let mut accumulated_usage: Option<ProviderUsage> = None;
++    for percent in [85usize, 70] {
++        let mut templates = compaction_templates()?;
++        if let Some(limit) = target {
++            let generation_target = (limit / 100 * percent + limit % 100 * percent / 100).max(1);
++            templates.compaction.push_str(&format!("\n\nSummary length budget: aim for at most {generation_target} tokens in the final rendered summary. The acceptance ceiling is {limit} tokens; leave the remaining space unused for formatting and estimation differences. Prioritize the user's current goal, explicit decisions, constraints, pending tasks and essential file references. Consolidate repeated details. Never replace the summary with a report about summarizing. Keep the requested structured format concise.\n"));
++            if percent == 70 {
++                templates.compaction.push_str("The previous summary exceeded the acceptance ceiling. Produce a substantially shorter summary from the original history.\n");
++            }
++        }
++        let mut summary = goose_context_management::summarize(
++            &model,
++            Some(&GooseTokenEstimator),
++            &templates,
++            &agent_visible_messages,
+         )
+-        .await;
+-        if actual == 0 || actual > tokens {
+-            return Err(anyhow::anyhow!("Summary exceeded configured token target ({actual}/{tokens}); original conversation was retained. Try a larger summary target or retry compaction."));
++        .await?;
++        if let Some(previous) = accumulated_usage.take() {
++            summary.usage.usage += previous.usage;
++            summary.usage.cost = match (summary.usage.cost, previous.cost) {
++                (Some(current), Some(previous)) => Some(current + previous),
++                _ => None,
++            };
+         }
++        if let Some(limit) = target {
++            let actual = goose_context_management::TokenEstimator::count_text_tokens(
++                &GooseTokenEstimator,
++                &summary.message.as_concat_text(),
++            )
++            .await;
++            if actual == 0 {
++                anyhow::bail!(
++                    "Summary token count unavailable; original conversation was retained."
++                );
++            }
++            if actual > limit {
++                if percent == 85 {
++                    accumulated_usage = Some(summary.usage);
++                    continue;
++                }
++                anyhow::bail!("Summary exceeded configured token ceiling after two attempts ({actual}/{limit}); original conversation was retained. Try a larger summary ceiling or retry compaction.");
++            }
++        }
++        return Ok((summary.message, summary.usage));
+     }
+-    Ok((summary.message, summary.usage))
++    unreachable!("the final compaction attempt always returns")
+ }
+ 
+ pub use goose_context_management::format_message_for_compacting;
+@@ -681,6 +704,7 @@ mod tests {
+ 
+     struct MockProvider {
+         message: Message,
++        retry_message: Option<Message>,
+         config: ModelConfig,
+         max_tool_responses: Option<usize>,
+         captured_system: std::sync::Mutex<Option<String>>,
+@@ -691,6 +715,7 @@ mod tests {
+         fn new(message: Message, context_limit: usize) -> Self {
+             Self {
+                 message,
++                retry_message: None,
+                 config: ModelConfig {
+                     model_name: "test".to_string(),
+                     context_limit: Some(context_limit),
+@@ -754,7 +779,11 @@ mod tests {
+                 }
+             }
+ 
+-            let message = self.message.clone();
++            let message = if self.call_count() > 1 {
++                self.retry_message.as_ref().unwrap_or(&self.message).clone()
++            } else {
++                self.message.clone()
++            };
+             let usage = ProviderUsage::new("mock-model".to_string(), Usage::default());
+             Ok(stream_from_single_message(message, usage))
+         }
+@@ -787,7 +816,8 @@ mod tests {
+             .unwrap()
+             .as_ref()
+             .unwrap()
+-            .contains("at most 256 tokens"));
++            .contains("at most 217 tokens"));
++        assert_eq!(small.call_count(), 1);
+         let large = MockProvider::new(
+             Message::assistant().with_text("excessive detail ".repeat(3000)),
+             100_000,
+@@ -804,12 +834,46 @@ mod tests {
+         assert!(error
+             .to_string()
+             .contains("original conversation was retained"));
++        assert_eq!(large.call_count(), 2);
++        assert!(large
++            .captured_system
++            .lock()
++            .unwrap()
++            .as_ref()
++            .unwrap()
++            .contains("at most 179 tokens"));
+         assert_eq!(
+             messages[0].as_concat_text(),
+             "Retain the user's current question"
+         );
+     }
+ 
++    #[tokio::test]
++    async fn configured_summary_target_retries_and_accepts_shorter_summary() {
++        let messages = vec![Message::user().with_text("Preserve original task history")];
++        let mut provider = MockProvider::new(
++            Message::assistant().with_text("excessive detail ".repeat(3000)),
++            100_000,
++        );
++        provider.retry_message = Some(Message::assistant().with_text("Short valid summary"));
++        let (message, usage) = do_compact_with_target(
++            &provider,
++            &provider.config,
++            "retry-budget-test",
++            &messages,
++            Some(256),
++        )
++        .await
++        .unwrap();
++        assert_eq!(message.as_concat_text(), "Short valid summary");
++        assert_eq!(provider.call_count(), 2);
++        assert!(usage.usage.output_tokens.unwrap() > 256);
++        assert_eq!(
++            messages[0].as_concat_text(),
++            "Preserve original task history"
++        );
++    }
++
+     #[tokio::test]
+     async fn test_keeps_tool_request() {
+         let response_message = Message::assistant().with_text("<mock summary>");

@@ -11,7 +11,7 @@
     },
     {
       "path": "crates/goose/src/context_mgmt/mod.rs",
-      "sha256": "4dc90a7e83a519997d427305f8532f868ce21bff62a70a270c8b65216d7af243"
+      "sha256": "a3d294ed365dcc53c1ab65fc20578ffc0d0eb2e0401422fcf6029a10d34af820"
     },
     {
       "path": "crates/goose/src/context_mgmt/budget.rs",
@@ -31,5 +31,6 @@
   ],
   "sourceCommit": "121998cf75ba8b0a18d8220918c4334702b415d8",
   "hashMode": "lf-normalized",
-  "shippedWith": "0.9.12"
+  "shippedWith": "sagewrite-0.1.2",
+  "additionalPatch": "compaction-headroom.patch"
 }

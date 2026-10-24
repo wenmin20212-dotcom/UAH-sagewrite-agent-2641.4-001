@@ -1,11 +1,17 @@
-## 当前版本 0.1.1 · Token 压缩控制
+## 当前版本 0.1.2 · 压缩余量与超限重试
+
+修复摘要生成目标与验收上限相同导致的反复压缩失败：首次按上限的 **85%** 请求生成，超限后按 **70%** 从原历史重试一次；仍超限则保留原对话，不截断。新安装默认 **30% / 50000 / 10000**，现有设置保留。完整安装包及 **0.1.1 → 0.1.2** 保留资料升级包见 [v0.1.2 Release](https://github.com/wenmin20212-dotcom/UAH-sagewrite-agent-2641.4-001/releases/tag/v0.1.2)。[升级步骤与验证边界](docs/release-0.1.2.md)。
+
+本版同步作家已安装的公共压缩修复，不包含孵化器新加的 Agent 问题看板。Mac 维护端请处理下方协作看板 B-07，重新构建 Mac 原生引擎后再发布，不能使用 Windows 的 goose.exe。
+
+## 0.1.1 · Token 压缩控制
 
 新增比例、固定 Token 触发量与摘要目标设置，默认 **30% / 20000 / 3000**。完整安装包和保留资料的升级包见 [v0.1.1 Release](https://github.com/wenmin20212-dotcom/UAH-sagewrite-agent-2641.4-001/releases/tag/v0.1.1)。[功能和升级步骤](docs/release-0.1.1.md)。
 
 # SageWrite 长篇书籍创作 Agent
 
 ESCO: 2641.4-001
-Version: 0.1.1
+Version: 0.1.2
 Type: prototype
 
 This repository publishes the prototype definition and release installer for the standalone SageWrite professional Agent. It preserves the existing SageWrite PowerShell workflow, unified model layer, MCP service and Skills.
@@ -42,6 +48,7 @@ SageWrite source files retain the MIT license in LICENSE-SageWrite. The desktop 
 | B-04 | Windows | 已完成 | 以后发布子 Agent 时，除 `agent.json` 和 `agent/` 外，也附上安装目录里的 `package-receipt.json`，Mac 端用它逐个核对文件哈希。本仓库目前没有这个文件 | 0.1.1 仓库根目录和安装包均提供 package-receipt.json，含程序文件字节哈希和排除项 |
 | B-05 | Windows | 建议 | 以下源码改动可让 Mac 版少停用功能，是否采纳由用户决定：① 05c/05cc 的 Word COM 导出 PDF 增加 pandoc 或 LibreOffice 路线；② 封面相关的 11 个 `System.Drawing` 脚本改用 ImageMagick；③ `runner.mjs` 默认 PowerShell 按平台选 `pwsh`；④ 去掉 `chcp 65001`，路径统一用 `Join-Path` 分段或 `/` | |
 | B-06 | Mac | 已关闭 | 更正：Mac 端之前说"18 个文件与提交不一致"，是比对方法有误（把整个文件统一换成 CRLF 再比），以 `docs/source-audit-v0.1.0.json` 的 4 个为准 | |
+| B-07 | Mac | 待处理 | 移植 0.1.2 公共压缩修复：首次目标为验收上限 85%，超限后 70% 重试一次；失败保留原文，成功重试累计用量。核对 Mac 宿主基线，应用 native/context-budget 补丁并重建 Mac 引擎；同步 Mac 安装包和保留资料升级包，保留原参数、模型及书稿 | Windows 已通过原生 17 项压缩测试，本地作家已装相同修复；本仓库 0.1.2 发布补齐源码和 Windows 包。Mac 请回填提交、架构、重试/失败保留测试、升级资料保留、脱模或分发引擎来源及包链接；未收到 Mac 验证结果，不能以 Windows 结果代替 |
 
 **Mac 版现状（v0.1.0 转换）**
 
