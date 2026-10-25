@@ -19,7 +19,7 @@ const {files}=require('./apply-child-upgrade.cjs');
  fs.cpSync(path.join(root,'docs'),path.join(output,'docs'),{recursive:true});
  fs.copyFileSync(backend,path.join(output,'app/BOSS-win32-x64/resources/bin/goose.exe'));fs.writeFileSync(path.join(output,'native-backend.json'),JSON.stringify(native,null,2));
  const asar=require('@electron/asar'),archive=path.join(output,'app/BOSS-win32-x64/resources/app.asar'),stage=output+'-asar-stage';asar.extractAll(archive,stage);fs.copyFileSync(path.join(root,'host/uah-standalone-host.cjs'),path.join(stage,'uah-standalone-host.cjs'));await asar.createPackage(stage,archive+'.new');fs.renameSync(archive+'.new',archive);asar.uncacheAll();
- const cfg=JSON.parse(fs.readFileSync(path.join(root,'updater/config.template.json')));
+ const cfg=JSON.parse(fs.readFileSync(path.join(root,'updater/config.template.json')));cfg.productVersion=JSON.parse(fs.readFileSync(path.join(root,'agent.json'))).version;
  cfg.productBaseline=['agent','assets','execution'].flatMap(n=>files(path.join(output,n)).map(f=>({...f,path:n+'/'+f.path})));for(const rel of ['agent.json','updater/product-bootstrap.cjs'])cfg.productBaseline.push({path:rel,sha256:hash(path.join(output,rel))});
  fs.writeFileSync(path.join(output,'updater/config.json'),JSON.stringify(cfg,null,2));fs.unlinkSync(path.join(output,'updater/config.template.json'));
  fs.writeFileSync(path.join(output,'launch.ps1'),'\uFEFF'+"$ErrorActionPreference='Stop'\r\nStart-Process -FilePath (Join-Path $PSScriptRoot 'runtime\\node.exe') -ArgumentList @(('\"'+(Join-Path $PSScriptRoot 'updater\\launcher.cjs')+'\"')) -WorkingDirectory $PSScriptRoot -WindowStyle Hidden\r\n");

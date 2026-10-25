@@ -1,0 +1,22 @@
+{
+  "sagewrite-new-book/SKILL.md": "517fa7b5d3838793a3e8130300a5f12ea2a7f8639c76c25aac746c7b628070d3",
+  "sagewrite-new-book/agents/openai.yaml": "6711d64906c4a5d8f2d47ddc70fc455b194fe6487d5582a2c9b6fafcd0fa4e86",
+  "sagewrite-generate-toc/SKILL.md": "2162d6e517744b79614769814a8f22854e906d9e9768ed1fc6d35edb1934f2e9",
+  "sagewrite-generate-toc/agents/openai.yaml": "186ecf8a09b4ad885feb894710a79a0b4e3e58da044d48793ac06ebfc2133d37",
+  "sagewrite-write-chapters/SKILL.md": "daf878b250a381c7e40a96291a43d9846e7de83fa9467a55b98a805e5a7ac29b",
+  "sagewrite-write-chapters/agents/openai.yaml": "8b7930edd33c89571bf418ec8e1667f2bda61925fbb8f1beb1c3b50c37931103",
+  "sagewrite-review-edit/SKILL.md": "1be95147203b4ffb5220e3995c7b6dc438b67236b0aba4e26633ad1f987d9009",
+  "sagewrite-review-edit/agents/openai.yaml": "873c712c90efadd34745d45beb77ffb1bf742aafc0ab17df4add9d4c11b20146",
+  "sagewrite-review-edit/references/tool-routing.md": "6dd7d37ba4a5cda7b342af6029efd8566ba8f59d0323449450fdb982539f2228",
+  "sagewrite-create-cover/SKILL.md": "46b824d0417c4de88aa0dd89872b1db634ffe0ced5b1ad5f48dd2d7e78cefbf8",
+  "sagewrite-create-cover/agents/openai.yaml": "1ebb05c5d5797bf672c5281d5e9c0363f5ce12a03cf5bfafd855b0e28e73782b",
+  "sagewrite-create-cover/references/cover-workflow.md": "074f9e25c5cdcc8ca48cd579c6d8dca600502609281787cbe8b64ff411ef6739",
+  "sagewrite-publish-book/SKILL.md": "d654c13c82cd6598f943ff27564b06b75958550f7a3460cf80925d20a5fbfc75",
+  "sagewrite-publish-book/agents/openai.yaml": "35f9d8a00908690ad6e82dcbd1e93a65b2fe17384126dfc48d24b67435efdd62",
+  "sagewrite-publish-book/references/export-routing.md": "c54d2d3931723d9356c4f149a2990b94826459b089b9902d6fa4a647d0609708",
+  "sagewrite-manage-environment/SKILL.md": "296a523208db11895d44b59cf6286ce44521327f52b964ac39d0430593c6b49f",
+  "sagewrite-manage-environment/agents/openai.yaml": "a27566d9d93fafef033bc0f67d940943bf96086953c8a3b13c97076720d23aa7",
+  "sagewrite-workflow-status/SKILL.md": "7853370be1003050627e844aa95cef0e8940b3811eca7957b7321f77ae097e2f",
+  "sagewrite-workflow-status/agents/openai.yaml": "1022488c0f402aca3a06872d5625404078147639683f3c15a3a1eec8e255c3d8",
+  "sagewrite-workflow-status/references/status-record.md": "61efec8e780a3ae4c2b8a29b95e23b943f99f2da28e7f773e409eb9fda4e16d2"
+}

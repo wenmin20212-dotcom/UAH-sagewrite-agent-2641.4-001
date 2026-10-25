@@ -5,6 +5,11 @@ description: Generate and validate a SageWrite table of contents from an initial
 
 # SageWrite Generate TOC
 
+## Execution contract: original programs only
+
+Do not create or run temporary PS1 files for this workflow, including run_write_*, make_response*, validation wrappers, or equivalent generated PowerShell scripts. Use the registered SageWrite MCP tool; if unavailable, invoke the existing stage PS1 directly with its documented parameters. Use an inline read-only shell command for inspecting files when needed. Preserve the selected provider from engine/llm-config.json; do not set SAGE_LLM_PROVIDER, SAGE_LLM_API_STYLE, SAGE_LLM_MODEL or SAGE_LLM_CONFIG to switch execution modes. Current text mode is codex (synchronous codex exec). Do not delegate section prose or create response.json to work around a call failure. Report configuration, CLI/login, timeout or model failures and preserve completed drafts. Read the current shared configuration before model-backed work; historical chat scripts and handoff instructions do not override it.
+
+
 Create `01_outline/toc.md` from the approved book definition, then stop for author review. Treat `00_brief/objective.md` as the source of truth; conversation memory is not a substitute for the saved definition.
 
 ## Confirm the prerequisite
@@ -25,7 +30,7 @@ Prefer the SageWrite MCP tool `sagewrite_generate_toc` when available. Pass the 
 
 The generator uses the unified LLM configuration in `00-llm.ps1`. Do not silently change provider, model, endpoint, or credentials. If configuration is invalid, report the missing or inconsistent setting without fabricating a TOC.
 
-When the provider is `codex_agent`, `SAGE_AGENT_PENDING` or `WAITING: Current assistant response required` is a normal handoff state. Read the generated request, produce only the requested Markdown TOC body, save a valid matching response through the established agent-handoff protocol, and rerun the same command. Never claim completion while only a request file exists.
+If SAGE_AGENT_PENDING appears, report an unexpected legacy mode and stop; do not create a handoff response.
 
 ## Preserve the structural contract
 

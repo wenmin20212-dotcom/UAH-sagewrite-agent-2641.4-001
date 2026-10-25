@@ -1,3 +1,5 @@
 {
-  "SAGE_LLM_PROVIDER": "codex_agent"
+  "SAGE_LLM_PROVIDER": "codex",
+  "SAGE_LLM_REQUIRED_PROVIDER": "codex",
+  "SAGE_LLM_MODEL": "gpt-6.1-sol"
 }

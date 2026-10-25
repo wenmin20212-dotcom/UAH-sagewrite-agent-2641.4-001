@@ -20,9 +20,9 @@ try{
  const connectorSupport=require(path.join(codeRoot,'execution/connectors/bootstrap.cjs'));
  connectorSupport.configure({config,profileRoot:path.resolve(configRoot,'../../..'),codeRoot,hostRoot,installationRoot:root,productId:meta.id,selections:meta.connectors||[]});
  fs.writeFileSync(configPath,YAML.stringify(config));
- for(const s of meta.skills){const target=path.join(configRoot,'skills',s.name);if(!fs.existsSync(target)){fs.mkdirSync(path.dirname(target),{recursive:true});fs.cpSync(path.join(codeRoot,'agent',s.path),target,{recursive:true});}}
+ const skillSync=require(path.join(codeRoot,'execution/skill-sync.cjs')).sync({codeRoot,configRoot,skills:meta.skills});if(skillSync.conflicts.length)console.warn('Product Skill user-edit conflicts:',skillSync.conflicts.join(','));
  const docs=Object.entries(meta.views).flatMap(([view,v])=>v.files.filter(f=>f.endsWith('.md')).map(f=>`## ${view}: ${f}\n`+fs.readFileSync(path.join(codeRoot,'agent',f),'utf8')));
- fs.writeFileSync(path.join(configRoot,'.goosehints'),`# ${meta.name}\n${meta.mode==='prototype'?'这是测试包，未完成的视图不能宣称已实现。':''}\n`+host.identityHints(meta)+connectorSupport.hints+docs.join('\n\n'));
+ fs.writeFileSync(path.join(configRoot,'.goosehints'),`# ${meta.name}\n${meta.executionPolicy?.noTemporaryPowerShell?'执行规则：禁止新增任何 PS1；直接使用原有 MCP/阶段脚本；不得临时覆盖模型模式或逐节派发正文。\n':''}${meta.mode==='prototype'?'这是测试包，未完成的视图不能宣称已实现。':''}\n`+host.identityHints(meta)+connectorSupport.hints+docs.join('\n\n'));
  app.on('browser-window-created',(_e,w)=>{if(meta.desktopIcon)w.setIcon(path.join(codeRoot,meta.desktopIcon));w.on('page-title-updated',e=>{if(w.uahMailReview||w.uahContextSettings)return;e.preventDefault();w.setTitle(meta.displayName);});w.webContents.once('did-finish-load',()=>{if(w.uahMailReview||w.uahContextSettings)return;w.setTitle(meta.displayName);fs.writeFileSync(path.join(root,'data/runtime-ready.json'),JSON.stringify({windowLoaded:true,id:meta.id,name:meta.name,version:meta.version,standalone:true}));});});
  require(path.join(process.env.UAH_UPDATE_ENGINE_ROOT||path.join(root,'updater'),'health.cjs')).install({app,root,codeRoot,profile:typeof profile==='string'?profile:root,meta});
  requireHost('./.vite/build/main.js');

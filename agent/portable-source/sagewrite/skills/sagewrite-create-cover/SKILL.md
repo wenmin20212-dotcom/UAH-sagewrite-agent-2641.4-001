@@ -5,6 +5,11 @@ description: Design, generate, review, typeset, export, and install a publicatio
 
 # SageWrite Create Cover
 
+## Execution contract: original programs only
+
+Do not create or run temporary PS1 files for this workflow, including run_write_*, make_response*, validation wrappers, or equivalent generated PowerShell scripts. Use the registered SageWrite MCP tool; if unavailable, invoke the existing stage PS1 directly with its documented parameters. Use an inline read-only shell command for inspecting files when needed. Preserve the selected provider from engine/llm-config.json; do not set SAGE_LLM_PROVIDER, SAGE_LLM_API_STYLE, SAGE_LLM_MODEL or SAGE_LLM_CONFIG to switch execution modes. Current text mode is codex (synchronous codex exec). Do not delegate section prose or create response.json to work around a call failure. Report configuration, CLI/login, timeout or model failures and preserve completed drafts. Read the current shared configuration before model-backed work; historical chat scripts and handoff instructions do not override it.
+
+
 Create the cover before final 04F approval and stage-05 export. Read `references/cover-workflow.md` for the route matching ebook, reading PDF, or print output.
 
 ## Establish the cover brief

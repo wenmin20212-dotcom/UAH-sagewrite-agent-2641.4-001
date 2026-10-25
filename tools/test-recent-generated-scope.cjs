@@ -1,0 +1,13 @@
+const fs=require('node:fs'),os=require('node:os'),path=require('node:path'),assert=require('node:assert/strict'),{execFileSync}=require('node:child_process');
+const engine=path.resolve(__dirname,'../agent/portable-source/sagewrite/engine'),temp=fs.mkdtempSync(path.join(os.tmpdir(),'sagewrite-recent-scope-')),book=path.join(temp,'book');const write=(f,s)=>{fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,s);};
+try{write(path.join(book,'00_brief/objective.md'),'# fixture');write(path.join(book,'01_outline/toc.md'),'## Chapter\n### One\n### Two\n### Three\n');write(path.join(book,'02_chapters/01.md'),'WRONG OLD DRAFT');write(path.join(book,'02_chapters/02.md'),'### Two\nA fresh paragraph.');write(path.join(book,'02_chapters/99.md'),'UNRELATED EXTRA');
+const history=path.join(book,'logs/run_history.jsonl'),setBatch=(data,state='success')=>write(history,JSON.stringify({step:'write',state,timestamp:'2026-10-25 05:00:00',data})+'\n');
+function inspect(){return JSON.parse(execFileSync('C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe',['-NoProfile','-ExecutionPolicy','Bypass','-File',path.join(engine,'Get-SageWriteWorkflowStatus.ps1'),'-BookName','Fixture','-BookRoot',book,'-Details'],{encoding:'utf8',windowsHide:true,timeout:30000}));}
+setBatch({generated_indices:[2],processed_range:'1-2',chapters_generated:1,chapters_skipped:1});let r=inspect();assert.deepEqual(r.units.map(x=>x.index),[2]);assert.equal(r.counts.expected,1);assert.equal(r.counts.drafts_present,1);assert.equal(r.extra_files.length,0);assert(!r.inputs.some(x=>/01\.md|99\.md/.test(x.path)));
+setBatch({generated_indices:[],chapters_generated:0,chapters_skipped:2});r=inspect();assert.equal(r.units.length,0);assert.equal(r.counts.expected,0);
+setBatch({processed_range:'2-2',chapters_generated:1,chapters_skipped:0});assert.deepEqual(inspect().units.map(x=>x.index),[2]);
+setBatch({processed_range:'1-2',chapters_generated:1,chapters_skipped:1});r=inspect();assert.equal(r.units.length,0);assert(r.warnings.length);
+setBatch({generated_indices:[2]},'failed');assert.deepEqual(inspect().units.map(x=>x.index),[2]);
+fs.unlinkSync(path.join(book,'02_chapters/02.md'));setBatch({generated_indices:[2]});r=inspect();assert.equal(r.units[0].state,'missing');assert.equal(r.counts.remaining,1);
+console.log(JSON.stringify({passed:true,skippedOldDraftExcluded:true,unrelatedMissingAndExtraExcluded:true,allSkippedChecksNothing:true,exactHistoricalBatchSupported:true,ambiguousHistoryNeverFallsBackToWholeBook:true,partialFailureSavedSetOnly:true,selectedMissingStillDetected:true,noModelCalls:true,noNewPs1:true}));
+}finally{fs.rmSync(temp,{recursive:true,force:true});}

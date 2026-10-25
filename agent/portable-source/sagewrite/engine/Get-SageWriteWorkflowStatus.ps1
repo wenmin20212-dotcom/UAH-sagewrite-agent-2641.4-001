@@ -1,9 +1,10 @@
-param(
+﻿param(
     [Parameter(Mandatory=$true)][string]$BookName,
     [string]$BookRoot,
     [ValidatePattern('^[A-Za-z0-9-]{2,32}$')][string]$Language='zh',
     [switch]$SaveReport,
-    [switch]$Details
+    [switch]$Details,
+    [switch]$FullBook
 )
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=[Text.Encoding]::UTF8
@@ -17,6 +18,31 @@ if (!$BookRoot) {
 $BookRoot=(Resolve-Path -LiteralPath $BookRoot).Path.TrimEnd('\','/')
 if (!(Test-Path -LiteralPath $BookRoot -PathType Container)) { throw 'Book root must be a directory.' }
 $warnings=New-Object 'System.Collections.Generic.List[string]'
+# Default writing inspection scope: only files actually saved by the latest completed write.
+$BatchScope = -not $FullBook
+$BatchIndices = @(); $BatchTimestamp = $null
+if ($BatchScope) {
+    $HistoryPath = Join-Path $BookRoot 'logs/run_history.jsonl'
+    $LatestWrite = $null
+    if (Test-Path -LiteralPath $HistoryPath) {
+        foreach ($Line in [IO.File]::ReadLines($HistoryPath, [Text.Encoding]::UTF8)) {
+            if ([string]::IsNullOrWhiteSpace($Line)) { continue }
+            try { $Entry = $Line | ConvertFrom-Json -ErrorAction Stop } catch { continue }
+            if ($Entry.step -eq 'write') { $LatestWrite = $Entry }
+        }
+    }
+    if ($LatestWrite) {
+        $BatchTimestamp = $LatestWrite.timestamp
+        if ($LatestWrite.data.PSObject.Properties['generated_indices']) {
+            $BatchIndices = @($LatestWrite.data.generated_indices | ForEach-Object { [int]$_ } | Sort-Object -Unique)
+        } elseif ($LatestWrite.state -eq 'success' -and $LatestWrite.data.chapters_skipped -eq 0 -and $LatestWrite.data.processed_range -match '^(\d+)-(\d+)$') {
+            # Historical batches with no skipped files have an unambiguous exact scope.
+            $First = [int]$Matches[1]; $Last = [int]$Matches[2]
+            if ($First -gt 0 -and $Last -ge $First -and ($Last-$First+1) -eq $LatestWrite.data.chapters_generated) { $BatchIndices = @($First..$Last) }
+        } else { $warnings.Add('Latest write lacks exact generated indices; no whole-book fallback was performed.') }
+    } else { $warnings.Add('No completed writing batch found; no manuscript files selected.') }
+}
+
 function Read-BookJson([string]$Relative) {
     $p=Join-Path $BookRoot $Relative
     if (!(Test-Path -LiteralPath $p -PathType Leaf)) { return $null }
@@ -24,6 +50,14 @@ function Read-BookJson([string]$Relative) {
     catch { $warnings.Add("Unreadable JSON: $Relative"); return $null }
 }
 function Get-Inventory {
+    if ($BatchScope) {
+        $Selected = @('00_brief/objective.md','01_outline/toc.md','logs/run_history.jsonl') + @($BatchIndices | ForEach-Object { '02_chapters/{0:D2}.md' -f $_ })
+        foreach ($Relative in $Selected) {
+            $File = Join-Path $BookRoot $Relative; $Exists = Test-Path -LiteralPath $File -PathType Leaf
+            [pscustomobject]@{path=$Relative;exists=$Exists;algorithm='sha256-bytes';sha256=$(if($Exists){Get-FormatFileDigest $File}else{$null})}
+        }
+        return
+    }
     $paths=@('00_brief/objective.md','01_outline/toc.md','01_outline/layout_spec.md','00_brief/format_preflight.json','logs/status.json')
     foreach ($dir in @('02_chapters','00_brief/references','03_assets','04_output/editorial_audits')) {
         $p=Join-Path $BookRoot $dir
@@ -76,6 +110,7 @@ if (Test-Path -LiteralPath $tocPath) {
 } else { $chapterMode=$false }
 $units=@()
 for($i=0;$i -lt $expected.Count;$i++) {
+    if ($BatchScope -and ($i+1) -notin $BatchIndices) { continue }
     $file='02_chapters/{0:D2}.md' -f ($i+1); $p=Join-Path $BookRoot $file
     $state='missing'; $reason='No manuscript.'
     if (Test-Path -LiteralPath $p -PathType Leaf) {
@@ -90,16 +125,20 @@ for($i=0;$i -lt $expected.Count;$i++) {
     $units+=[pscustomobject]@{index=$i+1;file=$file;title=$expected[$i];state=$state;reason=$reason}
 }
 $extras=@(); $chapterDir=Join-Path $BookRoot '02_chapters'
-if (Test-Path -LiteralPath $chapterDir) {
+if (!$BatchScope -and (Test-Path -LiteralPath $chapterDir)) {
     $extras=@(Get-ChildItem -LiteralPath $chapterDir -Filter '*.md' -File | Where-Object { $_.Name -notmatch '^_' -and $_.Name -ne 'references.md' -and ('02_chapters/'+$_.Name) -notin @($units.file) } | ForEach-Object { '02_chapters/'+$_.Name })
 }
+$ScopeCount = if ($BatchScope) { $BatchIndices.Count } else { $expected.Count }
 $written=@($units | Where-Object {$_.state -eq 'present_unverified'}).Count
 $draftState='partial'; $draftReason='Some writing units are missing or invalid.'
 if (!$expected.Count -or $orphan) { $draftState='blocked'; $draftReason='No usable TOC mapping or a section lacks its parent.' }
 elseif ($extras.Count -or @($units | Where-Object {$_.state -eq 'blocked'}).Count) { $draftState='blocked'; $draftReason='Resolve extra files or invalid unit mappings.' }
-elseif ($written -eq $expected.Count) { $draftState='present_unverified'; $draftReason='All units have mapped drafts; review is not implied.' }
+elseif ($written -eq $ScopeCount) { $draftState='present_unverified'; $draftReason='All units have mapped drafts; review is not implied.' }
 elseif (!$written) { $draftState='missing'; $draftReason='No mapped drafts yet.' }
+if ($BatchScope -and !$ScopeCount) { $draftState='not_applicable'; $draftReason='No exact newly generated files selected.' }
 $stages+=Stage 'drafting' $draftState $draftReason @('01_outline/toc.md','02_chapters')
+$nativeBefore=$null
+if (!$BatchScope) {
 $reviewFiles=@($before | Where-Object {$_.exists -and $_.path -like '04_output/editorial_audits/*' -and $_.path -notlike '*format_preflight.json'} | ForEach-Object {$_.path})
 $stages+=Stage 'editorial' $(if($reviewFiles.Count){'present_unverified'}else{'unknown'}) 'Review scope, decisions and baseline require their producer-specific interpretation.' $reviewFiles
 $ref=Read-BookJson '00_brief/references/reference_state.json'
@@ -136,6 +175,7 @@ foreach($ext in @('pdf','epub','docx')) {
     $files=@($exports | Where-Object {$_.path -like "*.$ext"} | ForEach-Object {$_.path})
     $stages+=Stage $ext $(if($files.Count){'present_unverified'}else{'missing'}) 'Existing exports are not proof of current-source generation or visual/package acceptance.' $files
 }
+}
 $log=Read-BookJson 'logs/status.json'
 $runSummary=$null
 if ($log) { $runSummary=[pscustomobject]@{updated_at=$log.updated_at;has_current=($null -ne $log.current);has_last_error=($null -ne $log.last_error);note='Historical telemetry only; current does not prove a live process.'} }
@@ -146,13 +186,14 @@ if ($nativeBefore) {
     catch { $stable=$false }
 }
 if (!$stable) { foreach($stage in $stages) { $stage.state='unknown'; $stage.reason='Files changed during inspection; retry when writers are idle.' } }
-$next='Inspect review and reference evidence before requesting final preflight/export.'
+$next=if($BatchScope){'Report the latest generated-file inspection result.'}else{'Inspect review and reference evidence before requesting final preflight/export.'}
 if ($stages[0].state -in @('missing','blocked')) { $next='Define or repair objective.md via sagewrite-new-book with author authorization.' }
 elseif (!$expected.Count -or $orphan) { $next='Confirm and repair TOC via sagewrite-generate-toc.' }
 elseif ($draftState -eq 'blocked') { $next='Resolve manuscript mapping problems before writing or exporting.' }
-elseif ($written -lt $expected.Count) { $next='Confirm outline acceptance, then write only the missing units via sagewrite-write-chapters.' }
+elseif ($written -lt $ScopeCount) { $next='Confirm outline acceptance, then write only the missing units via sagewrite-write-chapters.' }
+if ($BatchScope -and !$ScopeCount) { $draftState='not_applicable'; $next='No newly generated files to inspect; do not expand to the whole book.' }
 if (!$stable) { $next='Wait for concurrent changes to finish and inspect again.' }
-$report=[ordered]@{schema_version=1;record_type='sagewrite_workflow_advisory';observed_at=[DateTime]::UtcNow.ToString('o');book_root=$BookRoot;language=$Language;engine_root=$PSScriptRoot;stable=$stable;counts=@{expected=$expected.Count;drafts_present=$written;remaining=$expected.Count-$written;extra_files=$extras.Count};stages=@($stages);units=@($units);extra_files=@($extras);inputs=@($before);run_summary=$runSummary;next_action=$next;warnings=@($warnings.ToArray());limitations=@('No model calls, editorial judgments, human approvals or export acceptance inferred.','Reference and editorial legacy reports are inventoried, not semantically certified.','No automatic post-write hook; call again after a batch to refresh.');report_path=$null}
+$report=[ordered]@{schema_version=1;record_type='sagewrite_workflow_advisory';observed_at=[DateTime]::UtcNow.ToString('o');book_root=$BookRoot;language=$Language;engine_root=$PSScriptRoot;stable=$stable;scope=@{mode=$(if($BatchScope){'latest_generated'}else{'full_book'});generated_indices=@($BatchIndices);batch_timestamp=$BatchTimestamp};counts=@{expected=$ScopeCount;drafts_present=$written;remaining=$ScopeCount-$written;extra_files=$extras.Count};stages=@($stages);units=@($units);extra_files=@($extras);inputs=@($before);run_summary=$runSummary;next_action=$next;warnings=@($warnings.ToArray());limitations=@('No model calls, editorial judgments, human approvals or export acceptance inferred.','Reference and editorial legacy reports are inventoried, not semantically certified.','No automatic post-write hook; call again after a batch to refresh.');report_path=$null}
 if ($SaveReport) {
     $dir=Join-Path $BookRoot 'logs/workflow_status'
     [IO.Directory]::CreateDirectory($dir)|Out-Null

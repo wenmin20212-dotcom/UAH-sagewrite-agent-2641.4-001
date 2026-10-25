@@ -98,7 +98,7 @@ catch {
     Write-Output $_.Exception.Message
     exit 1
 }
-$ResolvedModelLabel = if ($LlmConfig.Provider -eq 'codex_agent') { 'current-session' } elseif ([string]::IsNullOrWhiteSpace($LlmConfig.Model)) { "codex-default" } else { $LlmConfig.Model }
+$ResolvedModelLabel = if ($LlmConfig.Provider -eq 'codex_LLM') { 'current-session' } elseif ([string]::IsNullOrWhiteSpace($LlmConfig.Model)) { "codex-default" } else { $LlmConfig.Model }
 Set-SageCurrentStep -Context $Context -Step "write" -Data @{
     chapter = $Chapter
     start_chapter = $StartChapter
@@ -238,11 +238,15 @@ else {
 }
 
 $GeneratedCount = 0
+$GeneratedIndices = @()
 $StartTime = Get-Date
 $TotalInputTokens = 0
 $TotalOutputTokens = 0
 $TotalTokens = 0
 $SkippedCount = 0
+$UsageMissingCount = 0
+$TotalCachedInputTokens = 0L
+$MissingCachedUsageCount = 0
 $HasAdditionalInstructions = -not [string]::IsNullOrWhiteSpace($AdditionalInstructions)
 
 for ($i = $StartIndex; $i -le $EndIndex; $i++) {
@@ -338,6 +342,7 @@ Write the complete section now.
     }
     catch {
         Fail-SageStep -Context $Context -Step "write" -Message "LLM request failed." -Data @{
+            generated_indices = @($GeneratedIndices)
             chapter_index = $i
             chapter_title = $ChapterTitle
             error = $_.Exception.Message
@@ -350,12 +355,21 @@ Write the complete section now.
         exit 1
     }
 
-    $ChapterInputTokens = 0
-    $ChapterOutputTokens = 0
-    $ChapterTotalTokens = 0
+    $Usage = Get-SageLastLlmUsage
+    $ChapterInputTokens = if ($null -ne $Usage.input_tokens) { $Usage.input_tokens } else { 'null' }
+    $ChapterOutputTokens = if ($null -ne $Usage.output_tokens) { $Usage.output_tokens } else { 'null' }
+    $ChapterTotalTokens = if ($null -ne $Usage.total_tokens) { $Usage.total_tokens } else { 'null' }
+    $ChapterCachedTokens = if ($null -ne $Usage.cached_input_tokens) { $Usage.cached_input_tokens } else { 'null' }
+    if ($Usage.usage_status -eq 'reported') {
+        $TotalInputTokens += $Usage.input_tokens; $TotalOutputTokens += $Usage.output_tokens; $TotalTokens += $Usage.total_tokens
+        if ($null -ne $Usage.cached_input_tokens) { $TotalCachedInputTokens += $Usage.cached_input_tokens }
+    } else { $UsageMissingCount++ }
+    if ($null -eq $Usage.cached_input_tokens) { $MissingCachedUsageCount++ }
+
 
     if (-not $ChapterText) {
         Fail-SageStep -Context $Context -Step "write" -Message "Empty response." -Data @{
+            generated_indices = @($GeneratedIndices)
             chapter_index = $i
             chapter_title = $ChapterTitle
         }
@@ -378,11 +392,15 @@ max_tokens: $MaxTokens
 input_tokens: $ChapterInputTokens
 output_tokens: $ChapterOutputTokens
 total_tokens: $ChapterTotalTokens
+cached_input_tokens: $ChapterCachedTokens
+usage_status: $($Usage.usage_status)
+usage_invocation_id: $($Usage.invocation_id)
 ---
 
 $ChapterText
 "@ | Out-File $ChapterPath -Encoding utf8
 
+    $GeneratedIndices += $i
     $GeneratedCount++
 }
 
@@ -391,13 +409,20 @@ $Duration = ($EndTime - $StartTime).TotalSeconds
 
 Complete-SageStep -Context $Context -Step "write" -State "success" -Message "Chapter generation finished." -Data @{
     chapters_generated = $GeneratedCount
+    generated_indices = @($GeneratedIndices)
     chapters_skipped = $SkippedCount
     total_chapters = $TotalChapters
     processed_range = "$StartIndex-$EndIndex"
     duration_seconds = [math]::Round($Duration, 2)
-    input_tokens_total = $TotalInputTokens
-    output_tokens_total = $TotalOutputTokens
-    total_tokens_total = $TotalTokens
+    input_tokens_total = if ($UsageMissingCount -eq 0) { $TotalInputTokens } else { $null }
+    output_tokens_total = if ($UsageMissingCount -eq 0) { $TotalOutputTokens } else { $null }
+    total_tokens_total = if ($UsageMissingCount -eq 0) { $TotalTokens } else { $null }
+    usage_missing_sections = $UsageMissingCount
+    usage_status = if ($UsageMissingCount -eq 0) { 'reported' } else { 'partial_or_unavailable' }
+    cached_input_tokens_total = if ($MissingCachedUsageCount -eq 0) { $TotalCachedInputTokens } else { $null }
+    reported_input_tokens_subtotal = $TotalInputTokens
+    reported_output_tokens_subtotal = $TotalOutputTokens
+    reported_tokens_subtotal = $TotalTokens
     provider = $LlmConfig.Provider
     model = $ResolvedModelLabel
     api_style = $LlmConfig.ApiStyle

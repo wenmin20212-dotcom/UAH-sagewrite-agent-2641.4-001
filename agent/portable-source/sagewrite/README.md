@@ -103,7 +103,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\engine\Install-SageWri
 ```
 
 可用 `-WorkspaceRoot` 指定书稿父目录，或在双击入口后由 Agent 列出当前书籍。独立会话仍使用
-`codex_agent` 交接协议：这里的“独立”是无需保持本对话开启，并不表示 SageWrite 自己在后台
+`codex_LLM` 交接协议：这里的“独立”是无需保持本对话开启，并不表示 SageWrite 自己在后台
 自动唤醒模型。Codex 桌面应用需要已安装并登录；涉及发布、覆盖整书或其他高影响操作时仍需人工确认。
 
 **安装和操作本系统的 AI Agent 请先阅读 [Agent 调用手册](docs/AGENT-CALLING-GUIDE.md)。** 手册逐项说明00—09及辅助入口的用途、前置条件、输入输出、推荐顺序与人工确认点；具体参数见 [完整PS1参数附录](docs/AGENT-SCRIPT-PARAMETERS.md)。不要按文件编号依次运行全部脚本。
@@ -136,7 +136,7 @@ SageWrite 支持两种使用方式。它们不是两套独立的写书系统，�
 
 例如，用户可以说：“只调整第十三章目录，先不要写正文。”Agent 应只修改相关目录；用户说“按定稿目录写13.1”后，才进入正文生成。用户要求小修时，不得自行重写整章或重新编号全书。
 
-Agent 可以调用 `03-write.ps1` 等程序生成正文，也可以在用户要求逐段讨论、定点精修时直接编辑 MD。两种操作都必须遵守同一份目录和写作规范，并重新完成受影响的检查。共享配置默认选择 `codex_agent`：脚本生成请求，由当前已获授权的助手完成，再重跑原命令验证并保存。该模式不调用 API、不启动另一个 Codex 进程，也不会自动唤醒聊天；只有选择 API 模式时才需要相应密钥、模型权限和配额。
+Agent 可以调用 `03-write.ps1` 等程序生成正文，也可以在用户要求逐段讨论、定点精修时直接编辑 MD。两种操作都必须遵守同一份目录和写作规范，并重新完成受影响的检查。共享配置默认选择 `codex_LLM`：脚本生成请求，由当前已获授权的助手完成，再重跑原命令验证并保存。该模式不调用 API、不启动另一个 Codex 进程，也不会自动唤醒聊天；只有选择 API 模式时才需要相应密钥、模型权限和配额。
 
 ### 给操作 Agent 的执行规则
 
@@ -196,7 +196,7 @@ SageWrite/
 
 | 配置 | 当前实现 |
 | --- | --- |
-| 默认模式 | `codex_agent`：当前助手处理文件交接，不需要 API 密钥 |
+| 默认模式 | `codex_LLM`：当前助手处理文件交接，不需要 API 密钥 |
 | 独立 CLI | `codex`：启动独立的 `codex exec`，需要已安装且已认证的 CLI |
 | API 模式 | `openai` 使用 Responses；`openai-compatible` 默认使用 Chat Completions 兼容协议 |
 | API 身份认证 | 环境变量 `SAGE_LLM_API_KEY`，兼容 `OPENAI_API_KEY` |
@@ -207,7 +207,7 @@ SageWrite/
 
 API 模式需自行提供可用密钥、模型权限和配额，不能以聊天订阅替代 API 配置。密钥不要写入 Git；Agent 不打印密钥。切换服务商时需同时核对地址、协议、模型及认证，不能仅替换密钥或未经测试就宣称兼容。不要假定 `OPENAI_BASE_URL` 已被适配器支持。
 
-该功能的可复用模板已纳入本项目，见 [模板导出与测试说明](templates/README.md)。导出器仅复制调用模块、示例、文档及测试，不包含书稿、私有配置或密钥。根据项目发起人反馈，已有多位用户通过 WorkBuddy 下载并正常使用本系统；其他 Agent 使用文本交接模式时，应遵守上述请求、响应与脚本重跑规则。`codex_agent` 是本项目交接协议的 provider 标识，不表示使用本项目的助手必须是 Codex，也不表示已实现 WorkBuddy 专用适配器。
+该功能的可复用模板已纳入本项目，见 [模板导出与测试说明](templates/README.md)。导出器仅复制调用模块、示例、文档及测试，不包含书稿、私有配置或密钥。根据项目发起人反馈，已有多位用户通过 WorkBuddy 下载并正常使用本系统；其他 Agent 使用文本交接模式时，应遵守上述请求、响应与脚本重跑规则。`codex_LLM` 是本项目交接协议的 provider 标识，不表示使用本项目的助手必须是 Codex，也不表示已实现 WorkBuddy 专用适配器。
 
 ## Quick Start
 
@@ -252,7 +252,7 @@ Set-Location .\SageWrite-PS1-20260917\engine
 | --- | --- |
 | 基础脚本 | Windows PowerShell，确认 `powershell.exe` 可用 |
 | Web 工作台 | Node.js，确认 `node --version` 可运行 |
-| AI 写作与审稿 | 默认 `codex_agent` 需要活跃且已获授权的助手；API 模式另需密钥、模型权限和配额；独立 `codex` 模式需已认证 CLI |
+| AI 写作与审稿 | 默认 `codex_LLM` 需要活跃且已获授权的助手；API 模式另需密钥、模型权限和配额；独立 `codex` 模式需已认证 CLI |
 | 正式 DOCX / EPUB | Pandoc，确认 `pandoc --version` 可运行 |
 | 当前 PDF 导出 | 上述排版依赖及可实际运行的桌面 `Word.Application` COM 服务；Microsoft Word 是基准依赖，兼容服务须单独完成导出验收。2026-10-01 本机 WPS 服务通过阅读版 PDF 流程，不代表所有 WPS 版本或印刷版均兼容；网页版不能替代 |
 | 简版 DOCX 路线 | Python 和 `python-docx`；用 `python -c "import docx; print(docx.__version__)"` 检查实际调用的 Python 环境 |
@@ -332,3 +332,27 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Start-SageWrite-Web.ps
 SageWrite is not the only possible writing system in the AI era. It is a representative engineering pattern: structured prompts, explicit files, script orchestration, local visibility, and human revision working together as a practical long-form writing workflow.
 
 SageWrite 并不是 AI 时代唯一的写作系统，而是一种具有代表性的工程范式：通过结构化提示、显式文件、脚本编排、本地可观察性以及人工修订，构成一个可落地的长篇写作工作流。
+
+## 2026-10-24 修正：恢复原有 codex exec 同步调用
+
+发现：连续写作选用了 codex_agent（随后仅改名为 codex_LLM）的文件交接模式。03 每遇一个未完成小节便返回 SAGE_AGENT_PENDING，主 Agent 再派子任务、回填 response.json、重跑脚本。实际第 2.3、2.4 节各有 11 条写作用量记录，包含 Python 命令不可用、文件已保存后的空响应重试及重复派发；不能将这些次数理解为正文质量所需的生成轮数。
+
+处理：共享 engine/llm-config.json 及 model-calling 模板统一选择 SAGE_LLM_PROVIDER=codex，使用既有 00-llm.ps1 的 codex exec 同步分支。模型返回后原阶段脚本继续执行，主 Agent 不需逐节执行文件交接。所有经过共享文本接口的阶段共同采用该配置；03、05 等阶段的业务逻辑不改，非模型构建流程及独立图片 API 不受影响。启动脚本同时改为读取共享配置，不再强制覆盖成文件交接模式。旧交接分支及历史书稿、请求和生成来源记录保留，不删除成果，不回退其他修复。
+
+前提：运行电脑须安装 Codex CLI 并独立登录；该分支采用 CLI 的账号与默认模型（或阶段传入的模型），不等同于桌面作家模型账号。环境变量仍优先于文件，应避免旧 SAGE_LLM_PROVIDER/API_STYLE 覆盖。新电脑不会继承本机登录。
+
+验证：本机 codex-cli 0.162.0-alpha.17.2 已登录 ChatGPT，既有 00-llm.ps1 的真实最小调用返回 SAGEWRITE_CODEX_OK，约 5.9 秒。配置后的连续两次调用另行核对。此记录不表示完整书籍连续写作、全部阶段或其他电脑已验收。此次为本地配置修复，尚未发布 GitHub 安装包或新标签；已有版本记录保留。
+
+## 2026-10-25 · 0.1.3 固定写作 CLI 精简配置（Mac协作 B-14）
+
+发现问题：写作提示词估算4397 token，CLI每节报告输入20292；请求包含通用Codex指令、Skills目录、协作和工具定义。本次只在共享00-llm.ps1固定writer profile v1，原03循环和提示词不变；全部codex模式调用共用配置，API模式不变。
+
+固定内容：进程使用--ignore-user-config；保留CLI登录；SAGE_LLM_MODEL默认gpt-6.1-sol，低推理；engine/codex-writer-instructions.md替换通用指令，关闭Skills目录、协作、环境说明、浏览器、应用、插件、图像和shell等能力。保留code_mode_host避免实测不可用错误。用户.codex配置和主Agent模型设置不改。CLI仍携带functions工具定义，尚非无工具API。
+
+同一第46节提示词：原输入20292、输出1438；有效精简测试输入7688、输出1368，输入降低62.1%。原缓存13312，测试缓存0，不能声称费用同比降低。两稿均完成同一小节，标题及四段结构相符，文字细节不同，未证明多样本质量等价；测试稿不覆盖正式稿。
+
+0.1.3亦收纳此前本地已实施的同步codex调用、PATH自动定位、CLI JSON用量账本、最近生成范围检查、写作Skill简化、Skill升级同步、可关闭的测试原文记录。历史说明全部保留。完整测试原文、作者资料和认证不得入Git或升级包。测试tokenizer是本机可选依赖，缺少时记录unavailable，不影响写作。
+
+升级修复：旧升级清单未覆盖采用的PS1和Skill源文件，本次纳入agent、assets、docs等程序文件，带哈希校验和备份。保护data、workspace、既有模型；未知源码修改停止，不盲目覆盖。0.1.1及0.1.2分别使用对应升级包，完整安装器用于新安装。旧版本和旧标签不覆盖。
+
+Mac协作 B-14：同步共享00-llm.ps1、新增codex-writer-instructions.md、llm-config.json和B-08至B-13变更；按Mac CLI验证参数与登录。不复制Windows二进制。指令路径按脚本目录生成，不硬编码Windows安装目录。不支持参数时明确回报，不静默退回完整Agent调用。Windows实测不表示Mac已验收。

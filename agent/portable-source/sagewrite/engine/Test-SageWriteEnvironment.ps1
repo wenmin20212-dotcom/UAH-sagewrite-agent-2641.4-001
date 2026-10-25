@@ -59,12 +59,12 @@ if ($ConfigValid) {
     try {
         . (Join-Path $PSScriptRoot '00-llm.ps1')
         $Config = Get-SageLlmConfig
-        if ($Config.Provider -in @('codex_agent','codex','openai','openai-compatible')) {
+        if ($Config.Provider -in @('codex_LLM','codex','openai','openai-compatible')) {
             Add-Check 'llm.config' 'Writing' 'pass' ("Adapter configuration accepted: " + $Config.Provider + '.') ''
         } else {
             Add-Check 'llm.config' 'Writing' 'warn' 'Custom provider configuration accepted by the adapter.' 'Verify provider compatibility; names alone do not establish support.'
         }
-        if ($Config.Provider -eq 'codex_agent') {
+        if ($Config.Provider -eq 'codex_LLM') {
             Add-Check 'llm.runtime' 'Writing' 'unverified' 'Current Agent must consume requests and return responses; no automatic background wake-up.' 'Use an active Agent session with workspace access. This check did not generate text.'
         } elseif ($Config.Provider -eq 'codex') {
             Add-Check 'llm.runtime' 'Writing' 'unverified' 'CLI and directory accepted; login and model permissions were not tested.' 'Verify CLI authentication separately; no CLI process was launched.'

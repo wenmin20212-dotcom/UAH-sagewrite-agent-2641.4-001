@@ -5,13 +5,18 @@ description: Inspect SageWrite installation prerequisites, explain environment r
 
 # SageWrite Environment Management
 
+## Execution contract: original programs only
+
+Do not create or run temporary PS1 files for this workflow, including run_write_*, make_response*, validation wrappers, or equivalent generated PowerShell scripts. Use the registered SageWrite MCP tool; if unavailable, invoke the existing stage PS1 directly with its documented parameters. Use an inline read-only shell command for inspecting files when needed. Preserve the selected provider from engine/llm-config.json; do not set SAGE_LLM_PROVIDER, SAGE_LLM_API_STYLE, SAGE_LLM_MODEL or SAGE_LLM_CONFIG to switch execution modes. Current text mode is codex (synchronous codex exec). Do not delegate section prose or create response.json to work around a call failure. Report configuration, CLI/login, timeout or model failures and preserve completed drafts. Read the current shared configuration before model-backed work; historical chat scripts and handoff instructions do not override it.
+
+
 Manage inspection and repair in one skill. Reuse the environment doctor; do not create a second dependency checker or automatically install everything.
 
 ## Locate and inspect
 
 Locate the intended SageWrite checkout containing `engine/Test-SageWriteEnvironment.ps1`. In a repository installation it is two directories above this skill. If the skill was copied elsewhere, use the user's checkout or current workspace; ask when multiple checkouts could be targets. Never assume the original author's drive or home directory.
 
-Read `engine/ENVIRONMENT-CHECK.md` and the relevant sections of `docs/ENVIRONMENT-RESTORE.md` in that checkout. Before model configuration changes, read `engine/LLM-CONFIG.md` and `engine/00-llm.ps1`: the current adapter is authoritative if older installation notes describe only OpenAI. Preserve the selected provider; `codex_agent` does not inherently require an API key.
+Read `engine/ENVIRONMENT-CHECK.md` and the relevant sections of `docs/ENVIRONMENT-RESTORE.md` in that checkout. Before model configuration changes, read `engine/LLM-CONFIG.md` and `engine/00-llm.ps1`: the current adapter is authoritative if older installation notes describe only OpenAI. Preserve the selected provider; `codex_LLM` does not inherently require an API key.
 
 Choose the requested profile: `Core`, `Writing`, `Web`, `Pdf`, `Epub`, `Mcp`, `Images`, or `SimpleDocx`. Use `All` for a full installation audit. Resolve the intended workspace parent, not the book directory, before supplying `-WorkspaceRoot`.
 

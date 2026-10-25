@@ -1,4 +1,4 @@
-#ifndef Payload
+﻿#ifndef Payload
  #error Supply Payload
 #endif
 #ifndef Output
@@ -7,7 +7,7 @@
 [Setup]
 AppId=UAH-SageWrite-2641.4-001
 AppName=作家 Agent SageWrite 2641.4-001
-AppVersion=0.1.2
+AppVersion=0.1.3
 AppPublisher=wenmin20212-dotcom
 DefaultDirName={localappdata}\Programs\UAH-SageWrite-2641.4-001
 PrivilegesRequired=lowest
@@ -16,7 +16,7 @@ ArchitecturesInstallIn64BitMode=x64compatible
 MinVersion=10.0
 DisableProgramGroupPage=yes
 OutputDir={#Output}
-OutputBaseFilename=SageWrite-Agent-2641.4-001-Setup-0.1.2
+OutputBaseFilename=SageWrite-Agent-2641.4-001-Setup-0.1.3
 SetupIconFile={#Payload}\assets\agent.ico
 UninstallDisplayIcon={app}\assets\agent.ico
 Compression=lzma2/fast

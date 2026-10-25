@@ -50,7 +50,9 @@ if (-not (Test-Path -LiteralPath $WorkspaceRoot -PathType Container)) {
 
 $CodexExecutable = Resolve-CodexExecutable -RequestedCommand $CodexCommand
 $env:SAGEWRITE_WORKSPACE_ROOT = $WorkspaceRoot
-$env:SAGE_LLM_PROVIDER = 'codex_agent'
+# Resolve the selected provider from the shared configuration; do not force handoff.
+. (Join-Path $EngineRoot '00-llm.ps1')
+$SelectedLlmConfig = Get-SageLlmConfig
 
 if ([string]::IsNullOrWhiteSpace($Prompt)) {
     $TargetText = if ([string]::IsNullOrWhiteSpace($BookName)) {
@@ -61,7 +63,7 @@ if ([string]::IsNullOrWhiteSpace($Prompt)) {
     $Prompt = @"
 You are the independent SageWrite Agent on this computer. Before doing any work, read AGENTS.md, engine/llm-config.json, engine/LLM-CONFIG.md, and docs/AGENT-CALLING-GUIDE.md completely.
 Read skills/sagewrite-manage-environment/SKILL.md. Run its Writing environment inspection for the selected workspace before proceeding. Present the installation/readiness result and welcome message directly in this conversation using its Installation handoff rules. Do not infer installation completion from this launcher alone; distinguish existing setup, blockers and untested runtime features.
-Use the book workspace selected by SAGEWRITE_WORKSPACE_ROOT. Preserve the existing objective, TOC, numeric manuscript files, review records, and build workflow. Keep the provider as codex_agent. When a script emits SAGE_AGENT_PENDING, handle the request in this same Agent session exactly as AGENTS.md requires; never report a pending handoff as completed. Do not run concurrent writers for one book. Do not rewrite an entire book, publish, or perform destructive actions without explicit confirmation. Respond in the user's language.
+Use the book workspace selected by SAGEWRITE_WORKSPACE_ROOT. Preserve the existing objective, TOC, numeric manuscript files, review records, and build workflow. Preserve the provider selected in engine/llm-config.json and explicit environment overrides. The default codex provider calls codex exec synchronously; run each stage normally and do not delegate each section through file handoff. Do not run concurrent writers for one book. Do not rewrite an entire book, publish, or perform destructive actions without explicit confirmation. Respond in the user's language.
 $TargetText
 "@.Trim()
 }

@@ -29,7 +29,7 @@ function Save-Response($Path, $Response) {
     [IO.File]::WriteAllText($Path, ($Response | ConvertTo-Json), [Text.UTF8Encoding]::new($false))
 }
 try {
-    Assert ((Get-SageLlmConfig).Provider -eq 'codex_agent') 'Default provider'
+    Assert ((Get-SageLlmConfig).Provider -eq 'codex_LLM') 'Default provider'
     $Path = Pending 'Test task'
     $Request = Get-Content -LiteralPath $Path -Raw -Encoding UTF8 | ConvertFrom-Json
     Assert ($Request.prompt -eq 'Test task') 'Exact prompt'
@@ -37,7 +37,7 @@ try {
     Assert ((Pending 'Test task') -eq $Path) 'Stable request ID'
     $ResponsePath = Join-Path (Split-Path $Path -Parent) 'response.json'
     foreach ($Field in @('request_id', 'provider', 'status', 'text')) {
-        $Response = @{request_id=$Request.request_id; provider='codex_agent'; status='completed'; text='Completed text'}
+        $Response = @{request_id=$Request.request_id; provider='codex_LLM'; status='completed'; text='Completed text'}
         $Response[$Field] = if ($Field -eq 'text') { '' } else { 'invalid' }
         Save-Response $ResponsePath $Response
         $Rejected = $false
@@ -45,7 +45,7 @@ try {
         catch { $Rejected = $_.Exception.Message.StartsWith('Invalid agent response:') }
         Assert $Rejected "Reject invalid $Field"
     }
-    Save-Response $ResponsePath @{request_id=$Request.request_id; provider='codex_agent'; status='completed'; text='Completed text'}
+    Save-Response $ResponsePath @{request_id=$Request.request_id; provider='codex_LLM'; status='completed'; text='Completed text'}
     Assert ((Invoke-SageLlmText -Prompt 'Test task' -MaxOutputTokens 2000) -eq 'Completed text') 'Round trip'
     Assert ((Pending 'Changed task') -ne $Path) 'Prompt isolation'
     Assert ((Pending 'Test task' 3000) -ne $Path) 'Budget isolation'
@@ -68,7 +68,7 @@ try {
     $SamplePath = Pending $SamplePrompt
     $Sample = Get-Content -LiteralPath $SamplePath -Raw -Encoding UTF8 | ConvertFrom-Json
     Save-Response (Join-Path (Split-Path $SamplePath -Parent) 'response.json') @{
-        request_id=$Sample.request_id; provider='codex_agent'; status='completed'; text='Verified sample output'
+        request_id=$Sample.request_id; provider='codex_LLM'; status='completed'; text='Verified sample output'
     }
     & $Shell -NoProfile -ExecutionPolicy Bypass -File (Join-Path $Root 'run.ps1') -OutputPath $Output
     Assert ($LASTEXITCODE -eq 0) 'Successful replay exit code'

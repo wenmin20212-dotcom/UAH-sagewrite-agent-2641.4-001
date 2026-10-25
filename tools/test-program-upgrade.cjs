@@ -9,4 +9,11 @@ const engineTarget=sample('engine','ORIGINAL');fs.mkdirSync(path.dirname(path.jo
 const manifest=JSON.parse(fs.readFileSync(path.join(pkg,'upgrade.json')));manifest.baseFiles.push({path:native,sha256:hash(path.join(engineTarget,native))});manifest.files=files(path.join(pkg,'payload'));fs.writeFileSync(path.join(pkg,'upgrade.json'),JSON.stringify(manifest));
 apply({packageRoot:pkg,target:engineTarget,backupRoot:path.join(root,'backup'),checkRunning:false});assert.equal(fs.readFileSync(path.join(engineTarget,native),'utf8'),'NEW NATIVE ENGINE');assert.equal(fs.readFileSync(path.join(engineTarget,'data/model.yaml'),'utf8'),'model: preserved');
 const forbidden=sample('forbidden','ORIGINAL'),otherExe=path.join(pkg,'payload/app/BOSS-win32-x64/resources/bin/other.exe');fs.writeFileSync(otherExe,'NOT ALLOWED');manifest.baseFiles=manifest.baseFiles.filter(f=>f.path!==native);manifest.files=files(path.join(pkg,'payload'));fs.writeFileSync(path.join(pkg,'upgrade.json'),JSON.stringify(manifest));assert.throws(()=>apply({packageRoot:pkg,target:forbidden,backupRoot:path.join(root,'backup'),checkRunning:false}),/replace user data/);
+fs.unlinkSync(otherExe);
+const sourceRel='agent/portable-source/sagewrite/engine/00-llm.ps1',sourcePayload=path.join(pkg,'payload',sourceRel);
+fs.mkdirSync(path.dirname(sourcePayload),{recursive:true});fs.writeFileSync(sourcePayload,'FIXED WRITER PROFILE');
+manifest.files=files(path.join(pkg,'payload'));fs.writeFileSync(path.join(pkg,'upgrade.json'),JSON.stringify(manifest));
+const sourceTarget=sample('source-upgrade','ORIGINAL');apply({packageRoot:pkg,target:sourceTarget,backupRoot:path.join(root,'backup'),checkRunning:false});
+assert.equal(fs.readFileSync(path.join(sourceTarget,sourceRel),'utf8'),'FIXED WRITER PROFILE');
+assert.equal(fs.readFileSync(path.join(sourceTarget,'data/model.yaml'),'utf8'),'model: preserved');
 console.log(JSON.stringify({passed:true,originalAndApprovedHotfixAccepted:true,unknownEditsRejected:true,modelAndWorkspacePreserved:true,nativeEngineReplaced:true,otherExecutablesRejected:true}));

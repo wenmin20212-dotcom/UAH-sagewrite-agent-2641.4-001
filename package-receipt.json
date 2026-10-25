@@ -1,7 +1,7 @@
 {
   "schema": "uah-sagewrite-package-receipt/v1",
   "productId": "role-dc5dae12889c4522a86f5e465b5cf4dc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "excluded": [
     "package-receipt.json",
     "release-manifest.json"
@@ -288,8 +288,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/AGENTS.md",
-      "bytes": 1571,
-      "sha256": "72f76ef6685e20e362b2cc32d365fe6c00d2a5780a94d7acabab0fc993582065"
+      "bytes": 4730,
+      "sha256": "a2c8bf6b4e79544ca34923278075e152005949bfa4720c6ce76096447f201689"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/00-common.ps1",
@@ -303,8 +303,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/00-llm.ps1",
-      "bytes": 12566,
-      "sha256": "155ab7192f642b44e362fb3c343367cc6145bc20010758359f465d11c6f9d976"
+      "bytes": 30226,
+      "sha256": "2206d2177028ea147faef11a3e9f6bcf9fe0bd238c0536ef37c7d9aa48c1397f"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/01-intake.ps1",
@@ -328,8 +328,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/03-write.ps1",
-      "bytes": 13427,
-      "sha256": "fd7d0bdc051e26fefa57d45cec0b110d6ebd44fde4ffd549e708709cce5d2a0f"
+      "bytes": 15200,
+      "sha256": "297e3abdad7b0513f501ab6fab2cf41630e9740ef92476ccb1e224026a82730d"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/03r-refine.ps1",
@@ -343,8 +343,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/03RW.README.md",
-      "bytes": 2710,
-      "sha256": "31f2b5b669a4a95fd798be624483e4e294f4acdf4cfae50d3d23424d2a0aefa5"
+      "bytes": 2708,
+      "sha256": "b1cfe4e9659f23d62f137d2b92c28a3a7966c2017dc1e1b8265f6f897e56d981"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/03t-translate.ps1",
@@ -732,14 +732,19 @@
       "sha256": "f3c569fd507d58ea71a4046fd010a64496468ec6bb3a91f423e0de3a57491eb8"
     },
     {
+      "path": "agent/portable-source/sagewrite/engine/codex-writer-instructions.md",
+      "bytes": 160,
+      "sha256": "16d3b219310bd8f4f9958cd3754ad92f84fc061de04fd9f60a345bb6992913b3"
+    },
+    {
       "path": "agent/portable-source/sagewrite/engine/Complete-SageWriteInstallation.ps1",
       "bytes": 1740,
       "sha256": "36620a2425f9eadc57632721ceb201b72e7b9a1615a3bdccc47f9a4ade3665ba"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/ENVIRONMENT-CHECK.md",
-      "bytes": 3379,
-      "sha256": "331b0f2724e681228efc995d62ebe46b9c5303562bfdd1d640dbb563075b8817"
+      "bytes": 3377,
+      "sha256": "4cf14ccc83dd77e2288972630a90dd92c87308bf2905a072b0457db170b502eb"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/export-model-template.ps1",
@@ -753,8 +758,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Get-SageWriteWorkflowStatus.ps1",
-      "bytes": 13014,
-      "sha256": "df359940878ee4c2f548e5ff4f30d7f6973be8d14b510d34a166d0bc2d17edfb"
+      "bytes": 15867,
+      "sha256": "a9dc9c089702950a5e35dd5fffc639be812421c23c835289d821209a4a02a201"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Install-SageWrite-Agent.ps1",
@@ -813,13 +818,13 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/llm-config.json",
-      "bytes": 41,
-      "sha256": "a367ea03235e8d1971cd1aae45d27df0a06cf4f38dfe24fed89dabbf9c1b3191"
+      "bytes": 116,
+      "sha256": "f1a54ce46c638eb5653f2067349f67557d924f4c454c147bf3b750be13bb9c2b"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/LLM-CONFIG.md",
-      "bytes": 5046,
-      "sha256": "dc0fdf4780a4af915466c338e12cfd68e26e1e5cbccff87db58fcd359e859f7e"
+      "bytes": 7398,
+      "sha256": "19ead6deab35d5bcc62ad9ae1ce92b64a6483c773ca98f21586f91d6ebe14908"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/mcp-server/mcp-config.example.json",
@@ -5578,8 +5583,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/mcp-server/src/index.mjs",
-      "bytes": 30535,
-      "sha256": "1a2dab4eb17e19952c6bc32a202756f60eb74db55b51fe814d1dcbec97561c9d"
+      "bytes": 30572,
+      "sha256": "e67b759a8a2613137c6692c230a108eceab841c9e31a1b1ba619a431f3b985fe"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/mcp-server/src/runner.mjs",
@@ -5638,8 +5643,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/RELEASE-20260928.md",
-      "bytes": 2658,
-      "sha256": "950e0277130100397462fdb5b233b6287c5d6768e2c80b92ded06b5d6a1a3aa6"
+      "bytes": 2656,
+      "sha256": "c2cd9de0e0f6632f3f316bedae4ee60c2db37b2cad6d70f1b615040d39f97f03"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Run-SageWrite-WebTask.ps1",
@@ -5648,8 +5653,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Start-SageWrite-Agent.ps1",
-      "bytes": 4151,
-      "sha256": "dd0cc48ff9fc691c3fedd33069bdb6527698d70ca66cb07e6cb79379c8e6d685"
+      "bytes": 4310,
+      "sha256": "436bcd0cbd75749c880f161ae0cb2045c21776976195a319bff64ec2ad864c5e"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Start-SageWrite-Web.ps1",
@@ -5673,8 +5678,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Test-SageWriteEnvironment.ps1",
-      "bytes": 13838,
-      "sha256": "ce44362ba0377068cde0b3f03b9b2a1423658d92cf493c35814bf6220ef98511"
+      "bytes": 13834,
+      "sha256": "5d43dde3c20d297c0722fd0f84b77ddc6d83e4073608eadef5167e6ab51c7e07"
     },
     {
       "path": "agent/portable-source/sagewrite/engine/Uninstall-SageWrite-WebTask.ps1",
@@ -5818,8 +5823,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/README.md",
-      "bytes": 31639,
-      "sha256": "3f2268efa94014b418fd262b17c73f29a34c07dadb2a04a8174067da897d4f14"
+      "bytes": 35632,
+      "sha256": "b06ad8e16113db577a91cc84b3704baeb172ab832449b07f81994a0a971ef5a5"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-create-cover/agents/openai.yaml",
@@ -5833,8 +5838,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-create-cover/SKILL.md",
-      "bytes": 3643,
-      "sha256": "46b824d0417c4de88aa0dd89872b1db634ffe0ced5b1ad5f48dd2d7e78cefbf8"
+      "bytes": 4627,
+      "sha256": "6414a83285b5d96852b125d184d02cb0cff90b569663360d975bc3d767194eb5"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-generate-toc/agents/openai.yaml",
@@ -5843,8 +5848,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-generate-toc/SKILL.md",
-      "bytes": 4879,
-      "sha256": "2162d6e517744b79614769814a8f22854e906d9e9768ed1fc6d35edb1934f2e9"
+      "bytes": 5616,
+      "sha256": "2d090402fbe667bb2a1bbacc63410e26698968bda3caaf66892867f3f45f883d"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-manage-environment/agents/openai.yaml",
@@ -5853,8 +5858,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-manage-environment/SKILL.md",
-      "bytes": 7032,
-      "sha256": "296a523208db11895d44b59cf6286ce44521327f52b964ac39d0430593c6b49f"
+      "bytes": 7991,
+      "sha256": "865d6685383e0410569539cf11b75e6e02cac44800a8778dc1aebdc1f349d048"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-new-book/agents/openai.yaml",
@@ -5863,8 +5868,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-new-book/SKILL.md",
-      "bytes": 3851,
-      "sha256": "517fa7b5d3838793a3e8130300a5f12ea2a7f8639c76c25aac746c7b628070d3"
+      "bytes": 4845,
+      "sha256": "d82f8466275bcd871dab17b14609b0b716296b1caf6b97558e79b086489e8026"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-publish-book/agents/openai.yaml",
@@ -5878,8 +5883,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-publish-book/SKILL.md",
-      "bytes": 5436,
-      "sha256": "d654c13c82cd6598f943ff27564b06b75958550f7a3460cf80925d20a5fbfc75"
+      "bytes": 6444,
+      "sha256": "291547d82a40df799a50ff2a8b9d2ab0e48f7f270e3c4a1a1f450e73bbd20754"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-review-edit/agents/openai.yaml",
@@ -5893,8 +5898,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-review-edit/SKILL.md",
-      "bytes": 4784,
-      "sha256": "1be95147203b4ffb5220e3995c7b6dc438b67236b0aba4e26633ad1f987d9009"
+      "bytes": 5791,
+      "sha256": "8d120dc20fcede9ac62d878c0ac896aed81d67437abe5d9eabfc588d33b6ac31"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-workflow-status/agents/openai.yaml",
@@ -5908,8 +5913,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-workflow-status/SKILL.md",
-      "bytes": 8125,
-      "sha256": "7853370be1003050627e844aa95cef0e8940b3811eca7957b7321f77ae097e2f"
+      "bytes": 9073,
+      "sha256": "922ba54e3c59efb0618563f98d5023488edb3f18bf643710aaff779e7f07e70f"
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-write-chapters/agents/openai.yaml",
@@ -5918,8 +5923,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/skills/sagewrite-write-chapters/SKILL.md",
-      "bytes": 5741,
-      "sha256": "daf878b250a381c7e40a96291a43d9846e7de83fa9467a55b98a805e5a7ac29b"
+      "bytes": 4211,
+      "sha256": "e8a2a1f4ea15e84af850fd5bc76c677019f3ec2e6efafc069b8f3e3fc15ed1d0"
     },
     {
       "path": "agent/portable-source/sagewrite/Start-SageWrite-Agent.cmd",
@@ -5933,13 +5938,13 @@
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/AGENTS.md",
-      "bytes": 1328,
-      "sha256": "e9620671863d6505bd8f6a317a4c3b5666f3873b169677d0049da6c253956588"
+      "bytes": 1324,
+      "sha256": "880c4c318767ba1af582cf686a68cc85a08a94dc7676ef118e7e3f806ed8c819"
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/llm-config.json",
-      "bytes": 41,
-      "sha256": "a367ea03235e8d1971cd1aae45d27df0a06cf4f38dfe24fed89dabbf9c1b3191"
+      "bytes": 116,
+      "sha256": "f1a54ce46c638eb5653f2067349f67557d924f4c454c147bf3b750be13bb9c2b"
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/prompt.md",
@@ -5948,8 +5953,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/README.md",
-      "bytes": 4762,
-      "sha256": "f0f11f22b02e71385a0ff9a47b2c7e1c407368d7aaa3ccdc584869cb87513a0d"
+      "bytes": 6533,
+      "sha256": "8577f0d5b04dc4f1baf0d741707259bc6d775710e2d3c3da24a1a17763588516"
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/run.ps1",
@@ -5958,8 +5963,8 @@
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/test.ps1",
-      "bytes": 5107,
-      "sha256": "84ce2f23e18982dbba3bcdfa397b6b907a03932873346bcf7d218f78d32ee032"
+      "bytes": 5099,
+      "sha256": "3410378af53a65e1ea134f92a218866c4616ded59495e9db802b5c8d545da414"
     },
     {
       "path": "agent/portable-source/sagewrite/templates/model-calling/test.yml",
@@ -5978,8 +5983,8 @@
     },
     {
       "path": "agent.json",
-      "bytes": 5174,
-      "sha256": "5941faf49cc8836c3f75f13a08da97acfce67672e15d4efddcd58b15243ecc1a"
+      "bytes": 5415,
+      "sha256": "cea8c44e4de6b09da42ffc3b19f2446d9a6e5fa08d57862d0dda0b2fd7215cda"
     },
     {
       "path": "app/BOSS-win32-x64/BOSS.exe",
@@ -6327,6 +6332,11 @@
       "sha256": "00cffc152234d9cda4db4f7809fc09e45e94e6cc79cb7179421dad37e4d3f1e5"
     },
     {
+      "path": "app/BOSS-win32-x64/resources/bin/goose.exe.before-headroom-20261024-133917.bak",
+      "bytes": 134350336,
+      "sha256": "5fe1e79be250892430214dc24887f17c9d73ce7359f3983569f9ca04c355bf2b"
+    },
+    {
       "path": "app/BOSS-win32-x64/resources/bin/jbang.cmd",
       "bytes": 29,
       "sha256": "bb927438c7b37b17a98902904a09413586d576c9270c5de3fe1f6fc315692048"
@@ -6475,6 +6485,11 @@
       "path": "docs/release-0.1.2.md",
       "bytes": 2542,
       "sha256": "829b2a46abf31cdf0567c1a2795e7e0faef9999fefca1e9fe9ffd21c38af9f47"
+    },
+    {
+      "path": "docs/release-0.1.3.md",
+      "bytes": 2215,
+      "sha256": "e542928b4110c3ff4db07a7e5e910d486c30d0ffa96cf1b71cc8663ab212f7ed"
     },
     {
       "path": "docs/source-audit-v0.1.0.json",
@@ -13137,6 +13152,16 @@
       "sha256": "b9cf64a59ce9548d237e3ac31efd266865bceb5fd2581fdd730251cd2e497248"
     },
     {
+      "path": "execution/skill-legacy-hashes.json",
+      "bytes": 2294,
+      "sha256": "737e78883dd1664eb428995a54d33c9c0d0f8be84c43e81b0a64903d08d02c57"
+    },
+    {
+      "path": "execution/skill-sync.cjs",
+      "bytes": 2705,
+      "sha256": "effe6d8e07a65357edfbc39c3b08af8803f23d7a9a66b1dab8a8799d517469ad"
+    },
+    {
       "path": "execution/topic-management/component.json",
       "bytes": 248,
       "sha256": "f4ee39f439bb66d2590cfc8818fd3844fba08e130ccb12551cf41fa8e57335b5"
@@ -13193,8 +13218,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 6300,
-      "sha256": "158b16971bf3ec9df90d470e06833b0f17f4ded66423ba686999b624c0368ae3"
+      "bytes": 25433,
+      "sha256": "4d17ee2491cc9c502020a003f6e50d495513bcff650ed8c2f18a9f0760ebedd7"
     },
     {
       "path": "runtime/CHANGELOG.md",
@@ -13220,11 +13245,6 @@
       "path": "runtime/node.exe",
       "bytes": 93580104,
       "sha256": "ba4e6d110e8c1592a1ecd390f6b05f3da124b13871a5be62b341a07a853c6c32"
-    },
-    {
-      "path": "runtime/nodevars.bat",
-      "bytes": 702,
-      "sha256": "a2b020e2f641524c6fd1b8ebbcd9ee03c7dc44009f2b78e701e773ad048be9a5"
     },
     {
       "path": "runtime/node_modules/corepack/CHANGELOG.md",
@@ -16757,16 +16777,6 @@
       "sha256": "a90f970515b3f538f77e2ee0d6b33f9d2d04c5b7181a3dc032c49fdde65a9506"
     },
     {
-      "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/index.js",
-      "bytes": 1765,
-      "sha256": "f2746aea08c366c6b1becc5100e5fb2f631c9525f394d1ab05dab4a164bc3413"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/rekor/v2/index.js",
-      "bytes": 1649,
-      "sha256": "32bb5f7bb862639ad42a54e04356e4ebf2ae8a496a0d5bf76df632f974a0385d"
-    },
-    {
       "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/__generated__/envelope.js",
       "bytes": 2022,
       "sha256": "724488a64240bce4e28fd4b7c01d699488d4c9aa618f102ab056ef8e4dda2e38"
@@ -16840,6 +16850,16 @@
       "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/__generated__/sigstore_verification.js",
       "bytes": 11847,
       "sha256": "48ae7ccc4424a02780d425bea1eefc5a914b9f8f5d1c333cad4e592646da82b4"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/index.js",
+      "bytes": 1765,
+      "sha256": "f2746aea08c366c6b1becc5100e5fb2f631c9525f394d1ab05dab4a164bc3413"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/dist/rekor/v2/index.js",
+      "bytes": 1649,
+      "sha256": "32bb5f7bb862639ad42a54e04356e4ebf2ae8a496a0d5bf76df632f974a0385d"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/@sigstore/protobuf-specs/LICENSE",
@@ -19837,6 +19857,11 @@
       "sha256": "51b84235e57224d4b96500e29c957b4c4d1a5b93aef90fd3ac6e64ad4fd61169"
     },
     {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__init__.py",
+      "bytes": 25320,
+      "sha256": "828f0dc7466db4d6a41fb031ff7b94b60e98fb338f60fd9f1b2b0a33979d16c1"
+    },
+    {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/common.py",
       "bytes": 26038,
       "sha256": "28747e8c3c9d546221b4d978c9e739d5bbe8994c5f8894b7375b7297d480ba0a"
@@ -19860,6 +19885,11 @@
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/flock_tool.py",
       "bytes": 1941,
       "sha256": "9e5812226c6d70339c3d43f1b0323306d1b05e2117309b0ed69fc6428005664e"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__init__.py",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/analyzer.py",
@@ -19937,11 +19967,6 @@
       "sha256": "5ca3fea474eade43da836a175f4831df0ed4a304cb2d5d3ae3129e4475335d07"
     },
     {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/generator/__init__.py",
-      "bytes": 0,
-      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
-    },
-    {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/input.py",
       "bytes": 129534,
       "sha256": "985de9f294389c794c475a4752289a658c87694501c5a90d60e07358b33209f4"
@@ -19955,6 +19980,11 @@
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/mac_tool.py",
       "bytes": 31234,
       "sha256": "d3c874db5028fb68929ba187992ff1d0eff282352c53bbac590a471abd4aa717"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/msvs_emulation.py",
+      "bytes": 55285,
+      "sha256": "eaa2f603d43bfbf174908fdf53f52a2bebcaf573480bb4320f02d158b348d265"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/MSVSNew.py",
@@ -19997,11 +20027,6 @@
       "sha256": "07c171c9a2d54b0e80acce1a7374e8e49f1be5522bb3d27b1ab67162f434c3fd"
     },
     {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/msvs_emulation.py",
-      "bytes": 55285,
-      "sha256": "eaa2f603d43bfbf174908fdf53f52a2bebcaf573480bb4320f02d158b348d265"
-    },
-    {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/ninja_syntax.py",
       "bytes": 5814,
       "sha256": "ec50e6c958a2b81783c275ce0c4d6726aff5aff2c700eae4c6982d779b293cbf"
@@ -20015,11 +20040,6 @@
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/win_tool.py",
       "bytes": 15549,
       "sha256": "fcd09ed13b778deb87259687791bc791664113614f287da7babc2fa57ee6f201"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcodeproj_file.py",
-      "bytes": 139454,
-      "sha256": "77d87c0fe66e83be1506866c10b7ee431609942f5553c79faf61819ac311ebbd"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcode_emulation.py",
@@ -20037,14 +20057,49 @@
       "sha256": "8ef3b78a853b21ca3f64ddeda4879320f83c4acde9ddfc19556d0b567d872fe5"
     },
     {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xcodeproj_file.py",
+      "bytes": 139454,
+      "sha256": "77d87c0fe66e83be1506866c10b7ee431609942f5553c79faf61819ac311ebbd"
+    },
+    {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/xml_fix.py",
       "bytes": 2308,
       "sha256": "13b96498272fd38203733e8cc46caafcbd8cb63248659d82e9e974e8baeeb6ae"
     },
     {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/gyp/__init__.py",
-      "bytes": 25320,
-      "sha256": "828f0dc7466db4d6a41fb031ff7b94b60e98fb338f60fd9f1b2b0a33979d16c1"
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/__init__.py",
+      "bytes": 516,
+      "sha256": "61742286807996d89b024ccafd872cf7688585d8e924af584baf989279fa0f56"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_elffile.py",
+      "bytes": 3362,
+      "sha256": "6bf79e25125c2977073cc9a53259fe8c423d93510ebf4a9b050a567b53bcffd5"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_manylinux.py",
+      "bytes": 9778,
+      "sha256": "b992680eb503c3736ebf885eebed723188150b097ad45be5a0bc5c2b261e1e89"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_musllinux.py",
+      "bytes": 2759,
+      "sha256": "3d75cd6602de14c274d41ee5ff609c21d62afa3135ec9a0f55cfa572bc824638"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_parser.py",
+      "bytes": 10741,
+      "sha256": "ed07b44e257e80f1c0ec0916dbf6b9f9a375e11121ac6ed237ebd936d902232a"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_structures.py",
+      "bytes": 1492,
+      "sha256": "aaba2b13631f75f01d17826a74a0fe68b808a37b111026a586996313c01c731b"
+    },
+    {
+      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_tokenizer.py",
+      "bytes": 5484,
+      "sha256": "c32d1f9f53da7239232601f7c5c21dc0cfeacd03f6a5f3825f30e4f640394ee7"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/LICENSE",
@@ -20100,41 +20155,6 @@
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/version.py",
       "bytes": 16799,
       "sha256": "a366a01db4bfaea2856211faa800630f1645c8a58048d2ad0166742971ec8ef5"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_elffile.py",
-      "bytes": 3362,
-      "sha256": "6bf79e25125c2977073cc9a53259fe8c423d93510ebf4a9b050a567b53bcffd5"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_manylinux.py",
-      "bytes": 9778,
-      "sha256": "b992680eb503c3736ebf885eebed723188150b097ad45be5a0bc5c2b261e1e89"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_musllinux.py",
-      "bytes": 2759,
-      "sha256": "3d75cd6602de14c274d41ee5ff609c21d62afa3135ec9a0f55cfa572bc824638"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_parser.py",
-      "bytes": 10741,
-      "sha256": "ed07b44e257e80f1c0ec0916dbf6b9f9a375e11121ac6ed237ebd936d902232a"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_structures.py",
-      "bytes": 1492,
-      "sha256": "aaba2b13631f75f01d17826a74a0fe68b808a37b111026a586996313c01c731b"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/_tokenizer.py",
-      "bytes": 5484,
-      "sha256": "c32d1f9f53da7239232601f7c5c21dc0cfeacd03f6a5f3825f30e4f640394ee7"
-    },
-    {
-      "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pylib/packaging/__init__.py",
-      "bytes": 516,
-      "sha256": "61742286807996d89b024ccafd872cf7688585d8e924af584baf989279fa0f56"
     },
     {
       "path": "runtime/node_modules/npm/node_modules/node-gyp/gyp/pyproject.toml",
@@ -23127,6 +23147,11 @@
       "sha256": "22c3d5423d949e9f419d69ec6fb8c9dc1553798c214e31ea9371b4e40640cee8"
     },
     {
+      "path": "runtime/nodevars.bat",
+      "bytes": 702,
+      "sha256": "a2b020e2f641524c6fd1b8ebbcd9ee03c7dc44009f2b78e701e773ad048be9a5"
+    },
+    {
       "path": "runtime/npm",
       "bytes": 2073,
       "sha256": "13372aa943f8eb32c9a8b6f946ed6a49118edd60051321953288b1f35611aefb"
@@ -23178,8 +23203,8 @@
     },
     {
       "path": "updater/config.json",
-      "bytes": 518278,
-      "sha256": "c88bb03ce96a72d15026fc414b200cdbc50123323662ae50daa9a4a3e261bf54"
+      "bytes": 531516,
+      "sha256": "1264bd7134b185faccab1ef074b73b84d0281d48088036ac6d003f645900e551"
     },
     {
       "path": "updater/core.cjs",
@@ -23223,8 +23248,8 @@
     },
     {
       "path": "updater/product-bootstrap.cjs",
-      "bytes": 4947,
-      "sha256": "5e0a9e861b52905f6980b31f432f59ea05f13f355f91824e7651f79c1d95b732"
+      "bytes": 5138,
+      "sha256": "6d38e7f15eab9de44f8a428dfd24f5a26f576b2fcf4fca9731acca851104d558"
     },
     {
       "path": "updater/ui.ps1",

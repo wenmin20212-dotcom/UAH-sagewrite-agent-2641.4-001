@@ -5,6 +5,11 @@ description: Define and initialize a new SageWrite book project when the user wa
 
 # SageWrite New Book
 
+## Execution contract: original programs only
+
+Do not create or run temporary PS1 files for this workflow, including run_write_*, make_response*, validation wrappers, or equivalent generated PowerShell scripts. Use the registered SageWrite MCP tool; if unavailable, invoke the existing stage PS1 directly with its documented parameters. Use an inline read-only shell command for inspecting files when needed. Preserve the selected provider from engine/llm-config.json; do not set SAGE_LLM_PROVIDER, SAGE_LLM_API_STYLE, SAGE_LLM_MODEL or SAGE_LLM_CONFIG to switch execution modes. Current text mode is codex (synchronous codex exec). Do not delegate section prose or create response.json to work around a call failure. Report configuration, CLI/login, timeout or model failures and preserve completed drafts. Read the current shared configuration before model-backed work; historical chat scripts and handoff instructions do not override it.
+
+
 Turn an early book idea into a clear, bounded SageWrite project and initialize its workspace. Stop after the intake artifacts are verified unless the user separately asks to continue.
 
 ## Establish the book definition
